@@ -1,0 +1,37 @@
+script chars: 11215
+LOOP=OK
+SEAM_DIFF=0.17
+AUDIO=chiptune
+PROBE: size=1080x1920 audio_stream=True duration=12.000s -> OK
+OK: wrote docs/whatif5c.mp4 and docs/whatif5c_cover.png
+render exit code: 0
+codec_name=h264
+width=1080
+height=1920
+pix_fmt=yuv420p
+codec_name=aac
+sample_rate=48000
+duration=12.000000
+size=315067
+total 2720
+drwxr-xr-x  2 runner runner    4096 Oct 31 17:57 .
+drwxr-xr-x 12 runner runner    4096 Oct 31 17:57 ..
+-rw-r--r--  1 runner runner 1035572 Oct 31 17:57 reel1.mp4
+-rw-r--r--  1 runner runner   44742 Oct 31 17:57 reel1_poster.png
+-rw-r--r--  1 runner runner      77 Oct 31 17:57 reel2-status.txt
+-rw-r--r--  1 runner runner     836 Oct 31 17:57 render-log.txt
+-rw-r--r--  1 runner runner     675 Oct 31 17:57 whatif1-log.txt
+-rw-r--r--  1 runner runner  389956 Oct 31 17:57 whatif1.mp4
+-rw-r--r--  1 runner runner   30860 Oct 31 17:57 whatif1_cover.png
+-rw-r--r--  1 runner runner     966 Oct 31 17:57 whatif2-log.txt
+-rw-r--r--  1 runner runner  459008 Oct 31 17:57 whatif2.mp4
+-rw-r--r--  1 runner runner   33719 Oct 31 17:57 whatif2_cover.png
+-rw-r--r--  1 runner runner    1229 Oct 31 17:57 whatif3-log.txt
+-rw-r--r--  1 runner runner  156259 Oct 31 17:57 whatif3.mp4
+-rw-r--r--  1 runner runner   35298 Oct 31 17:57 whatif3_cover.png
+-rw-r--r--  1 runner runner    1422 Oct 31 17:57 whatif4-log.txt
+-rw-r--r--  1 runner runner  153763 Oct 31 17:57 whatif4.mp4
+-rw-r--r--  1 runner runner   32838 Oct 31 17:57 whatif4_cover.png
+-rw-r--r--  1 runner runner     316 Oct 31 17:57 whatif5c-log.txt
+-rw-r--r--  1 runner runner  315067 Oct 31 17:57 whatif5c.mp4
+-rw-r--r--  1 runner runner   36266 Oct 31 17:57 whatif5c_cover.png
