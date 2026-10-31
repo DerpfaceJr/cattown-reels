@@ -1,0 +1,19 @@
+OK frames=300 out=docs/whatif1.mp4 bytes=389956
+render exit code: 0
+codec_name=h264
+width=1080
+height=1920
+pix_fmt=yuv420p
+codec_name=aac
+sample_rate=48000
+duration=10.000000
+size=389956
+total 1488
+drwxr-xr-x 2 runner runner    4096 Oct 31 15:27 .
+drwxr-xr-x 6 runner runner    4096 Oct 31 15:26 ..
+-rw-r--r-- 1 runner runner 1035502 Oct 31 15:26 reel1.mp4
+-rw-r--r-- 1 runner runner   44742 Oct 31 15:26 reel1_poster.png
+-rw-r--r-- 1 runner runner     456 Oct 31 15:26 render-log.txt
+-rw-r--r-- 1 runner runner     187 Oct 31 15:27 whatif1-log.txt
+-rw-r--r-- 1 runner runner  389956 Oct 31 15:27 whatif1.mp4
+-rw-r--r-- 1 runner runner   30860 Oct 31 15:27 whatif1_cover.png
