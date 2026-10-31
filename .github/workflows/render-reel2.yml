@@ -1,0 +1,87 @@
+name: render-reel2
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      APP_URL: http://localhost:3000/
+      PORT: '3000'
+      CAPTURE_SECS: '25'
+    steps:
+      - name: Check secret
+        id: s
+        env:
+          TOKEN: ${{ secrets.CAT_TOWN_READ }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "MISSING SECRET CAT_TOWN_READ"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "ok=true" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        if: steps.s.outputs.ok == 'true'
+
+      - name: Checkout cat-town app
+        if: steps.s.outputs.ok == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: DerpfaceJr/cat-town
+          token: ${{ secrets.CAT_TOWN_READ }}
+          path: app
+
+      - uses: actions/setup-node@v4
+        if: steps.s.outputs.ok == 'true'
+        with:
+          node-version: '20'
+
+      - name: Install app
+        if: steps.s.outputs.ok == 'true'
+        working-directory: app
+        run: npm ci
+
+      - name: Start app in demo mode
+        if: steps.s.outputs.ok == 'true'
+        working-directory: app
+        env:
+          DEMO_MODE: '1'
+        run: |
+          nohup npm start > ../app.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -sf "$APP_URL" > /dev/null; then echo "APP UP after $((i*2)) s"; exit 0; fi
+            sleep 2
+          done
+          echo "APP DID NOT START at $APP_URL"; tail -n 50 ../app.log; exit 1
+
+      - name: Install Playwright Chromium
+        if: steps.s.outputs.ok == 'true'
+        run: |
+          npm i --no-save --no-package-lock playwright@1.48.2
+          npx playwright install --with-deps chromium
+
+      - name: Capture footage
+        if: steps.s.outputs.ok == 'true'
+        run: node reel2/capture.mjs 2>&1 | tee reel2/out-capture-log.txt
+
+      - name: Collect logs
+        if: always() && steps.s.outputs.ok == 'true'
+        run: |
+          mkdir -p reel2/out
+          cp app.log reel2/out/app.log 2>/dev/null || true
+          cp reel2/out-capture-log.txt reel2/out/capture-log.txt 2>/dev/null || true
+
+      - name: Upload footage
+        if: always() && steps.s.outputs.ok == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: reel2-footage
+          path: reel2/out/
+          if-no-files-found: warn
