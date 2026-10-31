@@ -1,0 +1,41 @@
+name: render-whatif1
+on:
+  push:
+    branches: [main]
+    paths: ['whatif1/**', '.github/workflows/render-whatif1.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: render-whatif1
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffmpeg and fonts
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
+      - name: Install Pillow
+        run: pip install "Pillow>=10.1"
+      - name: Render
+        run: |
+          mkdir -p docs
+          set +e
+          python whatif1/render_whatif1.py > docs/whatif1-log.txt 2>&1
+          echo "render exit code: $?" >> docs/whatif1-log.txt
+          ffprobe -v error -show_entries stream=codec_name,width,height,pix_fmt,sample_rate:format=duration,size -of default=nw=1 docs/whatif1.mp4 >> docs/whatif1-log.txt 2>&1 || echo "ffprobe failed" >> docs/whatif1-log.txt
+          ls -la docs >> docs/whatif1-log.txt
+      - name: Commit outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for f in docs/whatif1.mp4 docs/whatif1_cover.png docs/whatif1-log.txt; do
+            [ -f "$f" ] && git add "$f"
+          done
+          git commit -m "Render whatif1 [skip ci]" || echo "nothing to commit"
+          git pull --rebase origin main || true
+          git push
