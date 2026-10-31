@@ -4,10 +4,11 @@ codec_name=h264
 width=1080
 height=1920
 pix_fmt=yuv420p
+codec_name=aac
 duration=20.000000
-total 1012
-drwxr-xr-x 2 runner runner   4096 Oct 31 00:34 .
-drwxr-xr-x 5 runner runner   4096 Oct 31 00:34 ..
--rw-r--r-- 1 runner runner 984080 Oct 31 00:34 reel1.mp4
--rw-r--r-- 1 runner runner  34156 Oct 31 00:34 reel1_poster.png
--rw-r--r-- 1 runner runner    143 Oct 31 00:34 render-log.txt
+total 1068
+drwxr-xr-x 2 runner runner    4096 Oct 31 02:31 .
+drwxr-xr-x 5 runner runner    4096 Oct 31 02:31 ..
+-rw-r--r-- 1 runner runner 1035502 Oct 31 02:32 reel1.mp4
+-rw-r--r-- 1 runner runner   44742 Oct 31 02:32 reel1_poster.png
+-rw-r--r-- 1 runner runner     158 Oct 31 02:32 render-log.txt
