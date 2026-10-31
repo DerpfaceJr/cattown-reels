@@ -1,0 +1,43 @@
+name: render-whatif5c
+on:
+  push:
+    branches: [whatif5c-staging]
+    paths: ['whatif5c/**', '.github/workflows/whatif5c.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: render-whatif5c
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ffmpeg and fonts
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
+      - name: Install Pillow and numpy
+        run: pip install "Pillow>=10.1" numpy
+      - name: Render
+        run: |
+          mkdir -p docs
+          echo "script chars: $(wc -c < whatif5c/render_whatif5c.py)" > docs/whatif5c-log.txt
+          set +e
+          python whatif5c/render_whatif5c.py >> docs/whatif5c-log.txt 2>&1
+          echo "render exit code: $?" >> docs/whatif5c-log.txt
+          ffprobe -v error -show_entries stream=codec_name,width,height,pix_fmt,sample_rate:format=duration,size -of default=nw=1 docs/whatif5c.mp4 >> docs/whatif5c-log.txt 2>&1 || echo "ffprobe failed" >> docs/whatif5c-log.txt
+          ls -la docs >> docs/whatif5c-log.txt
+          grep -E '^(LOOP|AUDIO|SEAM_DIFF|PROBE)' docs/whatif5c-log.txt || echo "LOOP/AUDIO/SEAM_DIFF/PROBE line missing"
+      - name: Commit outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for f in docs/whatif5c.mp4 docs/whatif5c_cover.png docs/whatif5c-log.txt; do
+            [ -f "$f" ] && git add "$f"
+          done
+          git commit -m "Render whatif5c [skip ci]" || echo "nothing to commit"
+          git pull --rebase origin whatif5c-staging || true
+          git push origin HEAD:whatif5c-staging
