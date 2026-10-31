@@ -6,9 +6,12 @@ height=1920
 pix_fmt=yuv420p
 codec_name=aac
 duration=20.000000
-total 1068
-drwxr-xr-x 2 runner runner    4096 Oct 31 02:31 .
-drwxr-xr-x 5 runner runner    4096 Oct 31 02:31 ..
--rw-r--r-- 1 runner runner 1035502 Oct 31 02:32 reel1.mp4
--rw-r--r-- 1 runner runner   44742 Oct 31 02:32 reel1_poster.png
--rw-r--r-- 1 runner runner     158 Oct 31 02:32 render-log.txt
+total 1488
+drwxr-xr-x 2 runner runner    4096 Oct 31 15:55 .
+drwxr-xr-x 7 runner runner    4096 Oct 31 15:55 ..
+-rw-r--r-- 1 runner runner 1035502 Oct 31 15:56 reel1.mp4
+-rw-r--r-- 1 runner runner   44742 Oct 31 15:56 reel1_poster.png
+-rw-r--r-- 1 runner runner     158 Oct 31 15:56 render-log.txt
+-rw-r--r-- 1 runner runner     675 Oct 31 15:55 whatif1-log.txt
+-rw-r--r-- 1 runner runner  389956 Oct 31 15:55 whatif1.mp4
+-rw-r--r-- 1 runner runner   30860 Oct 31 15:55 whatif1_cover.png
