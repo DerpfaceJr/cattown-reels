@@ -20,7 +20,8 @@ STEPL = next((j for j, ln in enumerate(CODE) if "if step" in ln), -1)
 B0, B1, P0 = 30, 300, 330  # build 1-10 s, legs 10-11 s, payoff 11-15 s
 S = (B1 - B0) / HL
 LHT = min(30, 380 // HL)
-FS = LHT - 6
+# largest code font whose widest real line fits x 100..880 (inside the 900 safe edge)
+FS = next((fs for fs in range(LHT - 6, 9, -1) if max(w6.font(fs).getlength(ln) for ln in CODE) <= 780), 10)
 SY, GY, HX = 940, 40, 34  # stage top (full res), floor row and hero x (stage px, x12)
 WALL, BG, PANEL, HI, DIM, TXT = (40, 36, 58), (18, 16, 28), (12, 10, 20), (60, 50, 20), (24, 22, 34), (230, 230, 240)
 
@@ -164,7 +165,7 @@ if __name__ == "__main__":
     except Exception as ex:
         calls, routed = [repr(ex)], False
     match = bool(RLINES) and calls == [len(RLINES)] * 2 and STEPL >= 0
-    print(f"SCRIPT_CHARS={sc} HERO_SRC={HERO_SRC} HERO_LINES={HL} HERO_SHA1={sha} RECTS={len(RLINES)} RECT_CALLS={calls} STEPL={STEPL} ROUTED={routed}")
+    print(f"SCRIPT_CHARS={sc} HERO_SRC={HERO_SRC} HERO_LINES={HL} HERO_SHA1={sha} RECTS={len(RLINES)} RECT_CALLS={calls} STEPL={STEPL} ROUTED={routed} CODE_FS={FS}")
     if not (match and routed):
         print("PROBE: hero/rect mismatch or paths not routed to Reel 7, not rendering -> FAIL")
         sys.exit(1)
