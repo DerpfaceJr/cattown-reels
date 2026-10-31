@@ -1,4 +1,4 @@
-# Cat Town Reel 1: Pillow frames piped to ffmpeg. DURATION_S=2 to smoke-test.
+# Clowder Reel 1: Pillow frames piped to ffmpeg. DURATION_S=2 to smoke-test.
 import math, os, random, subprocess, sys, textwrap
 from functools import lru_cache
 from PIL import Image, ImageDraw, ImageFont
@@ -8,7 +8,7 @@ N = int(round(float(os.environ.get("DURATION_S", "20")) * FPS))
 OUT, POSTER = "docs/reel1.mp4", "docs/reel1_poster.png"
 INK, RED, ROAD = (59, 47, 47), (192, 57, 43), "#d9b98a"
 COL = {"mayor": "#f2a14f", "director": "#f3e3c3", "critic": "#f2a14f", "helper": "#9a9a9a"}
-TASKS = ("make money", "post on IG", "build a game")
+TASKS = ("plan a launch", "post on IG", "build a game")
 HOUSES = [(540, 950, "#c0392b"), (220, 640, "#3a7bd5"), (540, 640, "#e84393"),
           (860, 640, "#8e44ad"), (220, 1270, "#e67e22"), (860, 1270, "#16a085")]
 PATH = [(540, 1010), (540, 1110), (700, 1110), (700, 1300), (800, 1300)]
@@ -49,7 +49,7 @@ def caption(img, text, alpha, y=300, size=64):  # IG safe zone: y in 260..H-390
     if alpha <= 0:
         return
     layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    d, lines, lh = ImageDraw.Draw(layer), textwrap.wrap(text, 1600 // size), int(size*1.25)
+    d, lines, lh = ImageDraw.Draw(layer), textwrap.wrap(text, 1760 // size), int(size*1.25)
     bw = max(d.textlength(l, font=font(size)) for l in lines) + 80
     bh = lh*len(lines) + 50
     y = max(260, min(y + (1-alpha)*30, H - 390 - bh))
@@ -81,7 +81,7 @@ def cat(d, x, y, s, role):
 
 def leaders(d):
     cat(d, 450, 1040, 0.6, "mayor")
-    cat(d, 950, 1350, 0.6, "director")
+    cat(d, 860, 1350, 0.6, "director")
 
 def card(d, x, y, s, label):
     d.rounded_rectangle(pts(x, y, s, -55, -35, 55, 35), int(8*s), "#fffdf6", INK, 3)
@@ -131,7 +131,7 @@ def intro(t):
         d.ellipse(pts(770, 1220, r, -0.6, -0.3, 0.6, 0.6), RED)
         for x, y in TOES:
             d.ellipse(pts(770, 1220, r, x-0.22, y-0.22, x+0.22, y+0.22), RED)
-    caption(img, "I gave my to-do list to a town of cats", fade(t, -1, 2.1), size=76)
+    caption(img, "I gave my to-do list to a town of cats", fade(t, -1, 2.3), size=76)
     return img
 
 def mayor_scene(t):
@@ -145,7 +145,7 @@ def recruit(t):
     img, d, _ = base()
     leaders(d)
     card(d, *along(PATH, ease(prog(t, 6.3, 8.2))), 1.0, "task")
-    for i, hx in enumerate((760, 870, 980)):
+    for i, hx in enumerate((640, 750, 860)):
         cat(d, hx, 1440, 0.45*pop(prog(t, 8.3 + 0.3*i, 8.6 + 0.3*i)), "helper")
     caption(img, "Directors recruit their own teams", fade(t, 6, 10))
     return img
@@ -155,12 +155,12 @@ def gallery(t):
     d = shade(img, (40, 60, 40), 150)
     d.rectangle([230, 560, 850, 1260], "#fffaf0", "#8a5a3b", 22)
     say(d, (540, 640), "GALLERY", 80)
-    for i, (label, sx) in enumerate((("script", 420), ("code", 890), ("review", 660))):
+    for i, (label, sx) in enumerate((("script", 420), ("code", 860), ("review", 660))):
         p = ease(prog(t, 10.6 + 0.9*i, 11.3 + 0.9*i))
         if p > 0:
             card(d, sx + (540-sx)*p, 1380 - (250 + 130*i)*p, 1.6, label)
     for i, role in enumerate(COL):
-        cat(d, 190 + 233*i, 1480 - 18*abs(math.sin(t*5 + i)), 0.75, role)
+        cat(d, 190 + 220*i, 1480 - 18*abs(math.sin(t*5 + i)), 0.75, role)
     caption(img, "Everything they make lands in the gallery", fade(t, 10, 14))
     return img
 
@@ -184,8 +184,9 @@ def dusk(t):
     for i, r in enumerate(wins):
         if t > 17.4 + 0.08*i:
             d.rectangle(r, "#ffd84a", INK, 2)
-    caption(img, "Cat Town", fade(t, 17.6, 99), 520, 170)
-    caption(img, "made with AI + code", fade(t, 18, 99), 820, 48)
+    caption(img, "Clowder", fade(t, 17.6, 99), 520, 170)
+    caption(img, "a town of AI cats", fade(t, 17.8, 99), 780, 56)
+    caption(img, "made with AI + code", fade(t, 18, 99), 900, 48)
     return img
 
 SCENES = [(2, intro), (6, mayor_scene), (10, recruit), (14, gallery), (17, quest), (99, dusk)]
@@ -199,8 +200,10 @@ def frame(t):
 
 def main():
     os.makedirs("docs", exist_ok=True)
-    cmd = ("ffmpeg -hide_banner -loglevel warning -y -f rawvideo -pix_fmt rgb24 -s 1080x1920 -r 30 -i - -c:v libx264 "
-           "-pix_fmt yuv420p -profile:v high -crf 20 -movflags +faststart -an " + OUT).split()
+    cmd = ("ffmpeg -hide_banner -loglevel warning -y -f rawvideo -pix_fmt rgb24 -s 1080x1920 -r 30 -i - "
+           "-f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 "
+           "-map 0:v -map 1:a -c:v libx264 -pix_fmt yuv420p -profile:v high -crf 20 "
+           "-c:a aac -b:a 128k -shortest -movflags +faststart " + OUT).split()
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     for n in range(N):
         proc.stdin.write(frame(n / FPS).tobytes())
