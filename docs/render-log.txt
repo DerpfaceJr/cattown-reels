@@ -6,12 +6,15 @@ height=1920
 pix_fmt=yuv420p
 codec_name=aac
 duration=20.000000
-total 1488
-drwxr-xr-x 2 runner runner    4096 Oct 31 15:55 .
-drwxr-xr-x 7 runner runner    4096 Oct 31 15:55 ..
--rw-r--r-- 1 runner runner 1035502 Oct 31 15:56 reel1.mp4
--rw-r--r-- 1 runner runner   44742 Oct 31 15:56 reel1_poster.png
--rw-r--r-- 1 runner runner     158 Oct 31 15:56 render-log.txt
--rw-r--r-- 1 runner runner     675 Oct 31 15:55 whatif1-log.txt
--rw-r--r-- 1 runner runner  389956 Oct 31 15:55 whatif1.mp4
--rw-r--r-- 1 runner runner   30860 Oct 31 15:55 whatif1_cover.png
+total 1980
+drwxr-xr-x 2 runner runner    4096 Oct 31 16:06 .
+drwxr-xr-x 8 runner runner    4096 Oct 31 16:06 ..
+-rw-r--r-- 1 runner runner 1035572 Oct 31 16:06 reel1.mp4
+-rw-r--r-- 1 runner runner   44742 Oct 31 16:06 reel1_poster.png
+-rw-r--r-- 1 runner runner     158 Oct 31 16:06 render-log.txt
+-rw-r--r-- 1 runner runner     675 Oct 31 16:06 whatif1-log.txt
+-rw-r--r-- 1 runner runner  389956 Oct 31 16:06 whatif1.mp4
+-rw-r--r-- 1 runner runner   30860 Oct 31 16:06 whatif1_cover.png
+-rw-r--r-- 1 runner runner     966 Oct 31 16:06 whatif2-log.txt
+-rw-r--r-- 1 runner runner  459008 Oct 31 16:06 whatif2.mp4
+-rw-r--r-- 1 runner runner   33719 Oct 31 16:06 whatif2_cover.png
