@@ -2,7 +2,7 @@ name: render
 on:
   push:
     branches: [main]
-    paths-ignore: ['docs/**']
+    paths-ignore: ['docs/**', 'whatif1/**', '.github/workflows/render-whatif1.yml']
   workflow_dispatch:
 permissions:
   contents: write
