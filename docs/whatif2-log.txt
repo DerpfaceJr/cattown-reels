@@ -1,0 +1,24 @@
+AUDIO=chiptune
+PROBE: audio_stream=True duration=10.000s -> OK
+OK: wrote docs/whatif2.mp4 and docs/whatif2_cover.png (300 frames, 1080x1920, 30 fps)
+render exit code: 0
+codec_name=h264
+width=1080
+height=1920
+pix_fmt=yuv420p
+codec_name=aac
+sample_rate=48000
+duration=10.000000
+size=459008
+total 1980
+drwxr-xr-x 2 runner runner    4096 Oct 31 16:02 .
+drwxr-xr-x 9 runner runner    4096 Oct 31 16:02 ..
+-rw-r--r-- 1 runner runner 1035502 Oct 31 16:01 reel1.mp4
+-rw-r--r-- 1 runner runner   44742 Oct 31 16:01 reel1_poster.png
+-rw-r--r-- 1 runner runner     646 Oct 31 16:01 render-log.txt
+-rw-r--r-- 1 runner runner     675 Oct 31 16:01 whatif1-log.txt
+-rw-r--r-- 1 runner runner  389956 Oct 31 16:01 whatif1.mp4
+-rw-r--r-- 1 runner runner   30860 Oct 31 16:01 whatif1_cover.png
+-rw-r--r-- 1 runner runner     288 Oct 31 16:02 whatif2-log.txt
+-rw-r--r-- 1 runner runner  459008 Oct 31 16:02 whatif2.mp4
+-rw-r--r-- 1 runner runner   33719 Oct 31 16:02 whatif2_cover.png
