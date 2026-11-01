@@ -1,0 +1,41 @@
+{
+  "_note": "Reel 2 (live footage). shot.start is seconds into the take AFTER page load (record.mjs logs LEAD; cut.sh adds it).",
+  "reel": "whatif2v",
+  "duration": 15,
+  "audio": "chiptune",
+  "fallback_to_scene": true,
+  "takes": [
+    {
+      "name": "tower2d",
+      "url": "https://derpfacejr.github.io/daily-tower-web/",
+      "seconds": 12
+    },
+    {
+      "name": "tower3d",
+      "url": "https://derpfacejr.github.io/daily-tower-web/3d.html",
+      "seconds": 12,
+      "actions": [
+        { "type": "click", "x": 540, "y": 960, "gapMs": 300 },
+        { "type": "mouse_sweep", "from": [300, 960], "to": [780, 960], "steps": 60, "stepMs": 40 },
+        { "type": "key", "key": "ArrowUp", "repeat": 3, "gapMs": 250 },
+        { "type": "key", "key": "KeyW", "holdMs": 600, "gapMs": 250 },
+        { "type": "mouse_sweep", "from": [780, 900], "to": [300, 1020], "steps": 60, "stepMs": 40 },
+        { "type": "key", "key": "ArrowRight", "repeat": 2, "gapMs": 300 },
+        { "type": "key", "key": "Space", "gapMs": 300 },
+        { "type": "mouse_sweep", "from": [540, 800], "to": [540, 1120], "steps": 40, "stepMs": 40 }
+      ]
+    },
+    {
+      "name": "scene",
+      "file": "live/scene.html",
+      "seconds": 12,
+      "actions": [{ "type": "wait", "ms": 1000 }]
+    }
+  ],
+  "shots": [
+    { "take": "tower2d", "start": 0.5, "dur": 3, "text_top": "AN AI CODED THIS / TOWER GAME. WATCH." },
+    { "take": "tower3d", "start": 0.5, "dur": 4 },
+    { "take": "tower2d", "start": 6.0, "dur": 4 },
+    { "take": "tower3d", "start": 6.5, "dur": 4, "text_bottom": "AI-WRITTEN CODE. / EARLY BUILD. FOLLOW IT." }
+  ]
+}

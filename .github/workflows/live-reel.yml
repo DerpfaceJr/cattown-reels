@@ -1,0 +1,128 @@
+# live-reel — record live game footage, cut a 15 s Reel, gate it (probe + motion), commit it.
+name: live-reel
+
+on:
+  workflow_dispatch:
+    inputs:
+      reel:
+        description: Reel to render
+        required: true
+        type: choice
+        options: [whatif2v, whatif6v, whatif7v]
+  push:
+    branches: [whatif2v-staging, whatif6v-staging, whatif7v-staging]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-reel-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Resolve reel
+        id: reel
+        env:
+          INPUT_REEL: ${{ inputs.reel }}
+        run: |
+          set -o pipefail
+          # dispatch -> input; push -> branch name minus "-staging"
+          if [ "${{ github.event_name }}" = workflow_dispatch ]; then R="$INPUT_REEL"; else R="${GITHUB_REF_NAME%-staging}"; fi
+          [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'"; exit 1; }
+          echo "reel=$R" >> "$GITHUB_OUTPUT"
+          mkdir -p docs
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA" | tee "docs/$R-log.txt"
+
+      - name: Install tools
+        run: |
+          set -o pipefail
+          npm i playwright@1.48 --no-save
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core jq
+          ffmpeg -version | head -n1 | tee -a "docs/${{ steps.reel.outputs.reel }}-log.txt"
+
+      - name: Record takes
+        id: record
+        run: |
+          set -o pipefail
+          R=${{ steps.reel.outputs.reel }}
+          node live/record.mjs "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+
+      - name: Cut reel
+        id: cut
+        run: |
+          set -o pipefail
+          R=${{ steps.reel.outputs.reel }}
+          bash live/cut.sh "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+
+      - name: Probe
+        id: probe
+        run: |
+          set -o pipefail
+          R=${{ steps.reel.outputs.reel }}
+          bash live/probe.sh "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+
+      - name: Motion check
+        id: motion
+        if: always() && steps.cut.outcome == 'success'
+        run: |
+          set -o pipefail
+          R=${{ steps.reel.outputs.reel }}
+          python3 live/motion.py "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+
+      - name: Upload raw takes + docs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-reel-${{ steps.reel.outputs.reel }}-${{ github.run_id }}
+          path: |
+            out/raw
+            docs
+          if-no-files-found: warn
+
+      # Always commit the log; commit the mp4 only when probe AND motion passed.
+      - name: Commit render
+        if: always() && steps.reel.outputs.reel != ''
+        env:
+          R: ${{ steps.reel.outputs.reel }}
+          PROBE: ${{ steps.probe.outcome }}
+          MOTION: ${{ steps.motion.outcome }}
+        run: |
+          set -o pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "GATES probe=$PROBE motion=$MOTION" | tee -a "docs/$R-log.txt"
+          git add "docs/$R-log.txt"
+          if [ "$PROBE" = success ] && [ "$MOTION" = success ]; then
+            git add "docs/$R.mp4"
+          else
+            echo "mp4 NOT committed (gates failed)"
+            git checkout -- "docs/$R.mp4" 2>/dev/null || true  # keep the last good render tracked
+          fi
+          git commit -m "Render $R (live footage) [skip ci]" || { echo "nothing to commit"; exit 0; }
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          SHA=$(git rev-parse HEAD)
+          echo "COMMIT $SHA"
+          {
+            echo "### $R  (probe: $PROBE, motion: $MOTION)"
+            echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
+            if [ "$PROBE" = success ] && [ "$MOTION" = success ]; then
+              echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
