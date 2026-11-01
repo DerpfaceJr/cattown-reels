@@ -1,0 +1,74 @@
+name: fetch-reel2
+
+# Copies the Reel 2 candidate mp4 out of a cat-town Actions run artifact into the public docs/ folder.
+# Needs repo secret CAT_TOWN_READ (fine-grained PAT on DerpfaceJr/cat-town with Actions: read).
+# Never posts anything. Writes docs/reel2-fetch-status.txt either way.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'reel2/fetch-trigger.txt'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-reel2
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SRC_REPO: DerpfaceJr/cat-town
+      RUN_ID: '41263696548'
+      ART: reel2-mp4
+      WANT_BYTES: '3235091'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download and size-check
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.CAT_TOWN_READ }}
+        run: |
+          mkdir -p docs
+          S=docs/reel2-fetch-status.txt
+          NOW=$(date -u +%FT%TZ)
+          if [ -z "$GH_TOKEN" ]; then
+            echo "status=MISSING_SECRET_CAT_TOWN_READ utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID" > "$S"
+            exit 0
+          fi
+          rm -rf dl && mkdir dl
+          if ! gh run download "$RUN_ID" -R "$SRC_REPO" -n "$ART" -D dl 2> dl.err; then
+            echo "status=DOWNLOAD_FAILED utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID err=$(tail -n 3 dl.err | tr '\n' ' ')" > "$S"
+            exit 0
+          fi
+          F=$(find dl -type f -name reel2.mp4 | head -n1)
+          if [ -z "$F" ]; then
+            echo "status=NO_MP4_IN_ARTIFACT utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID files=$(find dl -type f | head -n 20 | tr '\n' ' ')" > "$S"
+            exit 0
+          fi
+          B=$(stat -c%s "$F")
+          if [ "$B" != "$WANT_BYTES" ]; then
+            echo "status=SIZE_MISMATCH utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID bytes=$B want=$WANT_BYTES" > "$S"
+            exit 0
+          fi
+          cp "$F" docs/reel2.mp4
+          P=$(ffprobe -v error -show_entries format=duration:stream=codec_type,width,height -of compact docs/reel2.mp4 2>/dev/null | tr '\n' ' ' || echo n/a)
+          echo "status=OK utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID bytes=$B sha256=$(sha256sum docs/reel2.mp4 | cut -c1-16) ffprobe=$P" > "$S"
+
+      - name: Commit
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/reel2-fetch-status.txt
+          if [ -f docs/reel2.mp4 ]; then git add docs/reel2.mp4; fi
+          if git diff --cached --quiet; then echo "NO CHANGE"; exit 0; fi
+          git commit -m "reel2: fetch status and mp4 [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
