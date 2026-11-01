@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-// record.mjs v3 - screen-record live Daily Tower footage driven by real keyboard input.
+// record.mjs v4 - screen-record live Daily Tower footage driven by real keyboard input.
 // usage: node live/record.mjs live/reels/<reel>.json   (repo root)
 // Input facts (read from daily-tower-web js/main.js): keydown on window, e.code in
 // ArrowUp/Down/Left/Right, WASD, Space=wait; #retry button restarts after death; state is module-scoped.
 // harness="tower": the recorder serves main.js/render3d.js with a READ-ONLY hook appended
 // (window.__dt.state, window.__dt3 camera refs) so it can path the hero and log positions.
-// All moves are real Playwright key presses. The 3D camera orbit is harness-only (disclose it).
+// All moves are real Playwright key presses. The 3D camera orbit and camScale (closer camera)
+// are harness-only (disclose them in the caption).
 import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -105,14 +106,16 @@ async function drive(page, name, t0, deadline, gapMs, st) {
   log(`HERO_PATH ${name} ${samples.join(' ')}`);
 }
 
-async function startOrbit(page, speed) {
-  return page.evaluate((speed) => {
+// Harness-only camera: resize the renderer to its CSS size, pull the camera closer (scale < 1)
+// and orbit it around the hero at `speed` rad/s (negative = other direction).
+async function startOrbit(page, speed, scale) {
+  return page.evaluate(({ speed, scale }) => {
     const g = window.__dt3; if (!g) return 'no_dt3';
     const c = g.renderer.domElement;
     const w = c.clientWidth, h = c.clientHeight;
     g.renderer.setSize(w, h, false); // setPixelRatio already applied: buffer = CSS size x DPR
     g.camera.aspect = w / h; g.camera.updateProjectionMatrix();
-    const r = Math.hypot(g.CAM_OFFSET.x, g.CAM_OFFSET.z), y0 = g.CAM_OFFSET.y, t0 = performance.now();
+    const r = Math.hypot(g.CAM_OFFSET.x, g.CAM_OFFSET.z) * scale, y0 = g.CAM_OFFSET.y * scale, t0 = performance.now();
     const tick = (now) => {
       const a = ((now - t0) / 1000) * speed;
       g.CAM_OFFSET.set(Math.sin(a) * r, y0, Math.cos(a) * r);
@@ -122,8 +125,8 @@ async function startOrbit(page, speed) {
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
-    return `ok ${c.width}x${c.height}`;
-  }, speed);
+    return `ok ${c.width}x${c.height} r=${r.toFixed(2)} y=${y0.toFixed(2)}`;
+  }, { speed, scale });
 }
 
 const STAGE_CSS = `#__recbg{position:fixed;inset:0;background:#0d0f14;z-index:2147483645}
@@ -165,7 +168,10 @@ async function recordTake(take) {
       if (ready && is3d) {
         const gl = await page.waitForFunction(() => window.__dt3 && document.getElementById('game').dataset.gl, null, { timeout: 25000 }).then(() => true).catch(() => false);
         if (!gl) st.reason = '3d renderer not ready (window.__dt3)';
-        else log(`ORBIT ${name} ${await startOrbit(page, take.orbit ?? 0.35)} speed=${take.orbit ?? 0.35}rad/s (harness-only camera)`);
+        else {
+          const sp = take.orbit ?? 0.35, sc = take.camScale ?? 1;
+          log(`ORBIT ${name} ${await startOrbit(page, sp, sc)} speed=${sp}rad/s camScale=${sc} (harness-only camera)`);
+        }
       }
       await sleep(400);
     }
