@@ -1,0 +1,89 @@
+RUN_ID=41274064323 REEL=whatif6v REF=whatif6v-staging SHA=460322ad09bbb3e45b54657233267001b3f7f353 KIT=v6+patch6v
+ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
+v20.20.2
+PATCH6V ok 10 patches applied to live/record.mjs
+ORBIT dieA ok buffer=1080x1080 css=1080x1080 r=4.55 y=5.95 render=once_per_captured_frame speed=0.6rad/s(virtual) camScale=0.7 renderPx=css (harness-only camera)
+CANVAS_FOUND=true dieA CANVAS_SIZE=1080x1080 CSS=1080x1080 TOP=420
+TAKE_MODE dieA mode=die seed=1
+CAPTURE_FRAMES dieA 330/330 wall=51.9s ms_per_frame=157 virtual_s=11.000 input_every=3f harness_renders=330 game_render_calls_suppressed=331
+TAKE_STATE_CHANGES dieA 110 HERO_MOVES 108 KEYS_SENT 110 RETRIES 0 FLOOR_MAX 1 KILLS 2
+HERO_PATH dieA 0.03s:(2,8)f1 0.13s:(2,7)f1 0.23s:(3,7)f1 0.33s:(4,7)f1 0.53s:(3,7)f1 0.73s:(2,7)f1 0.83s:(3,7)f1 0.93s:(3,6)f1 1.03s:(3,7)f1 1.13s:(4,7)f1 1.23s:(4,8)f1 1.33s:(4,7)f1
+DEATH_TALLY dieA n=0 distinct_raw_causes=0
+TAKE dieA MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/dieA.mp4 BYTES 4827527 LEAD 0.00 HOOK main=true 3d=true
+TAKE_OK dieA
+ORBIT dieB ok buffer=1080x1080 css=1080x1080 r=3.90 y=5.10 render=once_per_captured_frame speed=-0.6rad/s(virtual) camScale=0.6 renderPx=css (harness-only camera)
+CANVAS_FOUND=true dieB CANVAS_SIZE=1080x1080 CSS=1080x1080 TOP=420
+TAKE_MODE dieB mode=die seed=3
+CAPTURE_FRAMES dieB 240/240 wall=34.4s ms_per_frame=143 virtual_s=8.000 input_every=4f harness_renders=240 game_render_calls_suppressed=241
+TAKE_STATE_CHANGES dieB 60 HERO_MOVES 58 KEYS_SENT 60 RETRIES 0 FLOOR_MAX 1 KILLS 2
+HERO_PATH dieB 0.03s:(2,8)f1 0.17s:(2,9)f1 0.30s:(1,9)f1 0.43s:(2,9)f1 0.57s:(3,9)f1 0.70s:(4,9)f1 0.97s:(3,9)f1 1.23s:(4,9)f1 1.37s:(3,9)f1 1.50s:(4,9)f1 1.63s:(4,8)f1 1.77s:(4,7)f1
+DEATH_TALLY dieB n=0 distinct_raw_causes=0
+TAKE dieB MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/dieB.mp4 BYTES 3370818 LEAD 0.00 HOOK main=true 3d=true
+TAKE_OK dieB
+TAKES 2/2 ok
+STATE shot 0 take dieA window 1.00-3.20s hero_moves 22 min 3 OK
+STATE shot 1 take dieB window 1.00-3.00s hero_moves 14 min 3 OK
+STATE shot 2 take dieA window 3.40-5.60s hero_moves 22 min 3 OK
+STATE shot 3 take dieB window 3.20-5.40s hero_moves 17 min 3 OK
+STATE shot 4 take dieA window 5.80-8.00s hero_moves 22 min 3 OK
+STATE shot 5 take dieB window 5.60-7.60s hero_moves 15 min 3 OK
+STATE shot 6 take dieA window 8.00-10.20s hero_moves 22 min 3 OK
+STATE_TAKE dieA state_changes 110 hero_moves 108 keys_sent 110 retries 0 floor_max 1 kills 2 deaths 0
+STATE_TAKE dieB state_changes 60 hero_moves 58 keys_sent 60 retries 0 floor_max 1 kills 2 deaths 0
+PATH_COMPARE dieA vs dieB first 8 positions DIFFER
+STATE_OK
+TEXT shot 0 top line 0 fs=75 y=260-335 'FLOOR 1 KEEPS'
+TEXTBOX whatif6v shot 0 top line 0 132,242,948,353 safe=OK (box width estimated at 0.80em/char; zone x<=960, 220<=y<=1500)
+TEXT shot 0 top line 1 fs=75 y=371-446 'KILLING ME'
+TEXTBOX whatif6v shot 0 top line 1 222,353,858,464 safe=OK (box width estimated at 0.80em/char; zone x<=960, 220<=y<=1500)
+SHOT 0 TAKE dieA SRC out/raw/dieA.mp4 SS 1.000 DUR 2.2 FRAMES 66
+SHOT 1 TAKE dieB SRC out/raw/dieB.mp4 SS 1.000 DUR 2.0 FRAMES 60
+SHOT 2 TAKE dieA SRC out/raw/dieA.mp4 SS 3.400 DUR 2.2 FRAMES 66
+SHOT 3 TAKE dieB SRC out/raw/dieB.mp4 SS 3.200 DUR 2.2 FRAMES 66
+SHOT 4 TAKE dieA SRC out/raw/dieA.mp4 SS 5.800 DUR 2.2 FRAMES 66
+SHOT 5 TAKE dieB SRC out/raw/dieB.mp4 SS 5.600 DUR 2.0 FRAMES 60
+TEXT shot 6 bottom line 0 fs=42 y=1254-1296 'AI-WRITTEN CODE.'
+TEXTBOX whatif6v shot 6 bottom line 0 253,1236,827,1314 safe=OK (box width estimated at 0.80em/char; zone x<=960, 220<=y<=1500)
+TEXT shot 6 bottom line 1 fs=42 y=1332-1374 'EARLY BUILD. FOLLOW IT.'
+TEXTBOX whatif6v shot 6 bottom line 1 135,1314,944,1392 safe=OK (box width estimated at 0.80em/char; zone x<=960, 220<=y<=1500)
+SHOT 6 TAKE dieA SRC out/raw/dieA.mp4 SS 8.000 DUR 2.2 FRAMES 66
+FOOTAGE live=7 fallback=0 of 7 shots
+AUDIO=chiptune (square-wave loop synthesized by ffmpeg aevalsrc in cut.sh; no third-party music, no game audio)
+CUT OK docs/whatif6v.mp4 FRAMES 450 BYTES 2824205
+PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=2824205
+WF_PROBE OK 1080,1920 15.000000 2824205
+MOTION_FILE docs/whatif6v.mp4
+MOTION_FRAMES 450
+MOTION_CUTS_EXCLUDED [66, 126, 192, 258, 324, 384]
+MOTION_MEAN 2.743
+MOTION_P10 1.675
+MOTION_MIN_1S 2.087 (window starting 13.80s)
+FIRST_SECOND_MOTION 2.573
+FROZEN_RUNS 0
+PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.624
+PER_SHOT_MOTION 1 dieB 2.20-4.20s 2.710
+PER_SHOT_MOTION 2 dieA 4.20-6.40s 2.696
+PER_SHOT_MOTION 3 dieB 6.40-8.60s 3.114
+PER_SHOT_MOTION 4 dieA 8.60-10.80s 2.767
+PER_SHOT_MOTION 5 dieB 10.80-12.80s 2.696
+PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.584
+FREEZEDETECT 0 freezes (0 lines)
+PER_SECOND_MOTION
+   0s   2.573 ##########
+   1s   2.502 ##########
+   2s   3.057 ############
+   3s   3.132 ############
+   4s   3.204 ############
+   5s   2.322 #########
+   6s   3.885 ###############
+   7s   2.679 ##########
+   8s   3.201 ############
+   9s   2.597 ##########
+  10s   3.244 ############
+  11s   2.611 ##########
+  12s   3.485 #############
+  13s   2.611 ##########
+  14s   2.372 #########
+MOTION_NOTE pixel motion only; it does not prove game footage. See SHOT/FOOTAGE lines.
+MOTION_OK
+GATES probe=success motion=success state=success
