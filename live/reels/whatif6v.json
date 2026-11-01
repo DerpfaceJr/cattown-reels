@@ -1,23 +1,24 @@
 {
-  "_note": "Reel 6 live footage (v6 kit + patch6v). Two die-mode takes of daily-tower-web/3d.html with different seeds, captured frame by frame on a virtual clock. Die mode is a scripted input policy: chase foes, skip potions and stairs, and stand still next to a foe once HP <= 60%. Camera orbit/pull-in are recorder-only. Use '4 WAYS TO DIE' only if the log shows 4 distinct causes.",
-  "_caption_disclosure": "Live capture of AI-written game code, rendered frame by frame on a controlled clock so it plays at game speed. Inputs and the camera are scripted by the recorder.",
+  "_note": "Reel 6 live footage (v6 kit + patch6v v2). Two die-mode takes of daily-tower-web/3d.html with different seeds, captured frame by frame on a virtual clock. Die mode is a scripted input policy: walk to foes, never attack, alternate waiting (taking a hit) and sidestepping until the hero dies, hold the fail screen 0.8 s, retry. Shot windows are rebuilt by live/shots6v.py from the DEATH times; the shots below are placeholders that carry the text. Camera orbit/pull-in are recorder-only. Use '4 WAYS TO DIE' only if the log shows 4 distinct killers.",
+  "_caption_disclosure": "Live capture of AI-written game code, rendered frame by frame on a controlled clock so it plays at game speed. Inputs and the camera are scripted by the recorder, which walks the hero into enemies on purpose.",
   "reel": "whatif6v",
   "duration": 15,
   "audio": "chiptune",
   "fallback_to_scene": false,
   "min_moves_per_shot": 3,
   "require_distinct_paths": true,
+  "shots_from_deaths": { "durs": [2.2, 2.1, 2.1, 2.2, 2.1, 2.1, 2.2], "post": 0.6, "tail_min": 0.3, "tail_max": 0.8, "min_deaths_on_screen": 2, "min_start": 0.3 },
   "takes": [
-    { "name": "dieA", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 11, "harness": "tower", "mode": "die", "seed": 1, "inputEvery": 3, "orbit": 0.6, "camScale": 0.7, "maxWallSec": 600 },
-    { "name": "dieB", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 8, "harness": "tower", "mode": "die", "seed": 3, "inputEvery": 4, "orbit": -0.6, "camScale": 0.6, "maxWallSec": 600 }
+    { "name": "dieA", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 30, "harness": "tower", "mode": "die", "seed": 1, "inputEvery": 2, "retryHoldFrames": 24, "orbit": 0.5, "camScale": 0.7, "maxWallSec": 900 },
+    { "name": "dieB", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 24, "harness": "tower", "mode": "die", "seed": 3, "inputEvery": 2, "retryHoldFrames": 24, "orbit": -0.5, "camScale": 0.6, "maxWallSec": 900 }
   ],
   "shots": [
     { "take": "dieA", "start": 1.0, "dur": 2.2, "text_top": "FLOOR 1 KEEPS / KILLING ME" },
-    { "take": "dieB", "start": 1.0, "dur": 2.0 },
-    { "take": "dieA", "start": 3.4, "dur": 2.2 },
-    { "take": "dieB", "start": 3.2, "dur": 2.2 },
-    { "take": "dieA", "start": 5.8, "dur": 2.2 },
-    { "take": "dieB", "start": 5.6, "dur": 2.0 },
-    { "take": "dieA", "start": 8.0, "dur": 2.2, "text_bottom": "AI-WRITTEN CODE. / EARLY BUILD. FOLLOW IT." }
+    { "take": "dieB", "start": 1.0, "dur": 2.1 },
+    { "take": "dieA", "start": 4.0, "dur": 2.1 },
+    { "take": "dieB", "start": 4.0, "dur": 2.2 },
+    { "take": "dieA", "start": 7.0, "dur": 2.1 },
+    { "take": "dieB", "start": 7.0, "dur": 2.1 },
+    { "take": "dieA", "start": 10.0, "dur": 2.2, "text_bottom": "AI-WRITTEN CODE. / EARLY BUILD. FOLLOW IT." }
   ]
 }

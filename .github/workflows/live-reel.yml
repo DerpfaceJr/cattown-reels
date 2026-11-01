@@ -1,5 +1,6 @@
 # live-reel v6 - capture live game footage frame by frame, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
-# whatif6v-staging: record.mjs is patched in memory by live/patch6v.mjs (die mode, seeds, DEATH log).
+# whatif6v-staging: record.mjs is patched in memory by live/patch6v.mjs (die mode, seeds, DEATH log), and
+# live/shots6v.py picks the shot windows from the DEATH times (DEATHS_ON_SCREEN gate) when the config asks for it.
 name: live-reel
 
 on:
@@ -45,7 +46,7 @@ jobs:
           [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'"; exit 1; }
           echo "reel=$R" >> "$GITHUB_OUTPUT"
           mkdir -p docs
-          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v" | tee "docs/$R-log.txt"
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v-v2" | tee "docs/$R-log.txt"
 
       - name: Install tools
         run: |
@@ -64,9 +65,21 @@ jobs:
           R=${{ steps.reel.outputs.reel }}
           node --import ./live/patch6v.mjs live/record.mjs "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
 
+      - name: Plan shots
+        id: shots
+        if: always() && steps.record.outcome == 'success'
+        run: |
+          set -o pipefail
+          R=${{ steps.reel.outputs.reel }}
+          if [ -f live/shots6v.py ] && jq -e '.shots_from_deaths' "live/reels/$R.json" >/dev/null; then
+            python3 live/shots6v.py "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+          else
+            echo "SHOTS fixed (from config)" | tee -a "docs/$R-log.txt"
+          fi
+
       - name: State gate
         id: state
-        if: always() && steps.record.outcome == 'success'
+        if: always() && steps.shots.outcome == 'success'
         run: |
           set -o pipefail
           R=${{ steps.reel.outputs.reel }}
@@ -74,7 +87,7 @@ jobs:
 
       - name: Cut reel
         id: cut
-        if: always() && steps.record.outcome == 'success'
+        if: always() && steps.shots.outcome == 'success'
         run: |
           set -o pipefail
           R=${{ steps.reel.outputs.reel }}
@@ -106,11 +119,12 @@ jobs:
             docs
           if-no-files-found: warn
 
-      # Always commit the log; commit the mp4 only when probe, motion AND state passed.
+      # Always commit the log; commit the mp4 only when shots, probe, motion AND state passed.
       - name: Commit render
         if: always() && steps.reel.outputs.reel != ''
         env:
           R: ${{ steps.reel.outputs.reel }}
+          SHOTS: ${{ steps.shots.outcome }}
           PROBE: ${{ steps.probe.outcome }}
           MOTION: ${{ steps.motion.outcome }}
           STATE: ${{ steps.state.outcome }}
@@ -118,11 +132,13 @@ jobs:
           set -o pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          echo "GATES probe=$PROBE motion=$MOTION state=$STATE" | tee -a "docs/$R-log.txt"
+          git checkout -- live/reels 2>/dev/null || true
+          echo "GATES shots=$SHOTS probe=$PROBE motion=$MOTION state=$STATE" | tee -a "docs/$R-log.txt"
           cp out/raw/status.json "docs/$R-status.json" 2>/dev/null || true
           git add "docs/$R-log.txt" "docs/$R-status.json" 2>/dev/null || git add "docs/$R-log.txt"
+          git add "docs/$R-shots.json" 2>/dev/null || true
           PASS=no
-          if [ "$PROBE" = success ] && [ "$MOTION" = success ] && [ "$STATE" = success ]; then PASS=yes; git add "docs/$R.mp4"; else
+          if [ "$SHOTS" = success ] && [ "$PROBE" = success ] && [ "$MOTION" = success ] && [ "$STATE" = success ]; then PASS=yes; git add "docs/$R.mp4"; else
             echo "mp4 NOT committed (gates failed)"
             git checkout -- "docs/$R.mp4" 2>/dev/null || true
           fi
@@ -132,7 +148,7 @@ jobs:
           SHA=$(git rev-parse HEAD)
           echo "COMMIT $SHA"
           {
-            echo "### $R  (probe: $PROBE, motion: $MOTION, state: $STATE)"
+            echo "### $R  (shots: $SHOTS, probe: $PROBE, motion: $MOTION, state: $STATE)"
             echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
             [ "$PASS" = yes ] && echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"
           } >> "$GITHUB_STEP_SUMMARY"
