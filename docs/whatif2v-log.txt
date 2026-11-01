@@ -1,73 +1,87 @@
-RUN_ID=41269433962 REEL=whatif2v REF=whatif2v-staging SHA=2436ecadd39c9a801cb3e9f5a6168b0a5b319025
+RUN_ID=41270140415 REEL=whatif2v REF=whatif2v-staging SHA=79d86c1d51ce1331a840dd9635ec533d447c8fa4 KIT=v3
 ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
-CANVAS_FOUND=true tower2d CANVAS_SIZE=352x352 CSS=436x436
-TAKE tower2d URL https://derpfacejr.github.io/daily-tower-web/ FILE out/raw/tower2d.webm BYTES 827437 LEAD 0.28
-CANVAS_FOUND=true tower3d CANVAS_SIZE=300x150 CSS=436x436
-TAKE tower3d URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/tower3d.webm BYTES 1014299 LEAD 0.18
-CANVAS_FOUND=true scene CANVAS_SIZE=180x320 CSS=1080x1920
-TAKE scene URL file:///home/runner/work/cattown-reels/cattown-reels/live/scene.html FILE out/raw/scene.webm BYTES 1275967 LEAD 0.15
-RECORD_DONE ok=3/3
+ORBIT tower3d ok 1080x1080 speed=0.35rad/s (harness-only camera)
+CANVAS_FOUND=true tower3d CANVAS_SIZE=1080x1080 CSS=1080x1080 TOP=420
+TAKE_STATE_CHANGES tower3d 84 HERO_MOVES 64 KEYS_SENT 85 RETRIES 0 FLOOR_MAX 5 KILLS 17
+HERO_PATH tower3d 1.49s:(1,7)f1 1.65s:(1,6)f1 1.80s:(1,5)f1 1.95s:(1,4)f1 2.26s:(1,5)f1 2.41s:(2,5)f1 2.56s:(3,5)f1 2.87s:(4,5)f1 3.02s:(4,4)f1 3.17s:(5,4)f1 3.34s:(6,4)f1 3.49s:(7,4)f1
+TAKE tower3d URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/tower3d.webm BYTES 1848859 LEAD 1.33 HOOK main=true 3d=true
+CANVAS_FOUND=true tower2d CANVAS_SIZE=352x352 CSS=1080x1080 TOP=420
+TAKE_STATE_CHANGES tower2d 67 HERO_MOVES 53 KEYS_SENT 68 RETRIES 0 FLOOR_MAX 4 KILLS 12
+HERO_PATH tower2d 1.61s:(1,7)f1 1.77s:(1,6)f1 1.91s:(1,5)f1 2.06s:(1,4)f1 2.35s:(1,5)f1 2.50s:(2,5)f1 2.65s:(3,5)f1 2.95s:(4,5)f1 3.10s:(4,4)f1 3.25s:(5,4)f1 3.40s:(6,4)f1 3.54s:(7,4)f1
+TAKE tower2d URL https://derpfacejr.github.io/daily-tower-web/ FILE out/raw/tower2d.webm BYTES 862096 LEAD 1.47 HOOK main=true 3d=false
+RECORD_DONE ok=2/2
+STATE shot 0 take tower3d window 1.63-4.13s hero_moves 15 min 3 OK
+STATE shot 1 take tower2d window 2.27-4.27s hero_moves 12 min 3 OK
+STATE shot 2 take tower3d window 4.33-6.83s hero_moves 13 min 3 OK
+STATE shot 3 take tower2d window 4.67-6.67s hero_moves 12 min 3 OK
+STATE shot 4 take tower3d window 7.33-9.33s hero_moves 11 min 3 OK
+STATE shot 5 take tower2d window 7.06-9.06s hero_moves 11 min 3 OK
+STATE shot 6 take tower3d window 9.83-11.83s hero_moves 10 min 3 OK
+STATE_TAKE tower3d state_changes 84 hero_moves 64 keys_sent 85 retries 0 floor_max 5 kills 17
+STATE_TAKE tower2d state_changes 67 hero_moves 53 keys_sent 68 retries 0 floor_max 4 kills 12
+STATE_OK
 TEXT shot 0 top line 0 fs=62 y=260-322 'AN AI CODED THIS'
 TEXT shot 0 top line 1 fs=62 y=340-402 'TOWER GAME. WATCH.'
-SHOT 0 TAKE tower2d SS 0.785 DUR 3 FRAMES 90
-SHOT 1 TAKE tower3d SS 0.680 DUR 4 FRAMES 120
-SHOT 2 TAKE tower2d SS 6.285 DUR 4 FRAMES 120
-TEXT shot 3 bottom line 0 fs=48 y=1286-1334 'AI-WRITTEN CODE.'
-TEXT shot 3 bottom line 1 fs=48 y=1348-1396 'EARLY BUILD. FOLLOW IT.'
-SHOT 3 TAKE tower3d SS 6.680 DUR 4 FRAMES 120
-FOOTAGE live=4 fallback=0 of 4 shots
-CUT OK docs/whatif2v.mp4 FRAMES 450 BYTES 1072887
-PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=1072887
-WF_PROBE OK 1080,1920 15.000000 1072887
+SHOT 0 TAKE tower3d SS 1.627 DUR 2.5 FRAMES 75
+SHOT 1 TAKE tower2d SS 2.265 DUR 2 FRAMES 60
+SHOT 2 TAKE tower3d SS 4.327 DUR 2.5 FRAMES 75
+SHOT 3 TAKE tower2d SS 4.665 DUR 2 FRAMES 60
+SHOT 4 TAKE tower3d SS 7.327 DUR 2 FRAMES 60
+SHOT 5 TAKE tower2d SS 7.065 DUR 2 FRAMES 60
+TEXT shot 6 bottom line 0 fs=48 y=1286-1334 'AI-WRITTEN CODE.'
+TEXT shot 6 bottom line 1 fs=48 y=1348-1396 'EARLY BUILD. FOLLOW IT.'
+SHOT 6 TAKE tower3d SS 9.827 DUR 2 FRAMES 60
+FOOTAGE live=7 fallback=0 of 7 shots
+CUT OK docs/whatif2v.mp4 FRAMES 450 BYTES 1619304
+PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=1619304
+WF_PROBE OK 1080,1920 15.000000 1619304
 MOTION_FILE docs/whatif2v.mp4
 MOTION_FRAMES 450
-MOTION_CUTS_EXCLUDED [90, 210, 330]
-MOTION_MEAN 0.037
-MOTION_P10 0.000
-MOTION_MIN_1S 0.000 (window starting 12.03s)
-FIRST_SECOND_MOTION 0.029
-FROZEN_RUNS 6
-  FROZEN 0.00s-3.00s (90 frames)
-  FROZEN 3.20s-7.00s (114 frames)
-  FROZEN 7.00s-9.93s (88 frames)
-  FROZEN 9.93s-10.93s (30 frames)
-  FROZEN 11.00s-13.90s (87 frames)
-  FROZEN 13.90s-14.57s (20 frames)
-PER_SHOT_MOTION 0 tower2d 0.00-3.00s 0.018
-PER_SHOT_MOTION 1 tower3d 3.00-7.00s 0.031
-PER_SHOT_MOTION 2 tower2d 7.00-11.00s 0.042
-PER_SHOT_MOTION 3 tower3d 11.00-15.00s 0.052
-FREEZEDETECT 5 freezes (15 lines)
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_start: 0
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_duration: 3
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_end: 3
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_start: 3
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_duration: 0.7
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_end: 3.7
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_start: 3.7
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_duration: 3.23333
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_end: 6.93333
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_start: 7
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_duration: 3.93333
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_end: 10.9333
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_start: 11
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_duration: 3.56667
-  [freezedetect @ 0x55b23bef2540] lavfi.freezedetect.freeze_end: 14.5667
+MOTION_CUTS_EXCLUDED [75, 135, 210, 270, 330, 390]
+MOTION_MEAN 0.664
+MOTION_P10 0.001
+MOTION_MIN_1S 0.076 (window starting 11.33s)
+FIRST_SECOND_MOTION 0.324
+FROZEN_RUNS 4
+  FROZEN 0.00s-0.50s (15 frames)
+  FROZEN 2.77s-4.00s (37 frames)
+  FROZEN 7.50s-8.57s (32 frames)
+  FROZEN 11.13s-12.53s (42 frames)
+PER_SHOT_MOTION 0 tower3d 0.00-2.50s 0.560
+PER_SHOT_MOTION 1 tower2d 2.50-4.50s 0.209
+PER_SHOT_MOTION 2 tower3d 4.50-7.00s 1.198
+PER_SHOT_MOTION 3 tower2d 7.00-9.00s 0.221
+PER_SHOT_MOTION 4 tower3d 9.00-11.00s 1.014
+PER_SHOT_MOTION 5 tower2d 11.00-13.00s 0.206
+PER_SHOT_MOTION 6 tower3d 13.00-15.00s 1.131
+FREEZEDETECT 4 freezes (12 lines)
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_start: 0
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_duration: 0.5
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_end: 0.5
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_start: 2.5
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_duration: 1.5
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_end: 4
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_start: 7.5
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_duration: 1.06667
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_end: 8.56667
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_start: 11
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_duration: 1.53333
+  [freezedetect @ 0x56321acbe600] lavfi.freezedetect.freeze_end: 12.5333
 PER_SECOND_MOTION
-   0s   0.029 
-   1s   0.017 
-   2s   0.007 
-   3s   0.384 #
-   4s   0.009 
-   5s   0.017 
-   6s   0.036 
-   7s   0.197 
-   8s   0.009 
-   9s   0.032 
-  10s   0.121 
-  11s   0.280 #
-  12s   0.000 
-  13s   0.034 
-  14s   0.167 
-MOTION_FAIL 6 frozen run(s); MOTION_MIN_1S 0.000 < 1.0; FIRST_SECOND_MOTION 0.029 < 1.0
-GATES probe=success motion=failure
+   0s   0.324 #
+   1s   0.715 ##
+   2s   1.190 ####
+   3s   0.084 
+   4s   1.631 ######
+   5s   1.374 #####
+   6s   0.851 ###
+   7s   0.805 ###
+   8s   0.255 #
+   9s   1.904 #######
+  10s   0.713 ##
+  11s   0.750 ##
+  12s   0.323 #
+  13s   2.094 ########
+  14s   0.831 ###
+MOTION_FAIL 4 frozen run(s); MOTION_MIN_1S 0.076 < 1.0; FIRST_SECOND_MOTION 0.324 < 1.0
+GATES probe=success motion=failure state=success
