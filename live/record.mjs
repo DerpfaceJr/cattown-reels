@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// record.mjs v4 - screen-record live Daily Tower footage driven by real keyboard input.
+// record.mjs v5 - screen-record live Daily Tower footage driven by real keyboard input.
 // usage: node live/record.mjs live/reels/<reel>.json   (repo root)
 // Input facts (read from daily-tower-web js/main.js): keydown on window, e.code in
 // ArrowUp/Down/Left/Right, WASD, Space=wait; #retry button restarts after death; state is module-scoped.
@@ -7,6 +7,8 @@
 // (window.__dt.state, window.__dt3 camera refs) so it can path the hero and log positions.
 // All moves are real Playwright key presses. The 3D camera orbit and camScale (closer camera)
 // are harness-only (disclose them in the caption).
+// v5: the harness renders every animation frame (counted in window.__recFrames) and each take
+// has a warm-up (orbit + inputs already running) before LEAD, so shot offsets never hit spin-up.
 import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -22,6 +24,7 @@ fs.mkdirSync(RAW, { recursive: true });
 const log = (...a) => console.log(...a);
 const sleep = (ms) => new Promise((r) => setTimeout(r, Math.max(0, ms)));
 const DIRKEY = { up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' };
+const frames = (page) => page.evaluate(() => window.__recFrames || 0).catch(() => -1);
 
 async function hookGame(page, name, st) {
   await page.route(/\/js\/main\.js(\?.*)?$/, async (route) => {
@@ -108,6 +111,7 @@ async function drive(page, name, t0, deadline, gapMs, st) {
 
 // Harness-only camera: resize the renderer to its CSS size, pull the camera closer (scale < 1)
 // and orbit it around the hero at `speed` rad/s (negative = other direction).
+// Forces renderer.render on EVERY animation frame so render3d never idles; frames are counted.
 async function startOrbit(page, speed, scale) {
   return page.evaluate(({ speed, scale }) => {
     const g = window.__dt3; if (!g) return 'no_dt3';
@@ -116,16 +120,17 @@ async function startOrbit(page, speed, scale) {
     g.renderer.setSize(w, h, false); // setPixelRatio already applied: buffer = CSS size x DPR
     g.camera.aspect = w / h; g.camera.updateProjectionMatrix();
     const r = Math.hypot(g.CAM_OFFSET.x, g.CAM_OFFSET.z) * scale, y0 = g.CAM_OFFSET.y * scale, t0 = performance.now();
+    window.__recFrames = 0;
     const tick = (now) => {
       const a = ((now - t0) / 1000) * speed;
       g.CAM_OFFSET.set(Math.sin(a) * r, y0, Math.cos(a) * r);
       g.camera.position.copy(g.look).add(g.CAM_OFFSET);
       g.camera.lookAt(g.look);
-      g.renderer.render(g.scene, g.camera);
+      try { g.renderer.render(g.scene, g.camera); window.__recFrames++; } catch (e) { window.__recErr = String(e); }
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
-    return `ok ${c.width}x${c.height} r=${r.toFixed(2)} y=${y0.toFixed(2)}`;
+    return `ok ${c.width}x${c.height} r=${r.toFixed(2)} y=${y0.toFixed(2)} forced_render=every_raf`;
   }, { speed, scale });
 }
 
@@ -173,17 +178,29 @@ async function recordTake(take) {
           log(`ORBIT ${name} ${await startOrbit(page, sp, sc)} speed=${sp}rad/s camScale=${sc} (harness-only camera)`);
         }
       }
-      await sleep(400);
+      await sleep(200);
     }
     if (el) {
       const info = await el.evaluate((c) => ({ w: c.width, h: c.height, r: c.getBoundingClientRect().toJSON() }));
       log(`CANVAS_FOUND=true ${name} CANVAS_SIZE=${info.w}x${info.h} CSS=${Math.round(info.r.width)}x${Math.round(info.r.height)} TOP=${Math.round(info.r.y)}`);
       if (is3d && info.w < 600) st.reason ||= `3d canvas too small ${info.w}x${info.h}`;
     }
-    st.lead = (Date.now() - t0) / 1000;
-    if (!st.reason) {
-      if (tower) await drive(page, name, t0, Date.now() + seconds * 1000, take.gapMs ?? 110, st);
-      else await sleep(seconds * 1000);
+    if (!st.reason && tower) {
+      // Warm-up: inputs and orbit are already running before LEAD, so shot offsets never hit spin-up.
+      const warm = Math.round((take.warmup ?? 1.5) * 1000);
+      const f0 = await frames(page);
+      const dp = drive(page, name, t0, Date.now() + warm + seconds * 1000, take.gapMs ?? 110, st);
+      await sleep(warm);
+      st.lead = (Date.now() - t0) / 1000;
+      const f1 = await frames(page);
+      log(`WARMUP ${name} ${warm}ms before LEAD (orbit+inputs running) harness_frames=${f1 - f0} fps=${((f1 - f0) / (warm / 1000)).toFixed(1)}`);
+      await dp;
+      const f2 = await frames(page);
+      const err = await page.evaluate(() => window.__recErr || '').catch(() => '');
+      log(`RENDER_FPS ${name} ${((f2 - f1) / seconds).toFixed(1)} frames=${f2 - f1}${err ? ' RENDER_ERR ' + err : ''}`);
+    } else {
+      st.lead = (Date.now() - t0) / 1000;
+      if (!st.reason) await sleep(seconds * 1000);
     }
   } catch (e) {
     st.reason = `error: ${e.message.split('\n')[0]}`;

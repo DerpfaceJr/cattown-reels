@@ -1,21 +1,21 @@
 {
-  "_note": "Reel 2 v4 (live footage). 3D only: two takes of daily-tower-web/3d.html driven by real keypresses (~100ms) from a BFS path. 2D shots dropped (v3: ~0.21 motion, 3 of 4 frozen runs). Camera orbit + closer camera (camScale) are added by the recording harness only; say so in the caption. shot.start is seconds after page ready (LEAD); orbit and inputs are already running at LEAD.",
+  "_note": "Reel 2 v5 (live footage). 3D only: two takes of daily-tower-web/3d.html driven by real keypresses (~90-100ms) from a BFS path. v5: each take has a 1.5s warm-up (orbit + inputs + forced per-frame render already running) BEFORE LEAD, and every shot.start is >= 2.0s after LEAD, so no shot uses the first ~3.5s of camera/input motion. Opens on tower3dB mid-take (v4's strongest window). Camera orbit + closer camera (camScale) are added by the recording harness only; say so in the caption.",
   "reel": "whatif2v",
   "duration": 15,
   "audio": "chiptune",
   "fallback_to_scene": false,
   "min_moves_per_shot": 3,
   "takes": [
-    { "name": "tower3d", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 11, "harness": "tower", "gapMs": 100, "orbit": 0.5, "camScale": 0.75 },
-    { "name": "tower3dB", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 9, "harness": "tower", "gapMs": 90, "orbit": -0.5, "camScale": 0.6 }
+    { "name": "tower3d", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 13, "warmup": 1.5, "harness": "tower", "gapMs": 100, "orbit": 0.5, "camScale": 0.75 },
+    { "name": "tower3dB", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 12, "warmup": 1.5, "harness": "tower", "gapMs": 90, "orbit": -0.5, "camScale": 0.6 }
   ],
   "shots": [
-    { "take": "tower3d", "start": 0.2, "dur": 2.2, "text_top": "AN AI CODED THIS / TOWER GAME. WATCH." },
-    { "take": "tower3dB", "start": 0.4, "dur": 2 },
-    { "take": "tower3d", "start": 2.6, "dur": 2 },
-    { "take": "tower3dB", "start": 2.8, "dur": 2.2 },
-    { "take": "tower3d", "start": 5.0, "dur": 2.2 },
-    { "take": "tower3dB", "start": 5.4, "dur": 2.2 },
-    { "take": "tower3d", "start": 7.6, "dur": 2.2, "text_bottom": "AI-WRITTEN CODE. / EARLY BUILD. FOLLOW IT." }
+    { "take": "tower3dB", "start": 5.4, "dur": 2.2, "text_top": "AN AI CODED THIS / TOWER GAME. WATCH." },
+    { "take": "tower3d", "start": 2.4, "dur": 2.0 },
+    { "take": "tower3dB", "start": 2.6, "dur": 2.0 },
+    { "take": "tower3d", "start": 4.8, "dur": 2.2 },
+    { "take": "tower3dB", "start": 8.0, "dur": 2.2 },
+    { "take": "tower3d", "start": 7.4, "dur": 2.2 },
+    { "take": "tower3d", "start": 10.0, "dur": 2.2, "text_bottom": "AI-WRITTEN CODE. / EARLY BUILD. FOLLOW IT." }
   ]
 }
