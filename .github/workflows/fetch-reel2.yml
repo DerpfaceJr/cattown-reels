@@ -1,7 +1,7 @@
 name: fetch-reel2
 
-# Copies the Reel 2 candidate mp4 out of a cat-town Actions run artifact into the public docs/ folder.
-# Needs repo secret CAT_TOWN_READ (fine-grained PAT on DerpfaceJr/cat-town with Actions: read).
+# Copies the Reel 2 candidate mp4 (v7.1, src run 41263696548) from cat-town branch reels-out
+# into the public docs/ folder. Uses repo contents read (CAT_TOWN_READ), not the Actions artifact API.
 # Never posts anything. Writes docs/reel2-fetch-status.txt either way.
 on:
   workflow_dispatch:
@@ -23,47 +23,61 @@ jobs:
     timeout-minutes: 10
     env:
       SRC_REPO: DerpfaceJr/cat-town
-      RUN_ID: '41263696548'
-      ART: reel2-mp4
+      SRC_REF: reels-out
+      SRC_PATH: reels-out/reel2.mp4
       WANT_BYTES: '3235091'
+      WANT_SHA16: '7e5ce1f17c00bd4d'
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download and size-check
+      - name: Checkout cat-town reels-out
+        id: src
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: DerpfaceJr/cat-town
+          ref: reels-out
+          token: ${{ secrets.CAT_TOWN_READ }}
+          path: src
+          fetch-depth: 1
+          sparse-checkout: |
+            reels-out
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
+      - name: Copy and verify
         shell: bash
         env:
-          GH_TOKEN: ${{ secrets.CAT_TOWN_READ }}
+          SRC_OUTCOME: ${{ steps.src.outcome }}
         run: |
           mkdir -p docs
           S=docs/reel2-fetch-status.txt
           NOW=$(date -u +%FT%TZ)
-          if [ -z "$GH_TOKEN" ]; then
-            echo "status=MISSING_SECRET_CAT_TOWN_READ utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID" > "$S"
+          if [ "$SRC_OUTCOME" != "success" ]; then
+            echo "status=CHECKOUT_FAILED utc=$NOW run=$GITHUB_RUN_ID src=$SRC_REPO@$SRC_REF outcome=$SRC_OUTCOME" > "$S"
             exit 0
           fi
-          rm -rf dl && mkdir dl
-          if ! gh run download "$RUN_ID" -R "$SRC_REPO" -n "$ART" -D dl 2> dl.err; then
-            echo "status=DOWNLOAD_FAILED utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID err=$(tail -n 3 dl.err | tr '\n' ' ')" > "$S"
+          F="src/$SRC_PATH"
+          if [ ! -f "$F" ]; then
+            echo "status=NO_MP4_ON_REF utc=$NOW run=$GITHUB_RUN_ID src=$SRC_REPO@$SRC_REF files=$(find src -type f -not -path '*/.git/*' | head -n 20 | tr '\n' ' ')" > "$S"
             exit 0
           fi
-          F=$(find dl -type f -name reel2.mp4 | head -n1)
-          if [ -z "$F" ]; then
-            echo "status=NO_MP4_IN_ARTIFACT utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID files=$(find dl -type f | head -n 20 | tr '\n' ' ')" > "$S"
-            exit 0
-          fi
+          SRC_SHA=$(git -C src rev-parse --short HEAD 2>/dev/null || echo n/a)
           B=$(stat -c%s "$F")
-          if [ "$B" != "$WANT_BYTES" ]; then
-            echo "status=SIZE_MISMATCH utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID bytes=$B want=$WANT_BYTES" > "$S"
+          H=$(sha256sum "$F" | cut -c1-16)
+          if [ "$B" != "$WANT_BYTES" ] || [ "$H" != "$WANT_SHA16" ]; then
+            echo "status=MISMATCH utc=$NOW run=$GITHUB_RUN_ID src_commit=$SRC_SHA bytes=$B want=$WANT_BYTES sha256=$H want=$WANT_SHA16" > "$S"
             exit 0
           fi
           cp "$F" docs/reel2.mp4
           P=$(ffprobe -v error -show_entries format=duration:stream=codec_type,width,height -of compact docs/reel2.mp4 2>/dev/null | tr '\n' ' ' || echo n/a)
-          echo "status=OK utc=$NOW run=$GITHUB_RUN_ID src_run=$RUN_ID bytes=$B sha256=$(sha256sum docs/reel2.mp4 | cut -c1-16) ffprobe=$P" > "$S"
+          echo "status=OK utc=$NOW run=$GITHUB_RUN_ID src=$SRC_REPO@$SRC_REF src_commit=$SRC_SHA src_run=41263696548 bytes=$B sha256=$H ffprobe=$P" > "$S"
 
       - name: Commit
         if: always()
         shell: bash
         run: |
+          rm -rf src
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/reel2-fetch-status.txt
