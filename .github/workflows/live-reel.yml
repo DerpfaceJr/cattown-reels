@@ -1,4 +1,5 @@
 # live-reel v6 - capture live game footage frame by frame, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
+# whatif6v-staging: record.mjs is patched in memory by live/patch6v.mjs (die mode, seeds, DEATH log).
 name: live-reel
 
 on:
@@ -44,7 +45,7 @@ jobs:
           [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'"; exit 1; }
           echo "reel=$R" >> "$GITHUB_OUTPUT"
           mkdir -p docs
-          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6" | tee "docs/$R-log.txt"
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v" | tee "docs/$R-log.txt"
 
       - name: Install tools
         run: |
@@ -54,13 +55,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg fonts-dejavu-core jq
           ffmpeg -version | head -n1 | tee -a "docs/${{ steps.reel.outputs.reel }}-log.txt"
+          node --version | tee -a "docs/${{ steps.reel.outputs.reel }}-log.txt"
 
       - name: Record takes
         id: record
         run: |
           set -o pipefail
           R=${{ steps.reel.outputs.reel }}
-          node live/record.mjs "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+          node --import ./live/patch6v.mjs live/record.mjs "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
 
       - name: State gate
         id: state
