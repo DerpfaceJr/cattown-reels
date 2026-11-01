@@ -1,4 +1,4 @@
-# live-reel v3 - record live game footage, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
+# live-reel v6 - capture live game footage frame by frame, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
 name: live-reel
 
 on:
@@ -26,7 +26,7 @@ defaults:
 jobs:
   render:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -44,7 +44,7 @@ jobs:
           [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'"; exit 1; }
           echo "reel=$R" >> "$GITHUB_OUTPUT"
           mkdir -p docs
-          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v3" | tee "docs/$R-log.txt"
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6" | tee "docs/$R-log.txt"
 
       - name: Install tools
         run: |
@@ -124,7 +124,7 @@ jobs:
             echo "mp4 NOT committed (gates failed)"
             git checkout -- "docs/$R.mp4" 2>/dev/null || true
           fi
-          git commit -m "Render $R (live footage v3) [skip ci]" || { echo "nothing to commit"; exit 0; }
+          git commit -m "Render $R (live footage v6, frame-by-frame) [skip ci]" || { echo "nothing to commit"; exit 0; }
           git pull --rebase --autostash origin "$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"
           SHA=$(git rev-parse HEAD)

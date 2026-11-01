@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# cut.sh v2 - trim takes into a 1080x1920 Reel with safe-zone captions + audio.
+# cut.sh v3 - trim takes into a 1080x1920 Reel with safe-zone captions + audio.
 # usage: bash live/cut.sh live/reels/<reel>.json   (repo root, after record.mjs)
+# v3: a take may be out/raw/<take>.mp4 (frame-by-frame capture) or out/raw/<take>.webm (real-time).
 set -euo pipefail
 CFG="${1:?usage: cut.sh <config.json>}"
 REEL=$(jq -r '.reel' "$CFG"); DUR=$(jq -r '.duration' "$CFG")
@@ -14,7 +15,8 @@ rm -rf "$WORK"; mkdir -p "$WORK" docs
 [ -f "$FONT" ] || { echo "CUT_FAIL font missing: $FONT"; exit 1; }
 calc() { awk "BEGIN{printf \"%.3f\", $1}"; }
 frames_of() { awk "BEGIN{printf \"%d\", $1*$FPS + 0.5}"; }
-take_ok() { [ "$(jq -r --arg t "$1" '.[$t].ok // false' "$STATUS")" = true ] && [ -s "$RAW/$1.webm" ]; }
+src_of() { if [ -s "$RAW/$1.mp4" ]; then echo "$RAW/$1.mp4"; else echo "$RAW/$1.webm"; fi; }
+take_ok() { [ "$(jq -r --arg t "$1" '.[$t].ok // false' "$STATUS")" = true ] && [ -s "$(src_of "$1")" ]; }
 
 # " / " = line break. 0.80 em/char (was 0.74) leaves room for wide caps (W, M).
 captions() {
@@ -45,15 +47,15 @@ for ((i=0; i<N; i++)); do
     echo "SHOT $i FALLBACK $take -> scene"; take=scene; FB=$((FB + 1))
   else echo "CUT_FAIL shot $i: no usable footage for $take"; exit 1; fi
   lead=$(jq -r --arg t "$take" '.[$t].lead // 0' "$STATUS")
-  ss=$(calc "$start + $lead"); nf=$(frames_of "$dur"); CAP=""
+  ss=$(calc "$start + $lead"); nf=$(frames_of "$dur"); CAP=""; SRC=$(src_of "$take")
   top=$(jq -r ".shots[$i].text_top // empty" "$CFG"); bot=$(jq -r ".shots[$i].text_bottom // empty" "$CFG")
   [ -n "$top" ] && captions "$top" top "$i"
   [ -n "$bot" ] && captions "$bot" bottom "$i"
   # output-side -ss: Playwright webm has no cues, so input seeking is unreliable
-  "${FF[@]}" -i "$RAW/$take.webm" -ss "$ss" \
+  "${FF[@]}" -i "$SRC" -ss "$ss" \
     -vf "fps=$FPS,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,tpad=stop_mode=clone:stop_duration=$dur$CAP" \
     -frames:v "$nf" -an -c:v libx264 -preset veryfast -crf 14 -pix_fmt yuv420p "$WORK/shot$i.mp4"
-  echo "SHOT $i TAKE $take SS $ss DUR $dur FRAMES $nf"
+  echo "SHOT $i TAKE $take SRC $SRC SS $ss DUR $dur FRAMES $nf"
   echo "file 'shot$i.mp4'" >> "$WORK/list.txt"
   SUM=$(calc "$SUM + $dur")
 done
