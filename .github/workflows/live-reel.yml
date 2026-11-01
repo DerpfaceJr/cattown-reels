@@ -1,4 +1,4 @@
-# live-reel — record live game footage, cut a 15 s Reel, gate it (probe + motion), commit it.
+# live-reel v3 - record live game footage, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
 name: live-reel
 
 on:
@@ -40,12 +40,11 @@ jobs:
           INPUT_REEL: ${{ inputs.reel }}
         run: |
           set -o pipefail
-          # dispatch -> input; push -> branch name minus "-staging"
           if [ "${{ github.event_name }}" = workflow_dispatch ]; then R="$INPUT_REEL"; else R="${GITHUB_REF_NAME%-staging}"; fi
           [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'"; exit 1; }
           echo "reel=$R" >> "$GITHUB_OUTPUT"
           mkdir -p docs
-          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA" | tee "docs/$R-log.txt"
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v3" | tee "docs/$R-log.txt"
 
       - name: Install tools
         run: |
@@ -63,8 +62,17 @@ jobs:
           R=${{ steps.reel.outputs.reel }}
           node live/record.mjs "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
 
+      - name: State gate
+        id: state
+        if: always() && steps.record.outcome == 'success'
+        run: |
+          set -o pipefail
+          R=${{ steps.reel.outputs.reel }}
+          python3 live/stategate.py "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+
       - name: Cut reel
         id: cut
+        if: always() && steps.record.outcome == 'success'
         run: |
           set -o pipefail
           R=${{ steps.reel.outputs.reel }}
@@ -72,6 +80,7 @@ jobs:
 
       - name: Probe
         id: probe
+        if: always() && steps.cut.outcome == 'success'
         run: |
           set -o pipefail
           R=${{ steps.reel.outputs.reel }}
@@ -95,34 +104,33 @@ jobs:
             docs
           if-no-files-found: warn
 
-      # Always commit the log; commit the mp4 only when probe AND motion passed.
+      # Always commit the log; commit the mp4 only when probe, motion AND state passed.
       - name: Commit render
         if: always() && steps.reel.outputs.reel != ''
         env:
           R: ${{ steps.reel.outputs.reel }}
           PROBE: ${{ steps.probe.outcome }}
           MOTION: ${{ steps.motion.outcome }}
+          STATE: ${{ steps.state.outcome }}
         run: |
           set -o pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          echo "GATES probe=$PROBE motion=$MOTION" | tee -a "docs/$R-log.txt"
-          git add "docs/$R-log.txt"
-          if [ "$PROBE" = success ] && [ "$MOTION" = success ]; then
-            git add "docs/$R.mp4"
-          else
+          echo "GATES probe=$PROBE motion=$MOTION state=$STATE" | tee -a "docs/$R-log.txt"
+          cp out/raw/status.json "docs/$R-status.json" 2>/dev/null || true
+          git add "docs/$R-log.txt" "docs/$R-status.json" 2>/dev/null || git add "docs/$R-log.txt"
+          PASS=no
+          if [ "$PROBE" = success ] && [ "$MOTION" = success ] && [ "$STATE" = success ]; then PASS=yes; git add "docs/$R.mp4"; else
             echo "mp4 NOT committed (gates failed)"
-            git checkout -- "docs/$R.mp4" 2>/dev/null || true  # keep the last good render tracked
+            git checkout -- "docs/$R.mp4" 2>/dev/null || true
           fi
-          git commit -m "Render $R (live footage) [skip ci]" || { echo "nothing to commit"; exit 0; }
+          git commit -m "Render $R (live footage v3) [skip ci]" || { echo "nothing to commit"; exit 0; }
           git pull --rebase --autostash origin "$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"
           SHA=$(git rev-parse HEAD)
           echo "COMMIT $SHA"
           {
-            echo "### $R  (probe: $PROBE, motion: $MOTION)"
+            echo "### $R  (probe: $PROBE, motion: $MOTION, state: $STATE)"
             echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
-            if [ "$PROBE" = success ] && [ "$MOTION" = success ]; then
-              echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"
-            fi
+            [ "$PASS" = yes ] && echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"
           } >> "$GITHUB_STEP_SUMMARY"
