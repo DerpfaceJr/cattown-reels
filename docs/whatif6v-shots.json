@@ -1,0 +1,48 @@
+{
+ "shots": [
+  {
+   "take": "dieA",
+   "start": 1.433,
+   "dur": 2.2,
+   "death_t": 3.033,
+   "text_top": "FLOOR 1 KEEPS / KILLING ME"
+  },
+  {
+   "take": "dieB",
+   "start": 1.933,
+   "dur": 2.1,
+   "death_t": 3.433
+  },
+  {
+   "take": "dieA",
+   "start": 5.8,
+   "dur": 2.1,
+   "death_t": 7.3
+  },
+  {
+   "take": "dieB",
+   "start": 5.633,
+   "dur": 2.2,
+   "death_t": 7.233
+  },
+  {
+   "take": "dieA",
+   "start": 9.933,
+   "dur": 2.1,
+   "death_t": 11.433
+  },
+  {
+   "take": "dieB",
+   "start": 7.933,
+   "dur": 2.1,
+   "death_t": 9.433
+  },
+  {
+   "take": "dieA",
+   "start": 14.1,
+   "dur": 2.2,
+   "death_t": 15.7,
+   "text_bottom": "AI-WRITTEN CODE. / EARLY BUILD. FOLLOW IT."
+  }
+ ]
+}
