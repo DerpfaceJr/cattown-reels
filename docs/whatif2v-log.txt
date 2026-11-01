@@ -1,76 +1,77 @@
-RUN_ID=41270684206 REEL=whatif2v REF=whatif2v-staging SHA=3db5d9c7afd54b06a5acef88732fdbb1b1b0c4b5 KIT=v3
+RUN_ID=41271252346 REEL=whatif2v REF=whatif2v-staging SHA=42963329c9e2dbed23207ceae6e3e95f70a73484 KIT=v6
 ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
-ORBIT tower3d ok 1080x1080 r=4.88 y=6.38 forced_render=every_raf speed=0.5rad/s camScale=0.75 (harness-only camera)
+ORBIT tower3d ok buffer=1080x1080 css=1080x1080 r=4.55 y=5.95 render=once_per_captured_frame speed=0.6rad/s(virtual) camScale=0.7 renderPx=css (harness-only camera)
 CANVAS_FOUND=true tower3d CANVAS_SIZE=1080x1080 CSS=1080x1080 TOP=420
-WARMUP tower3d 1500ms before LEAD (orbit+inputs running) harness_frames=10 fps=6.7
-TAKE_STATE_CHANGES tower3d 101 HERO_MOVES 79 KEYS_SENT 102 RETRIES 0 FLOOR_MAX 6 KILLS 19
-HERO_PATH tower3d 1.29s:(1,7)f1 1.43s:(1,6)f1 1.58s:(1,5)f1 1.73s:(1,4)f1 2.01s:(1,5)f1 2.15s:(2,5)f1 2.29s:(3,5)f1 2.58s:(4,5)f1 2.72s:(4,4)f1 2.85s:(5,4)f1 3.00s:(6,4)f1 3.15s:(7,4)f1
-RENDER_FPS tower3d 3.8 frames=50
-TAKE tower3d URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/tower3d.webm BYTES 1892614 LEAD 2.64 HOOK main=true 3d=true
-ORBIT tower3dB ok 1080x1080 r=3.90 y=5.10 forced_render=every_raf speed=-0.5rad/s camScale=0.6 (harness-only camera)
+CAPTURE_FRAMES tower3d 300/300 wall=48.8s ms_per_frame=163 virtual_s=10.000 input_every=3f harness_renders=300 game_render_calls_suppressed=297
+TAKE_STATE_CHANGES tower3d 100 HERO_MOVES 79 KEYS_SENT 100 RETRIES 0 FLOOR_MAX 6 KILLS 18
+HERO_PATH tower3d 0.03s:(1,7)f1 0.13s:(1,6)f1 0.23s:(1,5)f1 0.33s:(1,4)f1 0.53s:(1,5)f1 0.63s:(2,5)f1 0.73s:(3,5)f1 0.93s:(4,5)f1 1.03s:(4,4)f1 1.13s:(5,4)f1 1.23s:(6,4)f1 1.33s:(7,4)f1
+TAKE tower3d MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/tower3d.mp4 BYTES 4832644 LEAD 0.00 HOOK main=true 3d=true
+TAKE_OK tower3d
+ORBIT tower3dB ok buffer=1080x1080 css=1080x1080 r=3.90 y=5.10 render=once_per_captured_frame speed=-0.6rad/s(virtual) camScale=0.6 renderPx=css (harness-only camera)
 CANVAS_FOUND=true tower3dB CANVAS_SIZE=1080x1080 CSS=1080x1080 TOP=420
-WARMUP tower3dB 1500ms before LEAD (orbit+inputs running) harness_frames=8 fps=5.3
-TAKE_STATE_CHANGES tower3dB 102 HERO_MOVES 80 KEYS_SENT 103 RETRIES 0 FLOOR_MAX 6 KILLS 19
-HERO_PATH tower3dB 0.88s:(1,7)f1 1.02s:(1,6)f1 1.16s:(1,5)f1 1.29s:(1,4)f1 1.54s:(1,5)f1 1.67s:(2,5)f1 1.80s:(3,5)f1 2.07s:(4,5)f1 2.21s:(4,4)f1 2.33s:(5,4)f1 2.45s:(6,4)f1 2.59s:(7,4)f1
-RENDER_FPS tower3dB 3.7 frames=44
-TAKE tower3dB URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/tower3dB.webm BYTES 1735426 LEAD 2.23 HOOK main=true 3d=true
-RECORD_DONE ok=2/2
-STATE shot 0 take tower3dB window 7.63-9.83s hero_moves 13 min 3 OK
-STATE shot 1 take tower3d window 5.04-7.04s hero_moves 11 min 3 OK
-STATE shot 2 take tower3dB window 4.83-6.83s hero_moves 12 min 3 OK
-STATE shot 3 take tower3d window 7.44-9.64s hero_moves 10 min 3 OK
-STATE shot 4 take tower3dB window 10.23-12.43s hero_moves 11 min 3 OK
-STATE shot 5 take tower3d window 10.04-12.24s hero_moves 11 min 3 OK
-STATE shot 6 take tower3d window 12.64-14.84s hero_moves 12 min 3 OK
-STATE_TAKE tower3d state_changes 101 hero_moves 79 keys_sent 102 retries 0 floor_max 6 kills 19
-STATE_TAKE tower3dB state_changes 102 hero_moves 80 keys_sent 103 retries 0 floor_max 6 kills 19
+CAPTURE_FRAMES tower3dB 270/270 wall=40.3s ms_per_frame=149 virtual_s=9.000 input_every=4f harness_renders=270 game_render_calls_suppressed=265
+TAKE_STATE_CHANGES tower3dB 68 HERO_MOVES 54 KEYS_SENT 68 RETRIES 0 FLOOR_MAX 4 KILLS 12
+HERO_PATH tower3dB 0.03s:(1,7)f1 0.17s:(1,6)f1 0.30s:(1,5)f1 0.43s:(1,4)f1 0.70s:(1,5)f1 0.83s:(2,5)f1 0.97s:(3,5)f1 1.23s:(4,5)f1 1.37s:(4,4)f1 1.50s:(5,4)f1 1.63s:(6,4)f1 1.77s:(7,4)f1
+TAKE tower3dB MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/tower3dB.mp4 BYTES 4249644 LEAD 0.00 HOOK main=true 3d=true
+TAKE_OK tower3dB
+TAKES 2/2 ok
+STATE shot 0 take tower3dB window 1.00-3.20s hero_moves 13 min 3 OK
+STATE shot 1 take tower3d window 0.50-2.50s hero_moves 16 min 3 OK
+STATE shot 2 take tower3dB window 3.40-5.40s hero_moves 12 min 3 OK
+STATE shot 3 take tower3d window 2.70-4.90s hero_moves 19 min 3 OK
+STATE shot 4 take tower3dB window 5.60-7.80s hero_moves 12 min 3 OK
+STATE shot 5 take tower3d window 5.10-7.30s hero_moves 15 min 3 OK
+STATE shot 6 take tower3d window 7.50-9.70s hero_moves 18 min 3 OK
+STATE_TAKE tower3d state_changes 100 hero_moves 79 keys_sent 100 retries 0 floor_max 6 kills 18
+STATE_TAKE tower3dB state_changes 68 hero_moves 54 keys_sent 68 retries 0 floor_max 4 kills 12
 STATE_OK
 TEXT shot 0 top line 0 fs=62 y=260-322 'AN AI CODED THIS'
 TEXT shot 0 top line 1 fs=62 y=340-402 'TOWER GAME. WATCH.'
-SHOT 0 TAKE tower3dB SS 7.628 DUR 2.2 FRAMES 66
-SHOT 1 TAKE tower3d SS 5.039 DUR 2.0 FRAMES 60
-SHOT 2 TAKE tower3dB SS 4.828 DUR 2.0 FRAMES 60
-SHOT 3 TAKE tower3d SS 7.439 DUR 2.2 FRAMES 66
-SHOT 4 TAKE tower3dB SS 10.228 DUR 2.2 FRAMES 66
-SHOT 5 TAKE tower3d SS 10.039 DUR 2.2 FRAMES 66
+SHOT 0 TAKE tower3dB SRC out/raw/tower3dB.mp4 SS 1.000 DUR 2.2 FRAMES 66
+SHOT 1 TAKE tower3d SRC out/raw/tower3d.mp4 SS 0.500 DUR 2.0 FRAMES 60
+SHOT 2 TAKE tower3dB SRC out/raw/tower3dB.mp4 SS 3.400 DUR 2.0 FRAMES 60
+SHOT 3 TAKE tower3d SRC out/raw/tower3d.mp4 SS 2.700 DUR 2.2 FRAMES 66
+SHOT 4 TAKE tower3dB SRC out/raw/tower3dB.mp4 SS 5.600 DUR 2.2 FRAMES 66
+SHOT 5 TAKE tower3d SRC out/raw/tower3d.mp4 SS 5.100 DUR 2.2 FRAMES 66
 TEXT shot 6 bottom line 0 fs=48 y=1286-1334 'AI-WRITTEN CODE.'
 TEXT shot 6 bottom line 1 fs=48 y=1348-1396 'EARLY BUILD. FOLLOW IT.'
-SHOT 6 TAKE tower3d SS 12.639 DUR 2.2 FRAMES 66
+SHOT 6 TAKE tower3d SRC out/raw/tower3d.mp4 SS 7.500 DUR 2.2 FRAMES 66
 FOOTAGE live=7 fallback=0 of 7 shots
-CUT OK docs/whatif2v.mp4 FRAMES 450 BYTES 2088032
-PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=2088032
-WF_PROBE OK 1080,1920 15.000000 2088032
+CUT OK docs/whatif2v.mp4 FRAMES 450 BYTES 3160356
+PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=3160356
+WF_PROBE OK 1080,1920 15.000000 3160356
 MOTION_FILE docs/whatif2v.mp4
 MOTION_FRAMES 450
 MOTION_CUTS_EXCLUDED [66, 126, 186, 252, 318, 384]
-MOTION_MEAN 0.820
-MOTION_P10 0.001
-MOTION_MIN_1S 0.368 (window starting 7.70s)
-FIRST_SECOND_MOTION 0.732
+MOTION_MEAN 3.356
+MOTION_P10 1.827
+MOTION_MIN_1S 2.581 (window starting 3.23s)
+FIRST_SECOND_MOTION 3.626
 FROZEN_RUNS 0
-PER_SHOT_MOTION 0 tower3dB 0.00-2.20s 0.670
-PER_SHOT_MOTION 1 tower3d 2.20-4.20s 0.893
-PER_SHOT_MOTION 2 tower3dB 4.20-6.20s 0.971
-PER_SHOT_MOTION 3 tower3d 6.20-8.40s 0.724
-PER_SHOT_MOTION 4 tower3dB 8.40-10.60s 1.044
-PER_SHOT_MOTION 5 tower3d 10.60-12.80s 0.650
-PER_SHOT_MOTION 6 tower3d 12.80-15.00s 0.806
+PER_SHOT_MOTION 0 tower3dB 0.00-2.20s 3.470
+PER_SHOT_MOTION 1 tower3d 2.20-4.20s 3.372
+PER_SHOT_MOTION 2 tower3dB 4.20-6.20s 3.553
+PER_SHOT_MOTION 3 tower3d 6.20-8.40s 3.550
+PER_SHOT_MOTION 4 tower3dB 8.40-10.60s 3.033
+PER_SHOT_MOTION 5 tower3d 10.60-12.80s 3.381
+PER_SHOT_MOTION 6 tower3d 12.80-15.00s 3.154
 FREEZEDETECT 0 freezes (0 lines)
 PER_SECOND_MOTION
-   0s   0.732 ##
-   1s   0.559 ##
-   2s   1.349 #####
-   3s   0.877 ###
-   4s   1.136 ####
-   5s   1.151 ####
-   6s   1.888 #######
-   7s   0.421 #
-   8s   1.007 ####
-   9s   0.803 ###
-  10s   1.834 #######
-  11s   0.619 ##
-  12s   1.014 ####
-  13s   0.538 ##
-  14s   1.027 ####
-MOTION_FAIL MOTION_MIN_1S 0.368 < 1.0; FIRST_SECOND_MOTION 0.732 < 1.0
-GATES probe=success motion=failure state=success
+   0s   3.626 ##############
+   1s   3.346 #############
+   2s   3.830 ###############
+   3s   3.532 ##############
+   4s   4.529 ##################
+   5s   2.763 ###########
+   6s   4.093 ################
+   7s   3.283 #############
+   8s   3.699 ##############
+   9s   2.666 ##########
+  10s   3.335 #############
+  11s   3.258 #############
+  12s   3.649 ##############
+  13s   2.994 ###########
+  14s   3.334 #############
+MOTION_NOTE pixel motion only; it does not prove game footage. See SHOT/FOOTAGE lines.
+MOTION_OK
+GATES probe=success motion=success state=success
