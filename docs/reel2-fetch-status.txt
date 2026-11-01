@@ -1,0 +1,1 @@
+status=DOWNLOAD_FAILED utc=2026-11-01T02:17:24Z run=41264556327 src_run=41263696548 err=error fetching artifacts: HTTP 403: Resource not accessible by personal access token (https://api.github.com/repos/DerpfaceJr/cat-town/actions/runs/41263696548/artifacts?per_page=100) 
