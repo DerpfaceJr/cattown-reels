@@ -1,4 +1,8 @@
 # live-reel v6 - capture live game footage frame by frame, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
+# clowderA-staging: a separate 'clowder' job records the Cat Town intro cinematic (live/cinema.mjs on a virtual clock),
+# assembles it with live/assemble.py (measured backed plates + code-made chiptune), probes it, runs motion.py, and
+# live/gates.py writes docs/clowderA-gates.json. A failed run deletes docs/clowderA.mp4 from the branch.
+# The whatif 'render' job is unchanged except that it does not run for clowderA.
 name: live-reel
 
 on:
@@ -8,9 +12,9 @@ on:
         description: Reel to render
         required: true
         type: choice
-        options: [whatif2v, whatif6v, whatif7v]
+        options: [whatif2v, whatif6v, whatif7v, clowderA]
   push:
-    branches: [whatif2v-staging, whatif6v-staging, whatif7v-staging]
+    branches: [whatif2v-staging, whatif6v-staging, whatif7v-staging, clowderA-staging]
 
 permissions:
   contents: write
@@ -25,6 +29,7 @@ defaults:
 
 jobs:
   render:
+    if: ${{ !((github.event_name == 'push' && github.ref_name == 'clowderA-staging') || inputs.reel == 'clowderA') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -133,4 +138,170 @@ jobs:
             echo "### $R  (probe: $PROBE, motion: $MOTION, state: $STATE)"
             echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
             [ "$PASS" = yes ] && echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # ---------------- clowderA: Cat Town intro cinematic (@clowderai Reel A 'Opening night') ----------------
+  clowder:
+    if: ${{ (github.event_name == 'push' && github.ref_name == 'clowderA-staging') || inputs.reel == 'clowderA' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      R: clowderA
+      APP_URL: http://localhost:3000/
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Start log
+        run: |
+          mkdir -p docs
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=clowderA-v1(cinema+assemble+gates)" | tee "docs/$R-log.txt"
+
+      - name: Check secret
+        id: secret
+        env:
+          TOKEN: ${{ secrets.CAT_TOWN_READ }}
+        run: |
+          if [ -z "$TOKEN" ]; then echo "APP_FAIL MISSING_SECRET CAT_TOWN_READ" | tee -a "docs/$R-log.txt"; exit 1; fi
+          echo "APP secret CAT_TOWN_READ present" | tee -a "docs/$R-log.txt"
+
+      - name: Install tools
+        id: tools
+        run: |
+          set -o pipefail
+          npm i playwright@1.48 --no-save
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-dejavu-core jq python3-pil
+          ffmpeg -version | head -n1 | tee -a "docs/$R-log.txt"
+          node --version | tee -a "docs/$R-log.txt"
+
+      - name: Checkout cat-town app
+        id: appco
+        uses: actions/checkout@v4
+        with:
+          repository: DerpfaceJr/cat-town
+          ref: main
+          token: ${{ secrets.CAT_TOWN_READ }}
+          path: app
+          persist-credentials: false
+
+      - name: Start app (DEMO_MODE=1 on :3000)
+        id: app
+        working-directory: app
+        env:
+          DEMO_MODE: '1'
+          PORT: '3000'
+        run: |
+          set -o pipefail
+          echo "APP cat-town main $(git rev-parse HEAD)" | tee -a "../docs/$R-log.txt"
+          npm ci 2>&1 | tail -n 5 | tee -a "../docs/$R-log.txt"
+          nohup npm start > ../app.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -sf -o /dev/null "$APP_URL"; then echo "APP UP after $((i*2)) s" | tee -a "../docs/$R-log.txt"; exit 0; fi
+            sleep 2
+          done
+          echo "APP_FAIL did not start at $APP_URL" | tee -a "../docs/$R-log.txt"
+          tail -n 40 ../app.log
+          exit 1
+
+      - name: Record intro (cinema.mjs)
+        id: record
+        run: |
+          set -o pipefail
+          node live/cinema.mjs "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+
+      - name: Assemble reel (plates + chiptune)
+        id: cut
+        if: always() && steps.record.outcome == 'success'
+        run: |
+          set -o pipefail
+          python3 live/assemble.py "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+
+      - name: Probe
+        id: probe
+        if: always() && steps.cut.outcome == 'success'
+        run: |
+          set -o pipefail
+          python3 live/assemble.py "live/reels/$R.json" --probe 2>&1 | tee -a "docs/$R-log.txt"
+
+      - name: Motion check
+        id: motion
+        if: always() && steps.cut.outcome == 'success'
+        run: |
+          set -o pipefail
+          python3 live/motion.py "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+
+      - name: Upload docs + app log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-reel-clowderA-${{ github.run_id }}
+          path: |
+            docs
+            app.log
+          if-no-files-found: warn
+
+      # Always commit log + status + gates json. Commit the mp4 only when every gate passed AND it is a new blob.
+      # On any failure, delete docs/clowderA.mp4 from the branch so a stale file can never pass for a new render.
+      - name: Commit render
+        if: always()
+        env:
+          STEPS: secret,tools,checkout,app,record,cut,probe,motion
+          O_SECRET: ${{ steps.secret.outcome }}
+          O_TOOLS: ${{ steps.tools.outcome }}
+          O_CHECKOUT: ${{ steps.appco.outcome }}
+          O_APP: ${{ steps.app.outcome }}
+          O_RECORD: ${{ steps.record.outcome }}
+          O_CUT: ${{ steps.cut.outcome }}
+          O_PROBE: ${{ steps.probe.outcome }}
+          O_MOTION: ${{ steps.motion.outcome }}
+          RUN_ID: ${{ github.run_id }}
+          KIT_SHA: ${{ github.sha }}
+        run: |
+          set -o pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -- live/reels 2>/dev/null || true
+          tail -n 200 app.log > "docs/$R-app-log.txt" 2>/dev/null || true
+          PASS=yes
+          for s in "$O_SECRET" "$O_TOOLS" "$O_CHECKOUT" "$O_APP" "$O_RECORD" "$O_CUT" "$O_PROBE" "$O_MOTION"; do [ "$s" = success ] || PASS=no; done
+          [ -f "docs/$R.mp4" ] || PASS=no
+          OLD_BLOB=$(git rev-parse -q --verify "HEAD:docs/$R.mp4" 2>/dev/null || true)
+          NEW_BLOB=""
+          if [ "$PASS" = yes ]; then NEW_BLOB=$(git hash-object "docs/$R.mp4"); fi
+          export PASS OLD_BLOB NEW_BLOB
+          python3 live/gates.py "$R" 2>&1 | tee -a "docs/$R-log.txt" || echo "GATES_SCRIPT_ERROR gates.py failed" | tee -a "docs/$R-log.txt"
+          python3 live/assemble.py "live/reels/$R.json" --gatelines 2>&1 | tee -a "docs/$R-log.txt" || true
+          ADD_MP4=no
+          if [ "$PASS" = yes ] && [ "$NEW_BLOB" != "$OLD_BLOB" ]; then
+            ADD_MP4=yes
+            echo "MP4_COMMIT new blob $NEW_BLOB (previous ${OLD_BLOB:-none})" | tee -a "docs/$R-log.txt"
+          elif [ "$PASS" = yes ]; then
+            echo "MP4_UNCHANGED gates passed but the mp4 blob equals HEAD ($NEW_BLOB); not a new render" | tee -a "docs/$R-log.txt"
+          else
+            echo "mp4 NOT committed (gates failed); stale docs/$R.mp4 removed from the branch" | tee -a "docs/$R-log.txt"
+          fi
+          git add "docs/$R-log.txt"
+          for f in status.json gates.json rec.json app-log.txt; do git add "docs/$R-$f" 2>/dev/null || true; done
+          if [ "$ADD_MP4" = yes ]; then
+            git add "docs/$R.mp4"
+          elif [ "$PASS" != yes ]; then
+            git rm -q -f --ignore-unmatch "docs/$R.mp4" || true
+            rm -f "docs/$R.mp4"
+          fi
+          git commit -m "Render $R (Cat Town intro, frame-by-frame) [skip ci]" || { echo "nothing to commit"; exit 0; }
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          SHA=$(git rev-parse HEAD)
+          echo "COMMIT $SHA"
+          {
+            echo "### $R  (pass: $PASS)"
+            grep -m1 '^GATES ' "docs/$R-log.txt" || true
+            echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
+            echo "- gates: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-gates.json"
+            if [ "$ADD_MP4" = yes ]; then echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"; fi
           } >> "$GITHUB_STEP_SUMMARY"
