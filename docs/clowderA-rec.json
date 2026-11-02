@@ -54,13 +54,11 @@
   "camEvents": 2,
   "introGone": null,
   "skipFrames": 0,
-  "setupFrames": 407,
+  "setupFrames": 0,
   "framesWritten": 450,
   "http403": 0,
   "urls403": [],
   "reloads": 0,
   "pageErrors": [],
-  "fails": [
-    "SETUP_WINDOW"
-  ]
+  "fails": []
 }
