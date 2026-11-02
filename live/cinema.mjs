@@ -147,7 +147,7 @@ function probeFn(setupRe) {
   let setup = false;
   if (setupRe) {
     const re = new RegExp(setupRe, 'i');
-    // GUESS: the 'Set up Clowder' window (town memory, round 19 lesson) is a visible dialog/modal whose text matches setupRe
+    // Verified: 'Set up Clowder' is <dialog class="setup-hub"> opened via showModal (cat-town public/setup-hub.js); this probe counts any visible dialog whose text matches setupRe.
     for (const d of document.querySelectorAll('dialog[open],[role="dialog"],[aria-modal="true"],.modal')) {
       if (d.closest('.intro-cinema')) continue;
       if (d.getClientRects().length && re.test(d.textContent || '')) { setup = true; break; }
@@ -170,6 +170,9 @@ const browser = await chromium.launch({ args: R.chromiumArgs });
 // Fresh context: no storageState, so storage starts empty. reducedMotion deliberately NOT set (flight mode, not cards).
 const context = await browser.newContext({ viewport: R.viewport, deviceScaleFactor: R.deviceScaleFactor, serviceWorkers: 'block' });
 await context.addInitScript(installClock, { startIso: R.clock.startIso, syncCss: R.syncCssAnimations !== false, hideCss: R.hideCss });
+// Pre-seed the app's own flag so 'Set up Clowder' never auto-opens (cat-town public/setup-hub.js: SEEN_KEY 'clowder.setup.seen'; autoOpenOnce returns early when it is set). Storage is otherwise fresh; no input of any kind.
+await context.addInitScript((k) => { try { localStorage.setItem(k, '1'); } catch {} }, R.setupSeenKey ?? 'clowder.setup.seen');
+console.log(`SETUP_SEED key=${R.setupSeenKey ?? 'clowder.setup.seen'}`);
 const page = await context.newPage();
 
 let n403 = 0; const urls403 = [];
