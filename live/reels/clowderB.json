@@ -7,7 +7,7 @@
     "url": "http://localhost:3000/"
   },
   "recorder": {
-    "script": "live/scene.mjs",
+    "script": "live/scene-b.mjs",
     "fps": 30,
     "frames": 360,
     "framesDir": "frames/clowderB",
@@ -36,7 +36,7 @@
       { "atMs": 0, "type": "click", "selector": "#reset-view", "why": "frame the whole town after the intro" },
       { "atMs": 400, "type": "api", "method": "POST", "path": "/api/chat", "required": true, "body": { "cat": "mayor", "text": "Throw a welcome party for a new cat", "mode": "demo", "goal": true } }
     ],
-    "inputNote": "Chat box selectors were not read, so the goal is sent by a scripted request (logged as API). One scripted click (#reset-view) is logged as CLICK. Demo mode uses canned outputs and makes no model calls (cat-town README)."
+    "inputNote": "Chat box selectors were not read, so the goal is sent by a scripted request (logged as API) with header x-town-action: owner, which cat-town src/access.ts requires for local owner writes. One scripted click (#reset-view) is logged as CLICK. Demo mode uses canned outputs and makes no model calls (cat-town README)."
   },
   "edit": {
     "pushIn": [
