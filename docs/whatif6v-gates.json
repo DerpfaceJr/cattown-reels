@@ -1,0 +1,248 @@
+{
+ "GATES": "GATES pass=no failing_step=motion run=41424270273 kit=2ee885ad probe=None dur=None motion_min_1s=0.714 first_s=2.791 frozen_runs=0 gate3d=OK state=OK deaths_on_screen=7 textbox_max_x=935 textbox_safe=True audio=chiptune mp4=none",
+ "pass": false,
+ "failing_step": "motion",
+ "step_outcomes": {
+  "record": "success",
+  "shots": "success",
+  "state": "success",
+  "cut": "success",
+  "probe": "success",
+  "motion": "failure"
+ },
+ "run_id": "41424270273",
+ "kit_sha": "2ee885ad4e7e7bc34cd9af1d125a865c957c2844",
+ "mp4": null,
+ "mp4_note": "no new mp4: gates failed, any old docs/whatif6v.mp4 was deleted",
+ "wf_probe": {
+  "line": "WF_PROBE OK 1080,1920 15.000000 2730324",
+  "dims": null,
+  "duration_s": null
+ },
+ "motion": {
+  "verdict": "MOTION_FAIL MOTION_MIN_1S 0.714 < 1.0",
+  "min_1s": 0.714,
+  "min_1s_at": 12.27,
+  "first_second": 2.791,
+  "frozen_runs": 0.0,
+  "frozen": [],
+  "freezedetect": "FREEZEDETECT 0 freezes (0 lines)",
+  "per_shot": [
+   "PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.452",
+   "PER_SHOT_MOTION 1 dieB 2.20-4.30s 1.909",
+   "PER_SHOT_MOTION 2 dieA 4.30-6.40s 1.999",
+   "PER_SHOT_MOTION 3 dieB 6.40-8.60s 2.844",
+   "PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.314",
+   "PER_SHOT_MOTION 5 dieB 10.70-12.80s 2.666",
+   "PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.032"
+  ],
+  "per_second": [
+   [
+    0,
+    2.791
+   ],
+   [
+    1,
+    2.42
+   ],
+   [
+    2,
+    3.147
+   ],
+   [
+    3,
+    1.744
+   ],
+   [
+    4,
+    2.598
+   ],
+   [
+    5,
+    2.027
+   ],
+   [
+    6,
+    2.439
+   ],
+   [
+    7,
+    3.971
+   ],
+   [
+    8,
+    1.742
+   ],
+   [
+    9,
+    2.888
+   ],
+   [
+    10,
+    1.794
+   ],
+   [
+    11,
+    4.059
+   ],
+   [
+    12,
+    1.76
+   ],
+   [
+    13,
+    2.558
+   ],
+   [
+    14,
+    1.722
+   ]
+  ]
+ },
+ "gate3d": {
+  "verdict": "OK",
+  "lines": [
+   "GATE3D takes=2 non_3d_urls=0 url=OK onscreen_text=OK caption_line1=OK",
+   "GATE3D OK"
+  ]
+ },
+ "state": "OK",
+ "deaths_on_screen": {
+  "n": 7.0,
+  "line": "DEATHS_ON_SCREEN 7 min 2 OK"
+ },
+ "textbox": {
+  "max_x": 935,
+  "all_safe": true,
+  "boxes": [
+   {
+    "x0": 151,
+    "y0": 242,
+    "x1": 929,
+    "y1": 355,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 0 top line 0 151,242,929,355 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<="
+   },
+   {
+    "x0": 178,
+    "y0": 355,
+    "x1": 902,
+    "y1": 468,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 0 top line 1 178,355,902,468 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<="
+   },
+   {
+    "x0": 386,
+    "y0": 480,
+    "x1": 694,
+    "y1": 582,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 0 counter line 0 386,480,694,582 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 1 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 2 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 3 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 4 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 5 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 6 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 145,
+    "y0": 1208,
+    "x1": 935,
+    "y1": 1300,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 6 bottom line 0 145,1208,935,1300 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220"
+   },
+   {
+    "x0": 171,
+    "y0": 1300,
+    "x1": 909,
+    "y1": 1392,
+    "safe": "OK",
+    "line": "TEXTBOX whatif6v shot 6 bottom line 1 171,1300,909,1392 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220"
+   }
+  ]
+ },
+ "audio": {
+  "value": "chiptune",
+  "line": "AUDIO=chiptune (square-wave loop synthesized by ffmpeg aevalsrc in cut.sh; no third-party music, no game audio)"
+ },
+ "footage": "FOOTAGE live=7 fallback=0 of 7 shots",
+ "errors": [
+  "MOTION_FAIL MOTION_MIN_1S 0.714 < 1.0"
+ ],
+ "log_tail": [
+  "MOTION_MEAN 2.319",
+  "MOTION_P10 0.668",
+  "MOTION_MIN_1S 0.714 (window starting 12.27s)",
+  "FIRST_SECOND_MOTION 2.791",
+  "FROZEN_RUNS 0",
+  "PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.452",
+  "PER_SHOT_MOTION 1 dieB 2.20-4.30s 1.909",
+  "PER_SHOT_MOTION 2 dieA 4.30-6.40s 1.999",
+  "PER_SHOT_MOTION 3 dieB 6.40-8.60s 2.844",
+  "PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.314",
+  "PER_SHOT_MOTION 5 dieB 10.70-12.80s 2.666",
+  "PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.032",
+  "FREEZEDETECT 0 freezes (0 lines)",
+  "PER_SECOND_MOTION",
+  "   0s   2.791 ###########",
+  "   1s   2.420 #########",
+  "   2s   3.147 ############",
+  "   3s   1.744 ######",
+  "   4s   2.598 ##########",
+  "   5s   2.027 ########",
+  "   6s   2.439 #########",
+  "   7s   3.971 ###############",
+  "   8s   1.742 ######",
+  "   9s   2.888 ###########",
+  "  10s   1.794 #######",
+  "  11s   4.059 ################",
+  "  12s   1.760 #######",
+  "  13s   2.558 ##########",
+  "  14s   1.722 ######",
+  "MOTION_FAIL MOTION_MIN_1S 0.714 < 1.0"
+ ]
+}
