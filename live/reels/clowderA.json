@@ -52,11 +52,12 @@
     "rules": "Every plate is drawn on a backed box. The cut step measures each rendered box and logs TEXTBOX clowderA <label> x0,y0,x1,y1; fail if x1>900, y0<230 or y1>420. Plates are overlaid after the push-in, so they do not zoom."
   },
   "audio": {
-    "mode": "chiptune",
+    "mode": "cat-town-music-port",
     "source": "code",
     "thirdPartyMusic": false,
-    "ffmpeg": "aevalsrc=exprs='0.10*sgn(sin(2*PI*t*(220*pow(2,floor(mod(t*4,8))/12))))*exp(-6*mod(t,0.25))+0.05*sgn(sin(2*PI*t*110*pow(2,floor(mod(t,4))/12)))':s=44100:d=15,afade=t=in:d=0.3,afade=t=out:st=14.2:d=0.8",
-    "logLine": "AUDIO=chiptune(aevalsrc)"
+    "port": "Port of DerpfaceJr/cat-town@42a7ab15 public/audio.js class Music (town track). Same material: BPM 64, BEATS_PER_CHORD 8 (7.5 s per chord), PADS I [48,52,55,59] for 0-7.5 s then vi [45,48,52,55] for 7.5-15 s with ~0.9 s release on the changing note, MELODY C-major pentatonic, no melody on beats 0 and 4 of a chord, a fixed stepwise walk written to the app's rules (7 notes, 5 rests of 12 slots ~42%), velocities 0.12-0.16, notes decaying over ~0.4 s. Nature layer: two bursts of 3 short rising sine chirps (base->base*1.3 over 0.09 s, peak 0.035), as in the app. Oscillator types of the app's pads/melody were not read; pads use sine plus a quiet 2nd partial so they carry on phone speakers. The melody walk is hand-written to the rules, not output of the app's createRng. loudnorm -16 LUFS so it is audible on a phone; fade in 0.6 s, fade out 13.5-15 s.",
+    "ffmpeg": "aevalsrc=exprs='0.05*(sin(2*PI*130.81*t)+0.3*sin(2*PI*261.63*t)+sin(2*PI*164.81*t)+0.3*sin(2*PI*329.63*t)+sin(2*PI*196.00*t)+0.3*sin(2*PI*392.00*t)+(sin(2*PI*246.94*t)+0.3*sin(2*PI*493.88*t))*if(lt(t,7.5),1,max(0,1-(t-7.5)/0.9))+(sin(2*PI*110.00*t)+0.3*sin(2*PI*220.00*t))*if(gte(t,7.5),min(1,(t-7.5)/0.8),0))+0.14*between(t,0.9375,1.5375)*min(1,(t-0.9375)/0.02)*exp(-5*(t-0.9375))*sin(2*PI*659.26*t)+0.12*between(t,1.875,2.475)*min(1,(t-1.875)/0.02)*exp(-5*(t-1.875))*sin(2*PI*783.99*t)+0.16*between(t,4.6875,5.2875)*min(1,(t-4.6875)/0.02)*exp(-5*(t-4.6875))*sin(2*PI*880.00*t)+0.12*between(t,5.625,6.225)*min(1,(t-5.625)/0.02)*exp(-5*(t-5.625))*sin(2*PI*783.99*t)+0.15*between(t,8.4375,9.0375)*min(1,(t-8.4375)/0.02)*exp(-5*(t-8.4375))*sin(2*PI*659.26*t)+0.12*between(t,10.3125,10.9125)*min(1,(t-10.3125)/0.02)*exp(-5*(t-10.3125))*sin(2*PI*587.33*t)+0.13*between(t,12.1875,12.7875)*min(1,(t-12.1875)/0.02)*exp(-5*(t-12.1875))*sin(2*PI*523.25*t)+0.035*between(t,3.0,3.09)*sin(PI*(t-3.0)/0.09)*sin(2*PI*2800*((t-3.0)+1.6667*(t-3.0)*(t-3.0)))+0.035*between(t,3.16,3.25)*sin(PI*(t-3.16)/0.09)*sin(2*PI*2800*((t-3.16)+1.6667*(t-3.16)*(t-3.16)))+0.035*between(t,3.31,3.40)*sin(PI*(t-3.31)/0.09)*sin(2*PI*2800*((t-3.31)+1.6667*(t-3.31)*(t-3.31)))+0.035*between(t,10.9,10.99)*sin(PI*(t-10.9)/0.09)*sin(2*PI*3100*((t-10.9)+1.6667*(t-10.9)*(t-10.9)))+0.035*between(t,11.05,11.14)*sin(PI*(t-11.05)/0.09)*sin(2*PI*3100*((t-11.05)+1.6667*(t-11.05)*(t-11.05)))+0.035*between(t,11.22,11.31)*sin(PI*(t-11.22)/0.09)*sin(2*PI*3100*((t-11.22)+1.6667*(t-11.22)*(t-11.22)))':s=44100:d=15,loudnorm=I=-16:TP=-1.5:LRA=11,aresample=44100,afade=t=in:d=0.6,afade=t=out:st=13.5:d=1.5",
+    "logLine": "AUDIO src=cat-town public/audio.js Music (ported)"
   },
   "gates": {
     "http403Max": 0,
@@ -75,5 +76,5 @@
     "status": "docs/clowderA-status.json",
     "gates": "docs/clowderA-gates.json"
   },
-  "caption": "Founding a town of AI cats 🐾\n\nA new town opens: the Mayor flies in, says hello, asks what the town should do, then shows you around.\n\nLive capture of the Cat Town app's own intro, recorded frame by frame on a controlled clock. The recorder sends no inputs; the camera moves are the app's built-in cinematic. Parts of the intro are sped up or slowed to fit 15 s, and a few still moments get a slow zoom in the edit. Made with AI and code.\n\n#aiagents #indiedev #buildinpublic"
+  "caption": "Founding a town of AI cats 🐾\n\nA new town opens: the Mayor flies in, says hello, asks what the town should do, then shows you around.\n\nLive capture of the Cat Town app's own intro, recorded frame by frame on a controlled clock. The recorder sends no inputs; the camera moves are the app's built-in cinematic. Parts of the intro are sped up or slowed to fit 15 s, and a few still moments get a slow zoom in the edit. The music is the app's own generated music, rebuilt in code for this edit. Made with AI and code.\n\n#aiagents #indiedev #buildinpublic"
 }
