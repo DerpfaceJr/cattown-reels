@@ -1,0 +1,5 @@
+
+> clowder@0.1.0 start
+> tsx src/server.ts
+
+Cat Town: http://127.0.0.1:3000

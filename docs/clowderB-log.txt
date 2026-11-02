@@ -1,0 +1,38 @@
+RUN_ID=41497497422 REEL=clowderB REF=clowderB-staging SHA=ac41854b73d014931d14988644d0a65a2978cee6 KIT=clowder-v2(recorder-from-config+assemble+gates+gates_audio)
+APP secret CAT_TOWN_READ present
+ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
+v20.20.2
+APP cat-town main 42a7ab15049e8e9b2461fa6b65b77bff09de7565
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+APP UP after 4 s
+RECORDER live/scene.mjs
+PLAN scene_ms=12000 frames=360 out_ms=12000 steps=goal:4000,handoff:4000,work:4000
+FRAME_NAME frame_%05d.png from=config
+SERVER status=200 url=http://localhost:3000/
+SETUP_SEED key=clowder.setup.seen
+NETWORK_IDLE timeout (continuing)
+PREROLL virtual_ms=21100 real_ms=430279 intro=played_and_closed (not captured, no input)
+CLICK #reset-view frame=0 ok=no err=page.click: Element is not visible
+STEP goal frame=0 t=0.00s
+API POST /api/chat frame=12 body={"cat":"mayor","text":"Throw a welcome party for a new cat","mode":"demo","goal":true}
+API_STATUS /api/chat status=403
+STEP handoff frame=120 t=4.00s
+STEP work frame=240 t=8.00s
+FRAMES_WRITTEN n=360 of 360
+INTRO_IN_CAPTURE frames=0
+SETUP_DIALOG frames=0
+INPUT clicks=1 api=1
+HTTP_403 n=0
+RELOAD n=0
+PAGE_ERRORS n=0
+RESULT pass=no failing=API /api/chat
+WF_PROBE_PARSED dims=None dur=None vcodec=None acodec=None line=None
+GATES pass=no failing_step=record run=41497497422 kit=ac41854b probe=None dur=None vcodec=None acodec=None motion_min_1s=None first_s=None frozen_runs=None http403=seen cinematic=not_run reload=seen cam_events=not_run linecount=not_run gate3d=n/a state=not_run deaths_on_screen=None textbox_max_x=None textbox_safe=None audio=None mp4=none
+GATES_JSON docs/clowderB-gates.json and docs/clowderB-status.json
+GATES_AUDIO missing: no audio line in the log; audio field left as is
+GATELINES n=18
+mp4 NOT committed (gates failed); stale docs/clowderB.mp4 removed from the branch

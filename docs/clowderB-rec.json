@@ -1,0 +1,63 @@
+{
+  "reel": "clowderB",
+  "url": "http://localhost:3000/",
+  "frames": 360,
+  "fps": 30,
+  "recorder": "scene.mjs",
+  "plan": {
+    "steps": [
+      {
+        "name": "goal",
+        "ms": 4000,
+        "speed": 1
+      },
+      {
+        "name": "handoff",
+        "ms": 4000,
+        "speed": 1
+      },
+      {
+        "name": "work",
+        "ms": 4000,
+        "speed": 1
+      }
+    ]
+  },
+  "preRoll": {
+    "virtualMs": 21100,
+    "intro": "played_and_closed"
+  },
+  "clicks": [
+    {
+      "frame": 0,
+      "selector": "#reset-view",
+      "ok": false
+    }
+  ],
+  "api": [
+    {
+      "frame": 12,
+      "method": "POST",
+      "path": "/api/chat",
+      "body": {
+        "cat": "mayor",
+        "text": "Throw a welcome party for a new cat",
+        "mode": "demo",
+        "goal": true
+      },
+      "status": 403,
+      "bytes": 45,
+      "required": true
+    }
+  ],
+  "introFrames": 0,
+  "setupFrames": 0,
+  "framesWritten": 360,
+  "http403": 0,
+  "urls403": [],
+  "reloads": 0,
+  "pageErrors": [],
+  "fails": [
+    "API /api/chat"
+  ]
+}
