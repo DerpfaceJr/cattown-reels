@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """assemble.py - clowderA (Cat Town intro) frames -> docs/clowderA.mp4, plus probe and gate-line helpers.
 
-usage: python3 live/assemble.py live/reels/clowderA.json              # cut: measured plates + chiptune + encode
+usage: python3 live/assemble.py live/reels/clowderA.json              # cut: push-in edit + measured plates + chiptune + encode
        python3 live/assemble.py live/reels/clowderA.json --probe      # WF_PROBE line, exit 1 on any spec miss
        python3 live/assemble.py live/reels/clowderA.json --gatelines  # copy recorder log lines into gates/status json
 Encode settings are the ones cut.sh uses (libx264 high crf 20 preset medium yuv420p, aac 128k stereo, faststart).
 cut.sh itself is not reused: it cuts .shots out of recorded takes, and this reel is one continuous frame sequence.
 Plates are drawn with Pillow onto full-frame transparent PNGs, so each TEXTBOX line is the exact box that is drawn.
 Plate x,y = top-left of the backed box; text is inset by pad. Fail if x0<0, x1>xMax, y0<yMin or y1>yMax.
+Optional cfg["edit"]["pushIn"]: a slow centred zoom on the REAL recorded frames during named held steps (see push_in).
 """
 import glob
 import json
 import math
 import os
 import re
+import shutil
 import subprocess
 import sys
 
@@ -70,7 +72,7 @@ def gatelines():
     log = f"docs/{R}-log.txt"
     keys = ("SERVER", "PLAN", "PREROLL", "INTRO_PLAYED", "STEP ", "CINEMATIC", "INTRO_END", "INTRO_DRIFT",
             "CAM_EVENTS", "HTTP_403", "RELOAD", "PAGE_ERRORS", "FRAMES", "RESULT", "SKIP", "SETUP", "NETWORK_IDLE",
-            "TEXTBOX", "AUDIO", "WF_PROBE", "APP", "CUT")
+            "TEXTBOX", "AUDIO", "WF_PROBE", "APP", "CUT", "PUSHIN", "FOOTAGE")
     lines = []
     if os.path.exists(log):
         lines = [l[:240] for l in open(log, encoding="utf-8", errors="replace").read().splitlines() if l.startswith(keys)]
@@ -92,6 +94,69 @@ def rgba(c):
     return base + (round(255 * float(a or 1)),)
 
 
+def step_spans(rc):
+    """Output-time span (s) of each recorder step. Frame 0 = intro mount (t0), as in cinema.mjs."""
+    spans, t = {}, 0.0
+    for s in rc["steps"]:
+        d = float(s["ms"]) / float(s["speed"]) / 1000.0
+        spans[s["name"]] = (t, t + d)
+        t += d
+    return spans
+
+
+def push_in(frames, rc):
+    """Slow centred push-in on the REAL recorded frames, only inside the held steps listed in cfg["edit"]["pushIn"].
+    This is ordinary editing of live footage (a digital crop + resize, i.e. a Ken Burns style zoom). No pixels are
+    generated and nothing is added that the app did not render. Outside those spans frames are copied unchanged.
+    The zoom is linear (constant speed) inside a span; on the next step's first frame it is back to 1.0, which reads
+    as a cut at the step boundary. Returns the list of frames to encode, or None on a config error."""
+    from PIL import Image
+    ed = (cfg.get("edit") or {}).get("pushIn") or []
+    if not ed:
+        print("PUSHIN none")
+        return frames
+    spans = step_spans(rc)
+    zoom = [1.0] * len(frames)
+    for e in ed:
+        names = e["steps"]
+        missing = [n for n in names if n not in spans]
+        if missing:
+            print(f"CUT_FAIL pushIn unknown step(s) {missing}")
+            return None
+        a_t = min(spans[n][0] for n in names)
+        b_t = max(spans[n][1] for n in names)
+        a, b = round(a_t * FPS), min(len(frames), round(b_t * FPS))
+        z1 = float(e["zoomTo"])
+        if not (1.0 < z1 <= 1.35) or b - a < 2:
+            print(f"CUT_FAIL pushIn bad span or zoom {e}")
+            return None
+        for i in range(a, b):
+            zoom[i] = 1.0 + (z1 - 1.0) * (i - a) / (b - a - 1)
+        print(f"PUSHIN steps={'+'.join(names)} t={a_t:.3f}-{b_t:.3f}s frames={a}-{b - 1} zoom=1.000->{z1:.3f} "
+              f"linear centred (edit of live footage)")
+    out = "out/frames_edit"
+    os.makedirs(out, exist_ok=True)
+    for f in glob.glob(os.path.join(out, "*.png")):
+        os.remove(f)
+    res, edited = [], 0
+    for i, f in enumerate(frames):
+        dst = os.path.join(out, os.path.basename(f))
+        z = zoom[i]
+        if z == 1.0:
+            shutil.copyfile(f, dst)
+        else:
+            im = Image.open(f)
+            im.load()
+            w, h = im.size
+            cw, ch = w / z, h / z
+            box = ((w - cw) / 2, (h - ch) / 2, (w + cw) / 2, (h + ch) / 2)
+            im.resize((w, h), Image.LANCZOS, box=box).save(dst)
+            edited += 1
+        res.append(dst)
+    print(f"PUSHIN_FRAMES edited={edited} copied={len(frames) - edited} of {len(frames)}")
+    return res
+
+
 def cut():
     from PIL import Image, ImageDraw, ImageFont
     rc = cfg["recorder"]
@@ -104,6 +169,10 @@ def cut():
     if abs(need / FPS - DUR) > 0.05:
         print(f"CUT_FAIL frames/fps={need / FPS:.3f}s but probe durS={DUR}")
         return 1
+    edited = push_in(frames, rc)
+    if edited is None:
+        return 1
+    frames_dir = os.path.dirname(edited[0]) if edited else rc["framesDir"]
     T = cfg["text"]
     band = T["band"]
     font_path = "/usr/share/fonts/truetype/dejavu/" + T.get("font", "DejaVuSans-Bold.ttf")
@@ -149,7 +218,7 @@ def cut():
         print("CUT_FAIL audio must be code-made aevalsrc with thirdPartyMusic false")
         return 1
     cmd = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
-           "-framerate", str(FPS), "-pattern_type", "glob", "-i", os.path.join(rc["framesDir"], "*.png")]
+           "-framerate", str(FPS), "-pattern_type", "glob", "-i", os.path.join(frames_dir, "*.png")]
     for pl in plates:
         cmd += ["-i", pl["png"]]
     cmd += ["-f", "lavfi", "-i", af]
@@ -168,7 +237,7 @@ def cut():
         print("CUT_FAIL ffmpeg " + (r.stderr or "")[-600:].replace("\n", " | "))
         return 1
     print(f"{au.get('logLine', 'AUDIO=chiptune')} source=code third_party_music=no")
-    print("FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture)")
+    print("FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps only)")
     print(f"CUT OK {MP4} FRAMES {int(round(DUR * FPS))} BYTES {os.path.getsize(MP4)}")
     return 0
 
