@@ -1,5 +1,5 @@
 {
- "GATES": "GATES pass=yes failing_step=none run=41455638047 kit=31293b0f probe=1080x1920 dur=15.0 vcodec=h264 acodec=aac motion_min_1s=2.321 first_s=5.615 frozen_runs=0 http403=seen cinematic=seen reload=seen cam_events=seen linecount=not_run gate3d=n/a state=not_run deaths_on_screen=None textbox_max_x=777 textbox_safe=True audio=chiptune(aevalsrc) mp4=new:045ea3096b",
+ "GATES": "GATES pass=yes failing_step=none run=41491359039 kit=09f873dd probe=1080x1920 dur=15.0 vcodec=h264 acodec=aac motion_min_1s=2.321 first_s=5.616 frozen_runs=0 http403=seen cinematic=seen reload=seen cam_events=seen linecount=not_run gate3d=n/a state=not_run deaths_on_screen=None textbox_max_x=777 textbox_safe=True audio=None mp4=new:91459e6cf2",
  "gates": {
   "pass": true,
   "failing_step": null,
@@ -13,20 +13,20 @@
    "probe": "success",
    "motion": "success"
   },
-  "run_id": "41455638047",
-  "kit_sha": "31293b0f92c0fe7aac7aecfa3a9a97925b9b9153",
+  "run_id": "41491359039",
+  "kit_sha": "09f873dda0a551e121fbaf1b552457e9d6074544",
   "mp4": {
    "new": true,
-   "render_blob": "045ea3096bd474e270a7bcebb82cb0ba089e120b",
-   "previous_blob": "299ecd9802c1526db52e6c455317066c47f061a6",
-   "bytes": 8317937,
-   "sha256": "e7cdc27cbb40f1e69b5bb2df708578aa928dcd13528f493b473005e3f75c547f",
-   "run_id": "41455638047",
-   "kit_sha": "31293b0f92c0fe7aac7aecfa3a9a97925b9b9153"
+   "render_blob": "91459e6cf2f04424b1ff1be651ef953546486222",
+   "previous_blob": "045ea3096bd474e270a7bcebb82cb0ba089e120b",
+   "bytes": 8282118,
+   "sha256": "8da3c9d9bb83d11e65e40be5a1f357fb3d6dfdadeb1aa3cf6429327298e313d7",
+   "run_id": "41491359039",
+   "kit_sha": "09f873dda0a551e121fbaf1b552457e9d6074544"
   },
   "mp4_note": "new render committed",
   "wf_probe": {
-   "line": "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 8,317,937 bytes",
+   "line": "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 8,282,118 bytes",
    "dims": "1080x1920",
    "duration_s": 15.0,
    "vcodec": "h264",
@@ -36,7 +36,7 @@
    "verdict": "MOTION_OK",
    "min_1s": 2.321,
    "min_1s_at": 4.7,
-   "first_second": 5.615,
+   "first_second": 5.616,
    "frozen_runs": 0.0,
    "frozen": [],
    "freezedetect": "FREEZEDETECT 0 freezes (0 lines)",
@@ -44,19 +44,19 @@
    "per_second": [
     [
      0,
-     5.615
+     5.616
     ],
     [
      1,
-     4.211
+     4.209
     ],
     [
      2,
-     4.205
+     4.203
     ],
     [
      3,
-     4.422
+     4.42
     ],
     [
      4,
@@ -68,19 +68,19 @@
     ],
     [
      6,
-     3.028
+     3.029
     ],
     [
      7,
-     8.465
+     8.466
     ],
     [
      8,
-     9.844
+     9.843
     ],
     [
      9,
-     7.462
+     7.463
     ],
     [
      10,
@@ -88,19 +88,19 @@
     ],
     [
      11,
-     9.246
+     9.245
     ],
     [
      12,
-     3.129
+     3.13
     ],
     [
      13,
-     10.675
+     10.673
     ],
     [
      14,
-     9.234
+     9.233
     ]
    ]
   },
@@ -158,40 +158,40 @@
    ]
   },
   "audio": {
-   "value": "chiptune(aevalsrc)",
-   "line": "AUDIO=chiptune(aevalsrc) source=code third_party_music=no"
+   "value": null,
+   "line": null
   },
   "footage": "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps + eased push-out only)",
   "errors": [],
   "log_tail": [
    "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps + eased push-out only)",
-   "CUT OK docs/clowderA.mp4 FRAMES 450 BYTES 8317937",
-   "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 8,317,937 bytes",
+   "CUT OK docs/clowderA.mp4 FRAMES 450 BYTES 8282118",
+   "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 8,282,118 bytes",
    "MOTION_FILE docs/clowderA.mp4",
    "MOTION_FRAMES 450",
    "MOTION_CUTS_EXCLUDED []",
-   "MOTION_MEAN 6.579",
+   "MOTION_MEAN 6.578",
    "MOTION_P10 0.009",
    "MOTION_MIN_1S 2.321 (window starting 4.70s)",
-   "FIRST_SECOND_MOTION 5.615",
+   "FIRST_SECOND_MOTION 5.616",
    "FROZEN_RUNS 0",
    "FREEZEDETECT 0 freezes (0 lines)",
    "PER_SECOND_MOTION",
-   "   0s   5.615 ######################",
-   "   1s   4.211 ################",
-   "   2s   4.205 ################",
-   "   3s   4.422 #################",
+   "   0s   5.616 ######################",
+   "   1s   4.209 ################",
+   "   2s   4.203 ################",
+   "   3s   4.420 #################",
    "   4s   3.346 #############",
    "   5s   2.658 ##########",
-   "   6s   3.028 ############",
-   "   7s   8.465 #################################",
-   "   8s   9.844 #######################################",
-   "   9s   7.462 #############################",
+   "   6s   3.029 ############",
+   "   7s   8.466 #################################",
+   "   8s   9.843 #######################################",
+   "   9s   7.463 #############################",
    "  10s  13.110 ####################################################",
-   "  11s   9.246 ####################################",
-   "  12s   3.129 ############",
-   "  13s  10.675 ##########################################",
-   "  14s   9.234 ####################################",
+   "  11s   9.245 ####################################",
+   "  12s   3.130 ############",
+   "  13s  10.673 ##########################################",
+   "  14s   9.233 ####################################",
    "MOTION_NOTE pixel motion only; it does not prove game footage. See SHOT/FOOTAGE lines.",
    "MOTION_OK"
   ]
@@ -233,10 +233,10 @@
   "PUSHIN_FRAMES edited=179 copied=271 of 450",
   "TEXTBOX clowderA hook 60,240,777,412 safe=OK t=0.0-4.4 fs=62 band=x<=900,y230-420",
   "TEXTBOX clowderA end 60,240,710,404 safe=OK t=12.6-15.0 fs=58 band=x<=900,y230-420",
-  "AUDIO=chiptune(aevalsrc) source=code third_party_music=no",
+  "AUDIO src=cat-town public/audio.js Music (ported) source=code third_party_music=no",
   "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps + eased push-out only)",
-  "CUT OK docs/clowderA.mp4 FRAMES 450 BYTES 8317937",
-  "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 8,317,937 bytes",
-  "WF_PROBE_PARSED dims=1080x1920 dur=15.0 vcodec=h264 acodec=aac line='WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 8,317,937 bytes'"
+  "CUT OK docs/clowderA.mp4 FRAMES 450 BYTES 8282118",
+  "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 8,282,118 bytes",
+  "WF_PROBE_PARSED dims=1080x1920 dur=15.0 vcodec=h264 acodec=aac line='WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 8,282,118 bytes'"
  ]
 }
