@@ -109,7 +109,9 @@ def push_in(frames, rc):
     This is ordinary editing of live footage (a digital crop + resize, i.e. a Ken Burns style zoom). No pixels are
     generated and nothing is added that the app did not render. Outside those spans frames are copied unchanged.
     The zoom is linear (constant speed) inside a span; on the next step's first frame it is back to 1.0, which reads
-    as a cut at the step boundary. Returns the list of frames to encode, or None on a config error."""
+    as a cut at the step boundary. Optional "tailS" limits a span to the last tailS seconds of its step(s), so the
+    zoom covers only a held tail and still resets exactly on the step boundary.
+    Returns the list of frames to encode, or None on a config error."""
     from PIL import Image
     ed = (cfg.get("edit") or {}).get("pushIn") or []
     if not ed:
@@ -125,6 +127,9 @@ def push_in(frames, rc):
             return None
         a_t = min(spans[n][0] for n in names)
         b_t = max(spans[n][1] for n in names)
+        tail = e.get("tailS")
+        if tail is not None:
+            a_t = max(a_t, b_t - float(tail))
         a, b = round(a_t * FPS), min(len(frames), round(b_t * FPS))
         z1 = float(e["zoomTo"])
         if not (1.0 < z1 <= 1.35) or b - a < 2:
@@ -132,7 +137,8 @@ def push_in(frames, rc):
             return None
         for i in range(a, b):
             zoom[i] = 1.0 + (z1 - 1.0) * (i - a) / (b - a - 1)
-        print(f"PUSHIN steps={'+'.join(names)} t={a_t:.3f}-{b_t:.3f}s frames={a}-{b - 1} zoom=1.000->{z1:.3f} "
+        print(f"PUSHIN steps={'+'.join(names)}{'' if tail is None else f' tailS={float(tail):.2f}'} "
+              f"t={a_t:.3f}-{b_t:.3f}s frames={a}-{b - 1} zoom=1.000->{z1:.3f} "
               f"linear centred (edit of live footage)")
     out = "out/frames_edit"
     os.makedirs(out, exist_ok=True)

@@ -37,9 +37,10 @@
   "edit": {
     "pushIn": [
       { "steps": ["open"], "zoomTo": 1.12 },
-      { "steps": ["hello", "ask"], "zoomTo": 1.25 }
+      { "steps": ["hello", "ask"], "zoomTo": 1.25 },
+      { "steps": ["tour"], "tailS": 1.35, "zoomTo": 1.15 }
     ],
-    "note": "Slow centred push-in on the real recorded frames (digital crop+resize, ordinary editing), only during the held steps. Span times come from the step plan above. Motion gate thresholds are unchanged."
+    "note": "Slow centred push-in on the real recorded frames (digital crop+resize, ordinary editing), only during held stretches. Span times come from the step plan above. Run 41450815034 froze only at 11.80-12.60 s, where the camera settles at the end of tour; the tour push-in covers just the last 1.35 s of tour (~11.57-12.92 s) and resets on the outro boundary. Motion gate thresholds are unchanged."
   },
   "text": {
     "band": { "xMax": 900, "yMin": 230, "yMax": 420, "note": "Clear of the 11vh letterbox bars (~211 px at 1920), the top 220 px, the bottom 420 px, the right 120+ px and the Mayor bubble in mid-frame. GUESS: no other app screen appears in y 230-420 during the intro." },
@@ -74,5 +75,5 @@
     "status": "docs/clowderA-status.json",
     "gates": "docs/clowderA-gates.json"
   },
-  "caption": "Founding a town of AI cats 🐾\n\nA new town opens: the Mayor flies in, says hello, asks what the town should do, then shows you around.\n\nLive capture of the Cat Town app's own intro, recorded frame by frame on a controlled clock. The recorder sends no inputs; the camera moves are the app's built-in cinematic. Parts of the intro are sped up or slowed to fit 15 s, and two still moments get a slow zoom in the edit. Made with AI and code.\n\n#aiagents #indiedev #buildinpublic"
+  "caption": "Founding a town of AI cats 🐾\n\nA new town opens: the Mayor flies in, says hello, asks what the town should do, then shows you around.\n\nLive capture of the Cat Town app's own intro, recorded frame by frame on a controlled clock. The recorder sends no inputs; the camera moves are the app's built-in cinematic. Parts of the intro are sped up or slowed to fit 15 s, and a few still moments get a slow zoom in the edit. Made with AI and code.\n\n#aiagents #indiedev #buildinpublic"
 }
