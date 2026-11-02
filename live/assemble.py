@@ -8,7 +8,8 @@ Encode settings are the ones cut.sh uses (libx264 high crf 20 preset medium yuv4
 cut.sh itself is not reused: it cuts .shots out of recorded takes, and this reel is one continuous frame sequence.
 Plates are drawn with Pillow onto full-frame transparent PNGs, so each TEXTBOX line is the exact box that is drawn.
 Plate x,y = top-left of the backed box; text is inset by pad. Fail if x0<0, x1>xMax, y0<yMin or y1>yMax.
-Optional cfg["edit"]["pushIn"]: a slow centred zoom on the REAL recorded frames during named held steps (see push_in).
+Optional cfg["edit"]["pushIn"]: a slow centred zoom on the REAL recorded frames during named held steps (see push_in),
+followed by an eased push-out back to 1.0 over cfg["edit"].get("pushOutFrames", 12) frames.
 """
 import glob
 import json
@@ -72,7 +73,7 @@ def gatelines():
     log = f"docs/{R}-log.txt"
     keys = ("SERVER", "PLAN", "PREROLL", "INTRO_PLAYED", "STEP ", "CINEMATIC", "INTRO_END", "INTRO_DRIFT",
             "CAM_EVENTS", "HTTP_403", "RELOAD", "PAGE_ERRORS", "FRAMES", "RESULT", "SKIP", "SETUP", "NETWORK_IDLE",
-            "TEXTBOX", "AUDIO", "WF_PROBE", "APP", "CUT", "PUSHIN", "FOOTAGE")
+            "TEXTBOX", "AUDIO", "WF_PROBE", "APP", "CUT", "PUSHIN", "PUSHOUT", "FOOTAGE")
     lines = []
     if os.path.exists(log):
         lines = [l[:240] for l in open(log, encoding="utf-8", errors="replace").read().splitlines() if l.startswith(keys)]
@@ -108,17 +109,21 @@ def push_in(frames, rc):
     """Slow centred push-in on the REAL recorded frames, only inside the held steps listed in cfg["edit"]["pushIn"].
     This is ordinary editing of live footage (a digital crop + resize, i.e. a Ken Burns style zoom). No pixels are
     generated and nothing is added that the app did not render. Outside those spans frames are copied unchanged.
-    The zoom is linear (constant speed) inside a span; on the next step's first frame it is back to 1.0, which reads
-    as a cut at the step boundary. Optional "tailS" limits a span to the last tailS seconds of its step(s), so the
-    zoom covers only a held tail and still resets exactly on the step boundary.
+    The zoom is linear (constant speed) inside a span. Optional "tailS" limits a span to the last tailS seconds of its
+    step(s), so the zoom covers only a held tail.
+    After each span, a PUSHOUT eases the zoom from zoomTo back to 1.0 over the next pushOutFrames frames (default 12)
+    with a smoothstep curve (zero speed at both ends), instead of snapping back in one frame, which read as a jump cut.
+    The push-out is the same kind of edit of live frames and never overwrites another push-in span.
     Returns the list of frames to encode, or None on a config error."""
     from PIL import Image
-    ed = (cfg.get("edit") or {}).get("pushIn") or []
+    edcfg = cfg.get("edit") or {}
+    ed = edcfg.get("pushIn") or []
     if not ed:
         print("PUSHIN none")
         return frames
     spans = step_spans(rc)
     zoom = [1.0] * len(frames)
+    done = []
     for e in ed:
         names = e["steps"]
         missing = [n for n in names if n not in spans]
@@ -137,9 +142,28 @@ def push_in(frames, rc):
             return None
         for i in range(a, b):
             zoom[i] = 1.0 + (z1 - 1.0) * (i - a) / (b - a - 1)
+        done.append((a, b, z1, '+'.join(names)))
         print(f"PUSHIN steps={'+'.join(names)}{'' if tail is None else f' tailS={float(tail):.2f}'} "
               f"t={a_t:.3f}-{b_t:.3f}s frames={a}-{b - 1} zoom=1.000->{z1:.3f} "
               f"linear centred (edit of live footage)")
+    nout = int(edcfg.get("pushOutFrames", 12))
+    if nout < 1:
+        print(f"CUT_FAIL pushOutFrames must be >= 1, got {nout}")
+        return None
+    pushin_frame = [z != 1.0 for z in zoom]
+    for a, b, z1, label in done:
+        end = min(len(frames), b + nout)
+        eased, clash = 0, 0
+        for k, i in enumerate(range(b, end), 1):
+            if pushin_frame[i]:
+                clash += 1
+                continue
+            t = k / nout
+            s = t * t * (3.0 - 2.0 * t)
+            zoom[i] = 1.0 + (z1 - 1.0) * (1.0 - s)
+            eased += 1
+        print(f"PUSHOUT steps={label} t={b / FPS:.3f}-{end / FPS:.3f}s frames={b}-{end - 1} zoom={z1:.3f}->1.000 "
+              f"n={nout} smoothstep centred eased={eased} clash={clash} (edit of live footage)")
     out = "out/frames_edit"
     os.makedirs(out, exist_ok=True)
     for f in glob.glob(os.path.join(out, "*.png")):
@@ -243,7 +267,7 @@ def cut():
         print("CUT_FAIL ffmpeg " + (r.stderr or "")[-600:].replace("\n", " | "))
         return 1
     print(f"{au.get('logLine', 'AUDIO=chiptune')} source=code third_party_music=no")
-    print("FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps only)")
+    print("FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps + eased push-out only)")
     print(f"CUT OK {MP4} FRAMES {int(round(DUR * FPS))} BYTES {os.path.getsize(MP4)}")
     return 0
 
