@@ -1,0 +1,34 @@
+{
+  "_note": "Reel 7 live footage (v6 kit + patch6v v2). Two die-mode takes of daily-tower-web/3d.html (the 3D roguelike), different seeds, captured frame by frame on a virtual clock. Die mode is a scripted input policy: walk to foes, never attack, take hits until the hero dies, hold the fail screen ~0.57 s (17 frames at 30 fps) while the recorder camera keeps orbiting, retry. Shot windows are rebuilt by live/shots6v.py from the DEATH times; the shots below are placeholders that carry the text. On-screen line counts are checked by live/linecount.py (LINECOUNT gate) against js/sim.js at the pinned commit before anything is recorded, and the workflow fails if the numbers in the shot text differ from linecount.expect. Never say the hero 'runs on' these lines.",
+  "_caption_disclosure": "Live capture of AI-written game code, rendered frame by frame on a controlled clock so it plays at game speed. Inputs and the camera are scripted by the recorder, which walks the hero into enemies on purpose.",
+  "caption": "19 lines of code handle every move in this 3D roguelike. 10 more handle every hit. 💀\n\nDaily Tower is an early-build 3D roguelike written by AI. playerAct() is 19 lines and covers moving, attacking, potions and stairs. hurtPlayer() is 10 lines and covers HP loss and death. Counts read from js/sim.js at commit 9cd6114. The deaths come from two scripted runs cut together. Follow to watch it get built.\n\nLive capture of AI-written game code, rendered frame by frame on a controlled clock so it plays at game speed. Inputs and the camera are scripted by the recorder, which walks the hero into enemies on purpose.\n\n#roguelike #indiegame #gamedev",
+  "reel": "whatif7v",
+  "duration": 15,
+  "audio": "chiptune",
+  "fallback_to_scene": false,
+  "min_moves_per_shot": 3,
+  "require_distinct_paths": true,
+  "text_max_x": 900,
+  "text_y_range": [220, 1500],
+  "linecount": {
+    "repo": "DerpfaceJr/daily-tower-web",
+    "sha": "9cd61142978ce9ef60b64630a1cce865067a8f9c",
+    "path": "js/sim.js",
+    "functions": ["playerAct", "hurtPlayer"],
+    "expect": { "playerAct": 19, "hurtPlayer": 10 }
+  },
+  "shots_from_deaths": { "durs": [2.2, 2.1, 2.1, 2.2, 2.1, 2.1, 2.2], "post": 0.55, "tail_min": 0.5, "tail_max": 0.8, "min_deaths_on_screen": 2, "min_start": 0.3, "static_start_max": 0.4, "counter_fmt": "DEATH {n}" },
+  "takes": [
+    { "name": "dieA", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 34, "harness": "tower", "mode": "die", "seed": 1, "inputEvery": 2, "retryHoldFrames": 17, "orbit": 0.8, "camScale": 0.7, "maxWallSec": 900 },
+    { "name": "dieB", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 28, "harness": "tower", "mode": "die", "seed": 3, "inputEvery": 2, "retryHoldFrames": 17, "orbit": -0.8, "camScale": 0.6, "maxWallSec": 900 }
+  ],
+  "shots": [
+    { "take": "dieA", "start": 1.0, "dur": 2.2, "text_top": "19 LINES HANDLE / EVERY MOVE" },
+    { "take": "dieB", "start": 1.0, "dur": 2.1 },
+    { "take": "dieA", "start": 4.0, "dur": 2.1 },
+    { "take": "dieB", "start": 4.0, "dur": 2.2, "text_top": "10 LINES HANDLE / EVERY HIT" },
+    { "take": "dieA", "start": 7.0, "dur": 2.1 },
+    { "take": "dieB", "start": 7.0, "dur": 2.1 },
+    { "take": "dieA", "start": 10.0, "dur": 2.2, "text_bottom": "AI-WRITTEN / 3D ROGUELIKE" }
+  ]
+}

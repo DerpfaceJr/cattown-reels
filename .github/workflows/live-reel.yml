@@ -4,6 +4,8 @@
 # push 4: live/gates.py writes a GATES line + every gate result + the failing step into docs/<reel>-status.json and
 # docs/<reel>-gates.json. A failed run deletes docs/<reel>.mp4 from the branch. The mp4 block (render_blob, bytes,
 # sha256) is written only when this run committed a new mp4. Only the GATES line counts as proof of a pass.
+# whatif7v: a LINECOUNT step runs live/linecount.py before recording when the config has a 'linecount' block;
+# on a mismatch (code or on-screen text) nothing is recorded and failing_step=linecount. Other reels log 'LINECOUNT n/a'.
 name: live-reel
 
 on:
@@ -49,7 +51,7 @@ jobs:
           [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'"; exit 1; }
           echo "reel=$R" >> "$GITHUB_OUTPUT"
           mkdir -p docs
-          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v-v2+gates" | tee "docs/$R-log.txt"
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v-v2+gates+linecount" | tee "docs/$R-log.txt"
 
       - name: Install tools
         run: |
@@ -60,6 +62,26 @@ jobs:
           sudo apt-get install -y ffmpeg fonts-dejavu-core jq
           ffmpeg -version | head -n1 | tee -a "docs/${{ steps.reel.outputs.reel }}-log.txt"
           node --version | tee -a "docs/${{ steps.reel.outputs.reel }}-log.txt"
+
+      - name: Linecount gate
+        id: linecount
+        run: |
+          set -o pipefail
+          R=${{ steps.reel.outputs.reel }}
+          if jq -e '.linecount' "live/reels/$R.json" >/dev/null; then
+            python3 live/linecount.py --config "live/reels/$R.json" --out "docs/$R-linecount.json" 2>&1 | tee -a "docs/$R-log.txt"
+            python3 - "live/reels/$R.json" <<'PY' 2>&1 | tee -a "docs/$R-log.txt"
+          import json, sys
+          c = json.load(open(sys.argv[1]))
+          e = c["linecount"]["expect"]
+          t = " ".join(str(s.get(k, "")) for s in c["shots"] for k in ("text_top", "text_bottom"))
+          bad = [f for f, n in e.items() if f"{n} LINES" not in t]
+          print("LINECOUNT_TEXT OK" if not bad else "LINECOUNT_TEXT MISMATCH " + ",".join(bad))
+          sys.exit(1 if bad else 0)
+          PY
+          else
+            echo "LINECOUNT n/a" | tee -a "docs/$R-log.txt"
+          fi
 
       - name: Record takes
         id: record
@@ -128,6 +150,7 @@ jobs:
         if: always() && steps.reel.outputs.reel != ''
         env:
           R: ${{ steps.reel.outputs.reel }}
+          O_LINECOUNT: ${{ steps.linecount.outcome }}
           O_RECORD: ${{ steps.record.outcome }}
           O_SHOTS: ${{ steps.shots.outcome }}
           O_STATE: ${{ steps.state.outcome }}
@@ -142,7 +165,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -- live/reels 2>/dev/null || true
           PASS=no
-          if [ "$O_RECORD" = success ] && [ "$O_SHOTS" = success ] && [ "$O_STATE" = success ] && [ "$O_CUT" = success ] && [ "$O_PROBE" = success ] && [ "$O_MOTION" = success ] && [ -f "docs/$R.mp4" ]; then PASS=yes; fi
+          if [ "$O_LINECOUNT" = success ] && [ "$O_RECORD" = success ] && [ "$O_SHOTS" = success ] && [ "$O_STATE" = success ] && [ "$O_CUT" = success ] && [ "$O_PROBE" = success ] && [ "$O_MOTION" = success ] && [ -f "docs/$R.mp4" ]; then PASS=yes; fi
           OLD_BLOB=$(git rev-parse -q --verify "HEAD:docs/$R.mp4" 2>/dev/null || true)
           NEW_BLOB=""
           if [ "$PASS" = yes ]; then NEW_BLOB=$(git hash-object "docs/$R.mp4"); fi
@@ -161,6 +184,7 @@ jobs:
           git add "docs/$R-status.json" 2>/dev/null || true
           git add "docs/$R-gates.json" 2>/dev/null || true
           git add "docs/$R-shots.json" 2>/dev/null || true
+          git add "docs/$R-linecount.json" 2>/dev/null || true
           if [ "$ADD_MP4" = yes ]; then
             git add "docs/$R.mp4"
           elif [ "$PASS" != yes ]; then
