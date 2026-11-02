@@ -1,0 +1,66 @@
+{
+  "reel": "clowderA",
+  "url": "http://localhost:3000/?intro",
+  "frames": 450,
+  "fps": 30,
+  "plan": {
+    "introMs": 18600,
+    "outMs": 14900,
+    "steps": [
+      {
+        "name": "open",
+        "ms": 1200,
+        "speed": 1
+      },
+      {
+        "name": "descend",
+        "ms": 3200,
+        "speed": 1.6
+      },
+      {
+        "name": "hello",
+        "ms": 3600,
+        "speed": 1
+      },
+      {
+        "name": "ask",
+        "ms": 3600,
+        "speed": 1
+      },
+      {
+        "name": "tour",
+        "ms": 5000,
+        "speed": 2
+      },
+      {
+        "name": "outro",
+        "ms": 2000,
+        "speed": 1
+      }
+    ]
+  },
+  "introPlayed": true,
+  "t0": 0,
+  "stepFrames": {
+    "open": 0,
+    "descend": 36,
+    "hello": 96,
+    "ask": 205,
+    "tour": 312,
+    "outro": 388
+  },
+  "endFrame": 448,
+  "driftMs": 33.333333333215705,
+  "camEvents": 2,
+  "introGone": null,
+  "skipFrames": 0,
+  "setupFrames": 407,
+  "framesWritten": 450,
+  "http403": 0,
+  "urls403": [],
+  "reloads": 0,
+  "pageErrors": [],
+  "fails": [
+    "SETUP_WINDOW"
+  ]
+}

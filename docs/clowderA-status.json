@@ -1,0 +1,141 @@
+{
+ "GATES": "GATES pass=no failing_step=record run=41445271464 kit=ef754614 probe=None dur=None vcodec=None acodec=None motion_min_1s=None first_s=None frozen_runs=None http403=seen cinematic=seen reload=seen cam_events=seen linecount=not_run gate3d=n/a state=not_run deaths_on_screen=None textbox_max_x=None textbox_safe=None audio=None mp4=none",
+ "gates": {
+  "pass": false,
+  "failing_step": "record",
+  "step_outcomes": {
+   "secret": "success",
+   "tools": "success",
+   "checkout": "success",
+   "app": "success",
+   "record": "failure",
+   "cut": "skipped",
+   "probe": "skipped",
+   "motion": "skipped"
+  },
+  "run_id": "41445271464",
+  "kit_sha": "ef754614ae81529f2f5b040179df19706f94d513",
+  "mp4": null,
+  "mp4_note": "no new mp4: gates failed, any old docs/clowderA.mp4 was deleted",
+  "wf_probe": {
+   "line": null,
+   "dims": null,
+   "duration_s": null,
+   "vcodec": null,
+   "acodec": null
+  },
+  "motion": {
+   "verdict": null,
+   "min_1s": null,
+   "min_1s_at": null,
+   "first_second": null,
+   "frozen_runs": null,
+   "frozen": [],
+   "freezedetect": null,
+   "per_shot": [],
+   "per_second": []
+  },
+  "named_gates": {
+   "HTTP_403": {
+    "verdict": "seen",
+    "line": "HTTP_403 n=0"
+   },
+   "CINEMATIC": {
+    "verdict": "seen",
+    "line": "CINEMATIC seen=open,descend,hello,ask,tour,outro"
+   },
+   "RELOAD": {
+    "verdict": "seen",
+    "line": "RELOAD n=0"
+   },
+   "CAM_EVENTS": {
+    "verdict": "seen",
+    "line": "CAM_EVENTS n=2"
+   },
+   "LINECOUNT": {
+    "verdict": "not_run",
+    "line": null
+   }
+  },
+  "gate3d": {
+   "verdict": "n/a",
+   "lines": []
+  },
+  "state": "not_run",
+  "deaths_on_screen": {
+   "n": null,
+   "line": null
+  },
+  "textbox": {
+   "max_x": null,
+   "all_safe": null,
+   "boxes": []
+  },
+  "audio": {
+   "value": null,
+   "line": null
+  },
+  "footage": null,
+  "errors": [],
+  "log_tail": [
+   "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+   "v20.20.2",
+   "APP cat-town main 42a7ab15049e8e9b2461fa6b65b77bff09de7565",
+   "",
+   "To address all issues (including breaking changes), run:",
+   "  npm audit fix --force",
+   "",
+   "Run `npm audit` for details.",
+   "APP UP after 4 s",
+   "PLAN intro_ms=18600 out_ms=14900 frames_needed=447 frames=450 speeds=open:1,descend:1.6,hello:1,ask:1,tour:2,outro:1",
+   "SERVER status=200 url=http://localhost:3000/?intro",
+   "NETWORK_IDLE timeout (continuing)",
+   "PREROLL virtual_ms=0 real_ms=4 t0=0",
+   "INTRO_PLAYED yes",
+   "STEP open frame=0 app_ms=0",
+   "STEP descend frame=36 app_ms=1200",
+   "STEP hello frame=96 app_ms=4400",
+   "STEP ask frame=205 app_ms=8033",
+   "STEP tour frame=312 app_ms=11600",
+   "STEP outro frame=388 app_ms=16633",
+   "CINEMATIC seen=open,descend,hello,ask,tour,outro",
+   "CAM_EVENTS n=2",
+   "INTRO_END frame=448 drift_ms=33",
+   "SKIP_VISIBLE frames=0",
+   "SETUP_WINDOW frames=407",
+   "FRAMES n=450",
+   "HTTP_403 n=0",
+   "RELOAD n=0",
+   "PAGE_ERRORS n=0",
+   "RESULT pass=no failing=SETUP_WINDOW"
+  ]
+ },
+ "status_json_error": "[Errno 2] No such file or directory: 'out/raw/status.json'",
+ "recorder_lines": [
+  "APP secret CAT_TOWN_READ present",
+  "APP cat-town main 42a7ab15049e8e9b2461fa6b65b77bff09de7565",
+  "APP UP after 4 s",
+  "PLAN intro_ms=18600 out_ms=14900 frames_needed=447 frames=450 speeds=open:1,descend:1.6,hello:1,ask:1,tour:2,outro:1",
+  "SERVER status=200 url=http://localhost:3000/?intro",
+  "NETWORK_IDLE timeout (continuing)",
+  "PREROLL virtual_ms=0 real_ms=4 t0=0",
+  "INTRO_PLAYED yes",
+  "STEP open frame=0 app_ms=0",
+  "STEP descend frame=36 app_ms=1200",
+  "STEP hello frame=96 app_ms=4400",
+  "STEP ask frame=205 app_ms=8033",
+  "STEP tour frame=312 app_ms=11600",
+  "STEP outro frame=388 app_ms=16633",
+  "CINEMATIC seen=open,descend,hello,ask,tour,outro",
+  "CAM_EVENTS n=2",
+  "INTRO_END frame=448 drift_ms=33",
+  "SKIP_VISIBLE frames=0",
+  "SETUP_WINDOW frames=407",
+  "FRAMES n=450",
+  "HTTP_403 n=0",
+  "RELOAD n=0",
+  "PAGE_ERRORS n=0",
+  "RESULT pass=no failing=SETUP_WINDOW",
+  "WF_PROBE_PARSED dims=None dur=None vcodec=None acodec=None line=None"
+ ]
+}
