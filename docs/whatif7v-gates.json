@@ -1,0 +1,263 @@
+{
+ "GATES": "GATES pass=yes failing_step=none run=41442272068 kit=c8caf237 linecount=OK probe=None dur=None motion_min_1s=1.435 first_s=2.402 frozen_runs=0 gate3d=OK state=OK deaths_on_screen=7 textbox_max_x=936 textbox_safe=True audio=chiptune mp4=new:e043079cf5",
+ "pass": true,
+ "failing_step": null,
+ "step_outcomes": {
+  "linecount": "success",
+  "record": "success",
+  "shots": "success",
+  "state": "success",
+  "cut": "success",
+  "probe": "success",
+  "motion": "success"
+ },
+ "run_id": "41442272068",
+ "kit_sha": "c8caf237b9b7a73710bd421ff1783ba25f7772e7",
+ "mp4": {
+  "new": true,
+  "render_blob": "e043079cf5998e792b1f93a1b175d9ef33c43f1c",
+  "previous_blob": null,
+  "bytes": 2973868,
+  "sha256": "34dc3ed9cf90f0092a437f8025aca41bd035e0d8cbb642fb1f7e110431b12cef",
+  "run_id": "41442272068",
+  "kit_sha": "c8caf237b9b7a73710bd421ff1783ba25f7772e7"
+ },
+ "mp4_note": "new render committed",
+ "linecount": {
+  "verdict": "OK",
+  "counts": "LINECOUNT playerAct=19 hurtPlayer=10",
+  "text": "LINECOUNT_TEXT OK",
+  "src": "LINECOUNT_SRC repo=DerpfaceJr/daily-tower-web sha=9cd61142978ce9ef60b64630a1cce865067a8f9c path=js/sim.js",
+  "spans": "LINECOUNT_SPANS playerAct=L134-L152 hurtPlayer=L64-L73",
+  "mismatch": []
+ },
+ "wf_probe": {
+  "line": "WF_PROBE OK 1080,1920 15.000000 2973868",
+  "dims": null,
+  "duration_s": null
+ },
+ "motion": {
+  "verdict": "MOTION_OK",
+  "min_1s": 1.435,
+  "min_1s_at": 1.23,
+  "first_second": 2.402,
+  "frozen_runs": 0.0,
+  "frozen": [],
+  "freezedetect": "FREEZEDETECT 0 freezes (0 lines)",
+  "per_shot": [
+   "PER_SHOT_MOTION 0 dieA 0.00-2.20s 1.903",
+   "PER_SHOT_MOTION 1 dieB 2.20-4.30s 2.277",
+   "PER_SHOT_MOTION 2 dieA 4.30-6.40s 3.156",
+   "PER_SHOT_MOTION 3 dieB 6.40-8.60s 3.232",
+   "PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.604",
+   "PER_SHOT_MOTION 5 dieB 10.70-12.80s 2.700",
+   "PER_SHOT_MOTION 6 dieA 12.80-15.00s 1.940"
+  ],
+  "per_second": [
+   [
+    0,
+    2.402
+   ],
+   [
+    1,
+    1.667
+   ],
+   [
+    2,
+    2.879
+   ],
+   [
+    3,
+    2.331
+   ],
+   [
+    4,
+    2.626
+   ],
+   [
+    5,
+    3.796
+   ],
+   [
+    6,
+    2.649
+   ],
+   [
+    7,
+    4.037
+   ],
+   [
+    8,
+    2.937
+   ],
+   [
+    9,
+    2.826
+   ],
+   [
+    10,
+    2.881
+   ],
+   [
+    11,
+    3.061
+   ],
+   [
+    12,
+    2.789
+   ],
+   [
+    13,
+    2.212
+   ],
+   [
+    14,
+    1.471
+   ]
+  ]
+ },
+ "gate3d": {
+  "verdict": "OK",
+  "lines": [
+   "GATE3D takes=2 non_3d_urls=0 url=OK onscreen_text=OK caption_line1=OK",
+   "GATE3D OK"
+  ]
+ },
+ "state": "OK",
+ "deaths_on_screen": {
+  "n": 7.0,
+  "line": "DEATHS_ON_SCREEN 7 min 2 OK"
+ },
+ "textbox": {
+  "max_x": 936,
+  "all_safe": true,
+  "boxes": [
+   {
+    "x0": 144,
+    "y0": 242,
+    "x1": 936,
+    "y1": 367,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 0 top line 0 144,242,936,367 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<="
+   },
+   {
+    "x0": 245,
+    "y0": 367,
+    "x1": 835,
+    "y1": 492,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 0 top line 1 245,367,835,492 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<="
+   },
+   {
+    "x0": 386,
+    "y0": 504,
+    "x1": 694,
+    "y1": 606,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 0 counter line 0 386,504,694,606 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 1 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 2 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 3 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 4 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 5 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 386,
+    "y0": 472,
+    "x1": 694,
+    "y1": 574,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 6 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<"
+   },
+   {
+    "x0": 254,
+    "y0": 1132,
+    "x1": 826,
+    "y1": 1262,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 6 bottom line 0 254,1132,826,1262 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220"
+   },
+   {
+    "x0": 190,
+    "y0": 1262,
+    "x1": 889,
+    "y1": 1392,
+    "safe": "OK",
+    "line": "TEXTBOX whatif7v shot 6 bottom line 1 190,1262,889,1392 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220"
+   }
+  ]
+ },
+ "audio": {
+  "value": "chiptune",
+  "line": "AUDIO=chiptune (square-wave loop synthesized by ffmpeg aevalsrc in cut.sh; no third-party music, no game audio)"
+ },
+ "footage": "FOOTAGE live=7 fallback=0 of 7 shots",
+ "errors": [],
+ "log_tail": [
+  "MOTION_P10 0.903",
+  "MOTION_MIN_1S 1.435 (window starting 1.23s)",
+  "FIRST_SECOND_MOTION 2.402",
+  "FROZEN_RUNS 0",
+  "PER_SHOT_MOTION 0 dieA 0.00-2.20s 1.903",
+  "PER_SHOT_MOTION 1 dieB 2.20-4.30s 2.277",
+  "PER_SHOT_MOTION 2 dieA 4.30-6.40s 3.156",
+  "PER_SHOT_MOTION 3 dieB 6.40-8.60s 3.232",
+  "PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.604",
+  "PER_SHOT_MOTION 5 dieB 10.70-12.80s 2.700",
+  "PER_SHOT_MOTION 6 dieA 12.80-15.00s 1.940",
+  "FREEZEDETECT 0 freezes (0 lines)",
+  "PER_SECOND_MOTION",
+  "   0s   2.402 #########",
+  "   1s   1.667 ######",
+  "   2s   2.879 ###########",
+  "   3s   2.331 #########",
+  "   4s   2.626 ##########",
+  "   5s   3.796 ###############",
+  "   6s   2.649 ##########",
+  "   7s   4.037 ################",
+  "   8s   2.937 ###########",
+  "   9s   2.826 ###########",
+  "  10s   2.881 ###########",
+  "  11s   3.061 ############",
+  "  12s   2.789 ###########",
+  "  13s   2.212 ########",
+  "  14s   1.471 #####",
+  "MOTION_NOTE pixel motion only; it does not prove game footage. See SHOT/FOOTAGE lines.",
+  "MOTION_OK"
+ ]
+}

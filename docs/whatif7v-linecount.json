@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "repo": "DerpfaceJr/daily-tower-web",
+  "sha": "9cd61142978ce9ef60b64630a1cce865067a8f9c",
+  "path": "js/sim.js",
+  "source_url": "https://api.github.com/repos/DerpfaceJr/daily-tower-web/contents/js/sim.js?ref=9cd61142978ce9ef60b64630a1cce865067a8f9c",
+  "counts": {
+    "playerAct": {
+      "start": 134,
+      "end": 152,
+      "lines": 19
+    },
+    "hurtPlayer": {
+      "start": 64,
+      "end": 73,
+      "lines": 10
+    }
+  },
+  "expect": {
+    "playerAct": 19,
+    "hurtPlayer": 10
+  },
+  "mismatch": []
+}

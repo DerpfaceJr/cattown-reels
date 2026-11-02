@@ -1,0 +1,55 @@
+{
+ "shots": [
+  {
+   "take": "dieA",
+   "start": 5.383,
+   "dur": 2.2,
+   "death_t": 7.033,
+   "text_top": "19 LINES HANDLE / EVERY MOVE",
+   "counter": "DEATH 1"
+  },
+  {
+   "take": "dieB",
+   "start": 2.083,
+   "dur": 2.1,
+   "death_t": 3.633,
+   "counter": "DEATH 2"
+  },
+  {
+   "take": "dieA",
+   "start": 10.95,
+   "dur": 2.1,
+   "death_t": 12.5,
+   "counter": "DEATH 3"
+  },
+  {
+   "take": "dieB",
+   "start": 10.85,
+   "dur": 2.2,
+   "death_t": 12.5,
+   "counter": "DEATH 4"
+  },
+  {
+   "take": "dieA",
+   "start": 16.817,
+   "dur": 2.1,
+   "death_t": 18.367,
+   "counter": "DEATH 5"
+  },
+  {
+   "take": "dieB",
+   "start": 13.483,
+   "dur": 2.1,
+   "death_t": 15.033,
+   "counter": "DEATH 6"
+  },
+  {
+   "take": "dieA",
+   "start": 27.85,
+   "dur": 2.2,
+   "death_t": 29.5,
+   "text_bottom": "AI-WRITTEN / 3D ROGUELIKE",
+   "counter": "DEATH 7"
+  }
+ ]
+}
