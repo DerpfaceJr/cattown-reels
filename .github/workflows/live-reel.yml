@@ -1,6 +1,9 @@
 # live-reel v6 - capture live game footage frame by frame, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
 # whatif6v-staging: record.mjs is patched in memory by live/patch6v.mjs (die mode, seeds, DEATH log), and
 # live/shots6v.py picks the shot windows from the DEATH times (DEATHS_ON_SCREEN gate) when the config asks for it.
+# push 4: live/gates.py writes a GATES line + every gate result + the failing step into docs/<reel>-status.json and
+# docs/<reel>-gates.json. A failed run deletes docs/<reel>.mp4 from the branch. The mp4 block (render_blob, bytes,
+# sha256) is written only when this run committed a new mp4. Only the GATES line counts as proof of a pass.
 name: live-reel
 
 on:
@@ -46,7 +49,7 @@ jobs:
           [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'"; exit 1; }
           echo "reel=$R" >> "$GITHUB_OUTPUT"
           mkdir -p docs
-          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v-v2" | tee "docs/$R-log.txt"
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v-v2+gates" | tee "docs/$R-log.txt"
 
       - name: Install tools
         run: |
@@ -119,28 +122,50 @@ jobs:
             docs
           if-no-files-found: warn
 
-      # Always commit the log; commit the mp4 only when shots, probe, motion AND state passed.
+      # Always commit log + status + gates json. Commit the mp4 only when every gate passed AND it is a new blob.
+      # On any failure, delete docs/<reel>.mp4 from the branch so a stale file can never pass for a new render.
       - name: Commit render
         if: always() && steps.reel.outputs.reel != ''
         env:
           R: ${{ steps.reel.outputs.reel }}
-          SHOTS: ${{ steps.shots.outcome }}
-          PROBE: ${{ steps.probe.outcome }}
-          MOTION: ${{ steps.motion.outcome }}
-          STATE: ${{ steps.state.outcome }}
+          O_RECORD: ${{ steps.record.outcome }}
+          O_SHOTS: ${{ steps.shots.outcome }}
+          O_STATE: ${{ steps.state.outcome }}
+          O_CUT: ${{ steps.cut.outcome }}
+          O_PROBE: ${{ steps.probe.outcome }}
+          O_MOTION: ${{ steps.motion.outcome }}
+          RUN_ID: ${{ github.run_id }}
+          KIT_SHA: ${{ github.sha }}
         run: |
           set -o pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -- live/reels 2>/dev/null || true
-          echo "GATES shots=$SHOTS probe=$PROBE motion=$MOTION state=$STATE" | tee -a "docs/$R-log.txt"
-          cp out/raw/status.json "docs/$R-status.json" 2>/dev/null || true
-          git add "docs/$R-log.txt" "docs/$R-status.json" 2>/dev/null || git add "docs/$R-log.txt"
-          git add "docs/$R-shots.json" 2>/dev/null || true
           PASS=no
-          if [ "$SHOTS" = success ] && [ "$PROBE" = success ] && [ "$MOTION" = success ] && [ "$STATE" = success ]; then PASS=yes; git add "docs/$R.mp4"; else
-            echo "mp4 NOT committed (gates failed)"
-            git checkout -- "docs/$R.mp4" 2>/dev/null || true
+          if [ "$O_RECORD" = success ] && [ "$O_SHOTS" = success ] && [ "$O_STATE" = success ] && [ "$O_CUT" = success ] && [ "$O_PROBE" = success ] && [ "$O_MOTION" = success ] && [ -f "docs/$R.mp4" ]; then PASS=yes; fi
+          OLD_BLOB=$(git rev-parse -q --verify "HEAD:docs/$R.mp4" 2>/dev/null || true)
+          NEW_BLOB=""
+          if [ "$PASS" = yes ]; then NEW_BLOB=$(git hash-object "docs/$R.mp4"); fi
+          export PASS OLD_BLOB NEW_BLOB
+          python3 live/gates.py "$R" 2>&1 | tee -a "docs/$R-log.txt" || echo "GATES_SCRIPT_ERROR gates.py failed" | tee -a "docs/$R-log.txt"
+          ADD_MP4=no
+          if [ "$PASS" = yes ] && [ "$NEW_BLOB" != "$OLD_BLOB" ]; then
+            ADD_MP4=yes
+            echo "MP4_COMMIT new blob $NEW_BLOB (previous ${OLD_BLOB:-none})" | tee -a "docs/$R-log.txt"
+          elif [ "$PASS" = yes ]; then
+            echo "MP4_UNCHANGED gates passed but the mp4 blob equals HEAD ($NEW_BLOB); not a new render" | tee -a "docs/$R-log.txt"
+          else
+            echo "mp4 NOT committed (gates failed); stale docs/$R.mp4 removed from the branch" | tee -a "docs/$R-log.txt"
+          fi
+          git add "docs/$R-log.txt"
+          git add "docs/$R-status.json" 2>/dev/null || true
+          git add "docs/$R-gates.json" 2>/dev/null || true
+          git add "docs/$R-shots.json" 2>/dev/null || true
+          if [ "$ADD_MP4" = yes ]; then
+            git add "docs/$R.mp4"
+          elif [ "$PASS" != yes ]; then
+            git rm -q -f --ignore-unmatch "docs/$R.mp4" || true
+            rm -f "docs/$R.mp4"
           fi
           git commit -m "Render $R (live footage v6, frame-by-frame) [skip ci]" || { echo "nothing to commit"; exit 0; }
           git pull --rebase --autostash origin "$GITHUB_REF_NAME"
@@ -148,7 +173,9 @@ jobs:
           SHA=$(git rev-parse HEAD)
           echo "COMMIT $SHA"
           {
-            echo "### $R  (shots: $SHOTS, probe: $PROBE, motion: $MOTION, state: $STATE)"
+            echo "### $R  (pass: $PASS)"
+            grep -m1 '^GATES ' "docs/$R-log.txt" || true
             echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
-            [ "$PASS" = yes ] && echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"
+            echo "- gates: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-gates.json"
+            if [ "$ADD_MP4" = yes ]; then echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"; fi
           } >> "$GITHUB_STEP_SUMMARY"
