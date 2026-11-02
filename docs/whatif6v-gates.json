@@ -1,101 +1,109 @@
 {
- "GATES": "GATES pass=no failing_step=motion run=41424270273 kit=2ee885ad probe=None dur=None motion_min_1s=0.714 first_s=2.791 frozen_runs=0 gate3d=OK state=OK deaths_on_screen=7 textbox_max_x=935 textbox_safe=True audio=chiptune mp4=none",
- "pass": false,
- "failing_step": "motion",
+ "GATES": "GATES pass=yes failing_step=none run=41425765779 kit=8ce4d0c1 probe=None dur=None motion_min_1s=1.723 first_s=2.846 frozen_runs=0 gate3d=OK state=OK deaths_on_screen=7 textbox_max_x=935 textbox_safe=True audio=chiptune mp4=new:cd65071433",
+ "pass": true,
+ "failing_step": null,
  "step_outcomes": {
   "record": "success",
   "shots": "success",
   "state": "success",
   "cut": "success",
   "probe": "success",
-  "motion": "failure"
+  "motion": "success"
  },
- "run_id": "41424270273",
- "kit_sha": "2ee885ad4e7e7bc34cd9af1d125a865c957c2844",
- "mp4": null,
- "mp4_note": "no new mp4: gates failed, any old docs/whatif6v.mp4 was deleted",
+ "run_id": "41425765779",
+ "kit_sha": "8ce4d0c19aee9da0221aab2e4e7bfac2ddf77af3",
+ "mp4": {
+  "new": true,
+  "render_blob": "cd650714333647376b0168140ff7551ae2c6659e",
+  "previous_blob": null,
+  "bytes": 3093727,
+  "sha256": "a34c8855265e64a531abdfbc243adee8b341a2c383be673f50b734f65355be30",
+  "run_id": "41425765779",
+  "kit_sha": "8ce4d0c19aee9da0221aab2e4e7bfac2ddf77af3"
+ },
+ "mp4_note": "new render committed",
  "wf_probe": {
-  "line": "WF_PROBE OK 1080,1920 15.000000 2730324",
+  "line": "WF_PROBE OK 1080,1920 15.000000 3093727",
   "dims": null,
   "duration_s": null
  },
  "motion": {
-  "verdict": "MOTION_FAIL MOTION_MIN_1S 0.714 < 1.0",
-  "min_1s": 0.714,
-  "min_1s_at": 12.27,
-  "first_second": 2.791,
+  "verdict": "MOTION_OK",
+  "min_1s": 1.723,
+  "min_1s_at": 3.33,
+  "first_second": 2.846,
   "frozen_runs": 0.0,
   "frozen": [],
   "freezedetect": "FREEZEDETECT 0 freezes (0 lines)",
   "per_shot": [
-   "PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.452",
-   "PER_SHOT_MOTION 1 dieB 2.20-4.30s 1.909",
-   "PER_SHOT_MOTION 2 dieA 4.30-6.40s 1.999",
-   "PER_SHOT_MOTION 3 dieB 6.40-8.60s 2.844",
-   "PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.314",
-   "PER_SHOT_MOTION 5 dieB 10.70-12.80s 2.666",
-   "PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.032"
+   "PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.827",
+   "PER_SHOT_MOTION 1 dieB 2.20-4.30s 2.236",
+   "PER_SHOT_MOTION 2 dieA 4.30-6.40s 2.556",
+   "PER_SHOT_MOTION 3 dieB 6.40-8.60s 3.556",
+   "PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.987",
+   "PER_SHOT_MOTION 5 dieB 10.70-12.80s 3.321",
+   "PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.738"
   ],
   "per_second": [
    [
     0,
-    2.791
+    2.846
    ],
    [
     1,
-    2.42
+    3.174
    ],
    [
     2,
-    3.147
+    3.225
    ],
    [
     3,
-    1.744
+    2.196
    ],
    [
     4,
-    2.598
+    3.05
    ],
    [
     5,
-    2.027
+    2.395
    ],
    [
     6,
-    2.439
+    3.52
    ],
    [
     7,
-    3.971
+    4.201
    ],
    [
     8,
-    1.742
+    3.397
    ],
    [
     9,
-    2.888
+    3.206
    ],
    [
     10,
-    1.794
+    2.992
    ],
    [
     11,
-    4.059
+    3.696
    ],
    [
     12,
-    1.76
+    3.448
    ],
    [
     13,
-    2.558
+    2.825
    ],
    [
     14,
-    1.722
+    2.588
    ]
   ]
  },
@@ -210,39 +218,37 @@
   "line": "AUDIO=chiptune (square-wave loop synthesized by ffmpeg aevalsrc in cut.sh; no third-party music, no game audio)"
  },
  "footage": "FOOTAGE live=7 fallback=0 of 7 shots",
- "errors": [
-  "MOTION_FAIL MOTION_MIN_1S 0.714 < 1.0"
- ],
+ "errors": [],
  "log_tail": [
-  "MOTION_MEAN 2.319",
-  "MOTION_P10 0.668",
-  "MOTION_MIN_1S 0.714 (window starting 12.27s)",
-  "FIRST_SECOND_MOTION 2.791",
+  "MOTION_P10 0.942",
+  "MOTION_MIN_1S 1.723 (window starting 3.33s)",
+  "FIRST_SECOND_MOTION 2.846",
   "FROZEN_RUNS 0",
-  "PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.452",
-  "PER_SHOT_MOTION 1 dieB 2.20-4.30s 1.909",
-  "PER_SHOT_MOTION 2 dieA 4.30-6.40s 1.999",
-  "PER_SHOT_MOTION 3 dieB 6.40-8.60s 2.844",
-  "PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.314",
-  "PER_SHOT_MOTION 5 dieB 10.70-12.80s 2.666",
-  "PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.032",
+  "PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.827",
+  "PER_SHOT_MOTION 1 dieB 2.20-4.30s 2.236",
+  "PER_SHOT_MOTION 2 dieA 4.30-6.40s 2.556",
+  "PER_SHOT_MOTION 3 dieB 6.40-8.60s 3.556",
+  "PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.987",
+  "PER_SHOT_MOTION 5 dieB 10.70-12.80s 3.321",
+  "PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.738",
   "FREEZEDETECT 0 freezes (0 lines)",
   "PER_SECOND_MOTION",
-  "   0s   2.791 ###########",
-  "   1s   2.420 #########",
-  "   2s   3.147 ############",
-  "   3s   1.744 ######",
-  "   4s   2.598 ##########",
-  "   5s   2.027 ########",
-  "   6s   2.439 #########",
-  "   7s   3.971 ###############",
-  "   8s   1.742 ######",
-  "   9s   2.888 ###########",
-  "  10s   1.794 #######",
-  "  11s   4.059 ################",
-  "  12s   1.760 #######",
-  "  13s   2.558 ##########",
-  "  14s   1.722 ######",
-  "MOTION_FAIL MOTION_MIN_1S 0.714 < 1.0"
+  "   0s   2.846 ###########",
+  "   1s   3.174 ############",
+  "   2s   3.225 ############",
+  "   3s   2.196 ########",
+  "   4s   3.050 ############",
+  "   5s   2.395 #########",
+  "   6s   3.520 ##############",
+  "   7s   4.201 ################",
+  "   8s   3.397 #############",
+  "   9s   3.206 ############",
+  "  10s   2.992 ###########",
+  "  11s   3.696 ##############",
+  "  12s   3.448 #############",
+  "  13s   2.825 ###########",
+  "  14s   2.588 ##########",
+  "MOTION_NOTE pixel motion only; it does not prove game footage. See SHOT/FOOTAGE lines.",
+  "MOTION_OK"
  ]
 }

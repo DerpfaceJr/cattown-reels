@@ -1,10 +1,10 @@
-RUN_ID=41424270273 REEL=whatif6v REF=whatif6v-staging SHA=2ee885ad4e7e7bc34cd9af1d125a865c957c2844 KIT=v6+patch6v-v2+gates
+RUN_ID=41425765779 REEL=whatif6v REF=whatif6v-staging SHA=8ce4d0c19aee9da0221aab2e4e7bfac2ddf77af3 KIT=v6+patch6v-v2+gates
 ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
 v20.20.2
 PATCH6V ok 12 patches applied to live/record.mjs (v2)
 ORBIT dieA ok buffer=1080x1080 css=1080x1080 r=4.55 y=5.95 render=once_per_captured_frame speed=0.5rad/s(virtual) camScale=0.7 renderPx=css (harness-only camera)
 CANVAS_FOUND=true dieA CANVAS_SIZE=1080x1080 CSS=1080x1080 TOP=420
-TAKE_MODE dieA mode=die seed=1 retry_hold_frames=24
+TAKE_MODE dieA mode=die seed=1 retry_hold_frames=9
 HP dieA t=0.17 20->18
 HP dieA t=0.30 18->16
 HP dieA t=0.43 16->15
@@ -16,101 +16,104 @@ HP dieA t=1.03 7->4
 HP dieA t=1.10 4->1
 DEATH dieA t=1.17 floor=1 turns=18 kills=0 cause="The slime splats you for 1. / You have fallen."
 OVER_SCREEN dieA display=block z=2147483647 hidden=false rect=140,700,940,1018
-HP dieA t=2.00 1->20
-HP dieA t=2.17 20->18
-HP dieA t=2.30 18->16
-HP dieA t=2.43 16->14
-HP dieA t=2.57 14->11
-HP dieA t=2.70 11->8
-HP dieA t=2.83 8->6
-HP dieA t=2.97 6->3
-DEATH dieA t=3.10 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieA t=3.93 3->20
-HP dieA t=4.23 20->18
-HP dieA t=4.30 18->16
-HP dieA t=4.37 16->14
-HP dieA t=4.50 14->11
-HP dieA t=4.63 11->8
-HP dieA t=4.77 8->6
-HP dieA t=4.90 6->3
-DEATH dieA t=5.03 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieA t=5.87 3->20
-HP dieA t=5.97 20->18
-HP dieA t=6.03 18->16
-HP dieA t=6.17 16->15
-HP dieA t=6.30 15->14
-HP dieA t=6.43 14->12
-HP dieA t=6.57 12->11
-HP dieA t=6.70 11->10
-HP dieA t=6.83 10->8
-HP dieA t=6.97 8->7
-HP dieA t=7.10 7->6
-HP dieA t=7.23 6->4
-HP dieA t=7.37 4->3
-HP dieA t=7.50 3->1
-DEATH dieA t=7.63 floor=1 turns=27 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieA t=8.47 1->20
-HP dieA t=8.63 20->18
-HP dieA t=8.77 18->16
-HP dieA t=8.90 16->14
-HP dieA t=9.03 14->11
-HP dieA t=9.17 11->8
-HP dieA t=9.30 8->6
-HP dieA t=9.43 6->3
-DEATH dieA t=9.57 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieA t=10.40 3->20
-HP dieA t=10.63 20->18
-HP dieA t=10.70 18->16
-HP dieA t=10.83 16->14
-HP dieA t=10.97 14->11
-HP dieA t=11.10 11->8
-HP dieA t=11.23 8->6
-HP dieA t=11.37 6->3
-DEATH dieA t=11.50 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieA t=12.33 3->20
-HP dieA t=12.57 20->18
-HP dieA t=12.63 18->16
-HP dieA t=12.70 16->20
-HP dieA t=12.77 20->19
-HP dieA t=12.83 19->18
-HP dieA t=12.90 18->15
-HP dieA t=13.03 15->12
-HP dieA t=13.17 12->10
-HP dieA t=13.30 10->7
-HP dieA t=13.43 7->4
-HP dieA t=13.57 4->1
-DEATH dieA t=13.70 floor=1 turns=21 kills=0 cause="The slime splats you for 2. / You have fallen."
-HP dieA t=14.53 1->20
-HP dieA t=14.63 20->18
-HP dieA t=14.70 18->16
-HP dieA t=14.83 16->15
-HP dieA t=14.97 15->14
-HP dieA t=15.10 14->11
-HP dieA t=15.23 11->8
-HP dieA t=15.37 8->6
-HP dieA t=15.50 6->3
-DEATH dieA t=15.63 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieA t=16.47 3->20
-HP dieA t=16.63 20->18
-HP dieA t=16.77 18->16
-HP dieA t=16.90 16->14
-DEATH dieA t=17.57 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-DEATH dieA t=20.17 floor=1 turns=27 kills=0 cause="The slime splats you for 1. / You have fallen."
-DEATH dieA t=22.10 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-DEATH dieA t=24.03 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-DEATH dieA t=26.03 floor=1 turns=18 kills=0 cause="The slime splats you for 1. / You have fallen."
-DEATH dieA t=27.97 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-DEATH dieA t=29.90 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-CAPTURE_FRAMES dieA 900/900 wall=136.6s ms_per_frame=152 virtual_s=30.000 input_every=2f harness_renders=900 game_render_calls_suppressed=851
-TAKE_STATE_CHANGES dieA 295 HERO_MOVES 173 KEYS_SENT 281 RETRIES 14 FLOOR_MAX 1 KILLS 0
-HERO_PATH dieA 0.03s:(2,6)f1 0.10s:(3,6)f1 0.17s:(2,6)f1 0.23s:(1,6)f1 0.37s:(1,5)f1 0.50s:(1,4)f1 0.63s:(1,3)f1 0.77s:(1,2)f1 0.90s:(1,1)f1 2.00s:(1,6)f1 2.03s:(1,5)f1 2.10s:(1,6)f1
-DEATH_TALLY dieA n=15 distinct_raw_causes=2 distinct_killers=1 times=1.167,3.1,5.033,7.633,9.567,11.5,13.7,15.633,17.567,20.167,22.1,24.033,26.033,27.967,29.9
-HP_CHANGES dieA n=140
-TAKE dieA MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/dieA.mp4 BYTES 12753322 LEAD 0.00 HOOK main=true 3d=true
+HP dieA t=1.50 1->20
+HP dieA t=1.70 20->18
+HP dieA t=1.83 18->16
+HP dieA t=1.97 16->14
+HP dieA t=2.10 14->11
+HP dieA t=2.23 11->8
+HP dieA t=2.37 8->6
+HP dieA t=2.50 6->3
+DEATH dieA t=2.63 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieA t=2.97 3->20
+HP dieA t=3.30 20->18
+HP dieA t=3.37 18->16
+HP dieA t=3.43 16->14
+HP dieA t=3.57 14->11
+HP dieA t=3.70 11->8
+HP dieA t=3.83 8->6
+HP dieA t=3.97 6->3
+DEATH dieA t=4.10 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieA t=4.43 3->20
+HP dieA t=4.57 20->18
+HP dieA t=4.63 18->16
+HP dieA t=4.77 16->15
+HP dieA t=4.90 15->14
+HP dieA t=5.03 14->12
+HP dieA t=5.17 12->11
+HP dieA t=5.30 11->10
+HP dieA t=5.43 10->8
+HP dieA t=5.57 8->7
+HP dieA t=5.70 7->6
+HP dieA t=5.83 6->4
+HP dieA t=5.97 4->3
+HP dieA t=6.10 3->1
+DEATH dieA t=6.23 floor=1 turns=27 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieA t=6.57 1->20
+HP dieA t=6.77 20->18
+HP dieA t=6.90 18->16
+HP dieA t=7.03 16->14
+HP dieA t=7.17 14->11
+HP dieA t=7.30 11->8
+HP dieA t=7.43 8->6
+HP dieA t=7.57 6->3
+DEATH dieA t=7.70 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieA t=8.03 3->20
+HP dieA t=8.30 20->18
+HP dieA t=8.37 18->16
+HP dieA t=8.50 16->14
+HP dieA t=8.63 14->11
+HP dieA t=8.77 11->8
+HP dieA t=8.90 8->6
+HP dieA t=9.03 6->3
+DEATH dieA t=9.17 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieA t=9.50 3->20
+HP dieA t=9.77 20->18
+HP dieA t=9.83 18->16
+HP dieA t=9.90 16->20
+HP dieA t=9.97 20->19
+HP dieA t=10.03 19->18
+HP dieA t=10.10 18->15
+HP dieA t=10.23 15->12
+HP dieA t=10.37 12->10
+HP dieA t=10.50 10->7
+HP dieA t=10.63 7->4
+HP dieA t=10.77 4->1
+DEATH dieA t=10.90 floor=1 turns=21 kills=0 cause="The slime splats you for 2. / You have fallen."
+HP dieA t=11.23 1->20
+HP dieA t=11.37 20->18
+HP dieA t=11.43 18->16
+HP dieA t=11.57 16->15
+HP dieA t=11.70 15->14
+HP dieA t=11.83 14->11
+HP dieA t=11.97 11->8
+HP dieA t=12.10 8->6
+HP dieA t=12.23 6->3
+DEATH dieA t=12.37 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieA t=12.70 3->20
+HP dieA t=12.90 20->18
+HP dieA t=13.03 18->16
+HP dieA t=13.17 16->14
+DEATH dieA t=13.83 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=15.97 floor=1 turns=27 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=17.43 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=18.90 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=20.43 floor=1 turns=18 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=21.90 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=23.37 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=25.50 floor=1 turns=27 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=26.97 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieA t=28.43 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+CAPTURE_FRAMES dieA 900/900 wall=111.2s ms_per_frame=124 virtual_s=30.000 input_every=2f harness_renders=900 game_render_calls_suppressed=901
+TAKE_STATE_CHANGES dieA 378 HERO_MOVES 222 KEYS_SENT 360 RETRIES 18 FLOOR_MAX 1 KILLS 0
+HERO_PATH dieA 0.03s:(2,6)f1 0.10s:(3,6)f1 0.17s:(2,6)f1 0.23s:(1,6)f1 0.37s:(1,5)f1 0.50s:(1,4)f1 0.63s:(1,3)f1 0.77s:(1,2)f1 0.90s:(1,1)f1 1.50s:(1,6)f1 1.57s:(1,5)f1 1.63s:(1,6)f1
+DEATH_TALLY dieA n=18 distinct_raw_causes=2 distinct_killers=1 times=1.167,2.633,4.1,6.233,7.7,9.167,10.9,12.367,13.833,15.967,17.433,18.9,20.433,21.9,23.367,25.5,26.967,28.433
+HP_CHANGES dieA n=181
+TAKE dieA MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/dieA.mp4 BYTES 14191980 LEAD 0.00 HOOK main=true 3d=true
 TAKE_OK dieA
 ORBIT dieB ok buffer=1080x1080 css=1080x1080 r=3.90 y=5.10 render=once_per_captured_frame speed=-0.5rad/s(virtual) camScale=0.6 renderPx=css (harness-only camera)
 CANVAS_FOUND=true dieB CANVAS_SIZE=1080x1080 CSS=1080x1080 TOP=420
-TAKE_MODE dieB mode=die seed=3 retry_hold_frames=24
+TAKE_MODE dieB mode=die seed=3 retry_hold_frames=9
 HP dieB t=0.17 20->18
 HP dieB t=0.30 18->16
 HP dieB t=0.43 16->15
@@ -121,123 +124,127 @@ HP dieB t=0.97 8->6
 HP dieB t=1.10 6->3
 DEATH dieB t=1.23 floor=1 turns=19 kills=0 cause="The slime splats you for 1. / You have fallen."
 OVER_SCREEN dieB display=block z=2147483647 hidden=false rect=140,700,940,1018
-HP dieB t=2.07 3->20
-HP dieB t=2.17 20->18
-HP dieB t=2.23 18->16
-HP dieB t=2.37 16->15
-HP dieB t=2.50 15->14
-HP dieB t=2.63 14->12
-HP dieB t=2.77 12->11
-HP dieB t=2.90 11->10
-HP dieB t=3.03 10->8
-HP dieB t=3.17 8->7
-HP dieB t=3.30 7->6
-HP dieB t=3.43 6->4
-HP dieB t=3.57 4->3
-HP dieB t=3.70 3->1
-DEATH dieB t=3.83 floor=1 turns=27 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieB t=4.67 1->20
-HP dieB t=4.83 20->18
-HP dieB t=4.97 18->16
-HP dieB t=5.10 16->14
-HP dieB t=5.23 14->11
-HP dieB t=5.37 11->8
-HP dieB t=5.50 8->6
-HP dieB t=5.63 6->3
-DEATH dieB t=5.77 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieB t=6.60 3->20
+HP dieB t=1.57 3->20
+HP dieB t=1.70 20->18
+HP dieB t=1.77 18->16
+HP dieB t=1.90 16->15
+HP dieB t=2.03 15->14
+HP dieB t=2.17 14->12
+HP dieB t=2.30 12->11
+HP dieB t=2.43 11->10
+HP dieB t=2.57 10->8
+HP dieB t=2.70 8->7
+HP dieB t=2.83 7->6
+HP dieB t=2.97 6->4
+HP dieB t=3.10 4->3
+HP dieB t=3.23 3->1
+DEATH dieB t=3.37 floor=1 turns=27 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieB t=3.70 1->20
+HP dieB t=3.90 20->18
+HP dieB t=4.03 18->16
+HP dieB t=4.17 16->14
+HP dieB t=4.30 14->11
+HP dieB t=4.43 11->8
+HP dieB t=4.57 8->6
+HP dieB t=4.70 6->3
+DEATH dieB t=4.83 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieB t=5.17 3->20
+HP dieB t=5.43 20->18
+HP dieB t=5.50 18->16
+HP dieB t=5.63 16->14
+HP dieB t=5.77 14->11
+HP dieB t=5.90 11->8
+HP dieB t=6.03 8->6
+HP dieB t=6.17 6->3
+DEATH dieB t=6.30 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieB t=6.63 3->20
 HP dieB t=6.83 20->18
-HP dieB t=6.90 18->16
-HP dieB t=7.03 16->14
-HP dieB t=7.17 14->11
-HP dieB t=7.30 11->8
-HP dieB t=7.43 8->6
-HP dieB t=7.57 6->3
-DEATH dieB t=7.70 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieB t=8.53 3->20
-HP dieB t=8.70 20->18
-HP dieB t=8.83 18->16
-HP dieB t=8.97 16->15
-HP dieB t=9.10 15->14
-HP dieB t=9.23 14->12
-HP dieB t=9.37 12->10
-HP dieB t=9.50 10->7
-HP dieB t=9.57 7->4
-HP dieB t=9.63 4->1
-DEATH dieB t=9.70 floor=1 turns=18 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieB t=10.53 1->20
-HP dieB t=10.70 20->18
-HP dieB t=10.83 18->16
-HP dieB t=10.97 16->14
-HP dieB t=11.10 14->11
-HP dieB t=11.23 11->8
-HP dieB t=11.37 8->6
-HP dieB t=11.50 6->3
-DEATH dieB t=11.63 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieB t=12.47 3->20
-HP dieB t=12.63 20->18
-HP dieB t=12.77 18->16
-HP dieB t=12.90 16->15
-HP dieB t=13.03 15->14
-HP dieB t=13.17 14->11
-HP dieB t=13.30 11->8
-HP dieB t=13.43 8->6
-HP dieB t=13.57 6->3
-DEATH dieB t=13.70 floor=1 turns=19 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieB t=14.53 3->20
-HP dieB t=14.70 20->18
-HP dieB t=14.83 18->16
-HP dieB t=14.97 16->15
-HP dieB t=15.10 15->14
-HP dieB t=15.23 14->12
-HP dieB t=15.37 12->11
-HP dieB t=15.50 11->10
-HP dieB t=15.63 10->8
-HP dieB t=15.77 8->7
-HP dieB t=15.90 7->6
-HP dieB t=16.03 6->4
-HP dieB t=16.17 4->3
-HP dieB t=16.30 3->1
-DEATH dieB t=16.43 floor=1 turns=29 kills=0 cause="The slime splats you for 1. / You have fallen."
-HP dieB t=17.27 1->20
-DEATH dieB t=18.37 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-DEATH dieB t=20.30 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
-DEATH dieB t=22.30 floor=1 turns=18 kills=0 cause="The slime splats you for 1. / You have fallen."
-CAPTURE_FRAMES dieB 720/720 wall=108.4s ms_per_frame=151 virtual_s=24.000 input_every=2f harness_renders=720 game_render_calls_suppressed=678
-TAKE_STATE_CHANGES dieB 239 HERO_MOVES 138 KEYS_SENT 228 RETRIES 11 FLOOR_MAX 1 KILLS 0
-HERO_PATH dieB 0.03s:(2,6)f1 0.10s:(3,6)f1 0.17s:(3,5)f1 0.23s:(3,4)f1 0.37s:(3,5)f1 0.50s:(3,6)f1 0.63s:(3,5)f1 0.77s:(3,4)f1 0.90s:(3,5)f1 1.03s:(3,4)f1 1.17s:(3,5)f1 2.07s:(1,6)f1
-DEATH_TALLY dieB n=11 distinct_raw_causes=1 distinct_killers=1 times=1.233,3.833,5.767,7.7,9.7,11.633,13.7,16.433,18.367,20.3,22.3
-HP_CHANGES dieB n=113
-TAKE dieB MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/dieB.mp4 BYTES 10325992 LEAD 0.00 HOOK main=true 3d=true
+HP dieB t=6.97 18->16
+HP dieB t=7.10 16->15
+HP dieB t=7.23 15->14
+HP dieB t=7.37 14->12
+HP dieB t=7.50 12->10
+HP dieB t=7.63 10->7
+HP dieB t=7.70 7->4
+HP dieB t=7.77 4->1
+DEATH dieB t=7.83 floor=1 turns=18 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieB t=8.17 1->20
+HP dieB t=8.37 20->18
+HP dieB t=8.50 18->16
+HP dieB t=8.63 16->14
+HP dieB t=8.77 14->11
+HP dieB t=8.90 11->8
+HP dieB t=9.03 8->6
+HP dieB t=9.17 6->3
+DEATH dieB t=9.30 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieB t=9.63 3->20
+HP dieB t=9.83 20->18
+HP dieB t=9.97 18->16
+HP dieB t=10.10 16->15
+HP dieB t=10.23 15->14
+HP dieB t=10.37 14->11
+HP dieB t=10.50 11->8
+HP dieB t=10.63 8->6
+HP dieB t=10.77 6->3
+DEATH dieB t=10.90 floor=1 turns=19 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieB t=11.23 3->20
+HP dieB t=11.43 20->18
+HP dieB t=11.57 18->16
+HP dieB t=11.70 16->15
+HP dieB t=11.83 15->14
+HP dieB t=11.97 14->12
+HP dieB t=12.10 12->11
+HP dieB t=12.23 11->10
+HP dieB t=12.37 10->8
+HP dieB t=12.50 8->7
+HP dieB t=12.63 7->6
+HP dieB t=12.77 6->4
+HP dieB t=12.90 4->3
+HP dieB t=13.03 3->1
+DEATH dieB t=13.17 floor=1 turns=29 kills=0 cause="The slime splats you for 1. / You have fallen."
+HP dieB t=13.50 1->20
+DEATH dieB t=14.63 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieB t=16.10 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieB t=17.63 floor=1 turns=18 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieB t=19.10 floor=1 turns=17 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieB t=20.70 floor=1 turns=19 kills=0 cause="The slime splats you for 1. / You have fallen."
+DEATH dieB t=22.83 floor=1 turns=27 kills=0 cause="The slime splats you for 1. / You have fallen."
+CAPTURE_FRAMES dieB 720/720 wall=85.8s ms_per_frame=119 virtual_s=24.000 input_every=2f harness_renders=720 game_render_calls_suppressed=721
+TAKE_STATE_CHANGES dieB 304 HERO_MOVES 176 KEYS_SENT 290 RETRIES 14 FLOOR_MAX 1 KILLS 0
+HERO_PATH dieB 0.03s:(2,6)f1 0.10s:(3,6)f1 0.17s:(3,5)f1 0.23s:(3,4)f1 0.37s:(3,5)f1 0.50s:(3,6)f1 0.63s:(3,5)f1 0.77s:(3,4)f1 0.90s:(3,5)f1 1.03s:(3,4)f1 1.17s:(3,5)f1 1.57s:(1,6)f1
+DEATH_TALLY dieB n=14 distinct_raw_causes=1 distinct_killers=1 times=1.233,3.367,4.833,6.3,7.833,9.3,10.9,13.167,14.633,16.1,17.633,19.1,20.7,22.833
+HP_CHANGES dieB n=143
+TAKE dieB MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/dieB.mp4 BYTES 11234839 LEAD 0.00 HOOK main=true 3d=true
 TAKE_OK dieB
 TAKES 2/2 ok
-DEATH_TIMES dieA n=15 1.17 3.10 5.03 7.63 9.57 11.50 13.70 15.63 17.57 20.17 22.10 24.03 26.03 27.97 29.90
-DEATH_TIMES dieB n=11 1.23 3.83 5.77 7.70 9.70 11.63 13.70 16.43 18.37 20.30 22.30
+DEATH_TIMES dieA n=18 1.17 2.63 4.10 6.23 7.70 9.17 10.90 12.37 13.83 15.97 17.43 18.90 20.43 21.90 23.37 25.50 26.97 28.43
+DEATH_TIMES dieB n=14 1.23 3.37 4.83 6.30 7.83 9.30 10.90 13.17 14.63 16.10 17.63 19.10 20.70 22.83
 DEATH_SKIP dieA t=1.17 window outside take
 DEATH_SKIP dieB t=1.23 window outside take
-DEATH_SKIP dieA t=5.03 overlaps a chosen window
-DEATH_SKIP dieB t=5.77 overlaps a chosen window
-DEATH_SKIP dieA t=9.57 overlaps a chosen window
-DEATH_SKIP dieB t=9.70 overlaps a chosen window
-DEATH_SKIP dieA t=13.70 overlaps a chosen window
-SHOT_PLAN 0 take dieA start 1.50 dur 2.20 hero_moves 11 death_on_screen t=3.10 tail=0.60s counter DEATH 1
-SHOT_PLAN 1 take dieB start 2.33 dur 2.10 hero_moves 11 death_on_screen t=3.83 tail=0.60s counter DEATH 2
-SHOT_PLAN 2 take dieA start 6.13 dur 2.10 hero_moves 11 death_on_screen t=7.63 tail=0.60s counter DEATH 3
-SHOT_PLAN 3 take dieB start 6.10 dur 2.20 hero_moves 11 death_on_screen t=7.70 tail=0.60s counter DEATH 4
-SHOT_PLAN 4 take dieA start 10.00 dur 2.10 hero_moves 11 death_on_screen t=11.50 tail=0.60s counter DEATH 5
-SHOT_PLAN 5 take dieB start 10.13 dur 2.10 hero_moves 11 death_on_screen t=11.63 tail=0.60s counter DEATH 6
-SHOT_PLAN 6 take dieA start 14.03 dur 2.20 hero_moves 10 death_on_screen t=15.63 tail=0.60s counter DEATH 7
-SHOTS_TOTAL 15.00s from_deaths=7 fillers=0
+DEATH_SKIP dieA t=4.10 overlaps a chosen window
+DEATH_SKIP dieB t=4.83 overlaps a chosen window
+DEATH_SKIP dieA t=7.70 overlaps a chosen window
+DEATH_SKIP dieB t=7.83 overlaps a chosen window
+DEATH_SKIP dieA t=10.90 overlaps a chosen window
+SHOT_PLAN 0 take dieA start 0.73 dur 2.20 hero_moves 13 first_0.4s_moves 2 death_on_screen t=2.63 tail=0.30s counter DEATH 1
+SHOT_PLAN 1 take dieB start 1.57 dur 2.10 hero_moves 15 first_0.4s_moves 4 death_on_screen t=3.37 tail=0.30s counter DEATH 2
+SHOT_PLAN 2 take dieA start 4.43 dur 2.10 hero_moves 15 first_0.4s_moves 4 death_on_screen t=6.23 tail=0.30s counter DEATH 3
+SHOT_PLAN 3 take dieB start 4.40 dur 2.20 hero_moves 14 first_0.4s_moves 3 death_on_screen t=6.30 tail=0.30s counter DEATH 4
+SHOT_PLAN 4 take dieA start 7.37 dur 2.10 hero_moves 14 first_0.4s_moves 3 death_on_screen t=9.17 tail=0.30s counter DEATH 5
+SHOT_PLAN 5 take dieB start 7.50 dur 2.10 hero_moves 12 first_0.4s_moves 1 death_on_screen t=9.30 tail=0.30s counter DEATH 6
+SHOT_PLAN 6 take dieA start 10.47 dur 2.20 hero_moves 13 first_0.4s_moves 3 death_on_screen t=12.37 tail=0.30s counter DEATH 7
+SHOTS_TOTAL 15.00s from_deaths=7 fillers=0 post=0.3 static_starts=0
 DEATHS_ON_SCREEN 7 min 2 OK
-STATE shot 0 take dieA window 1.50-3.70s hero_moves 11 min 3 OK
-STATE shot 1 take dieB window 2.33-4.43s hero_moves 11 min 3 OK
-STATE shot 2 take dieA window 6.13-8.23s hero_moves 11 min 3 OK
-STATE shot 3 take dieB window 6.10-8.30s hero_moves 11 min 3 OK
-STATE shot 4 take dieA window 10.00-12.10s hero_moves 11 min 3 OK
-STATE shot 5 take dieB window 10.13-12.23s hero_moves 11 min 3 OK
-STATE shot 6 take dieA window 14.03-16.23s hero_moves 10 min 3 OK
-STATE_TAKE dieA state_changes 295 hero_moves 173 keys_sent 281 retries 14 floor_max 1 kills 0 deaths 15
-STATE_TAKE dieB state_changes 239 hero_moves 138 keys_sent 228 retries 11 floor_max 1 kills 0 deaths 11
+STATIC_START 0 OK
+STATE shot 0 take dieA window 0.73-2.93s hero_moves 13 min 3 OK
+STATE shot 1 take dieB window 1.57-3.67s hero_moves 15 min 3 OK
+STATE shot 2 take dieA window 4.43-6.53s hero_moves 15 min 3 OK
+STATE shot 3 take dieB window 4.40-6.60s hero_moves 14 min 3 OK
+STATE shot 4 take dieA window 7.37-9.47s hero_moves 14 min 3 OK
+STATE shot 5 take dieB window 7.50-9.60s hero_moves 12 min 3 OK
+STATE shot 6 take dieA window 10.47-12.67s hero_moves 13 min 3 OK
+STATE_TAKE dieA state_changes 378 hero_moves 222 keys_sent 360 retries 18 floor_max 1 kills 0 deaths 18
+STATE_TAKE dieB state_changes 304 hero_moves 176 keys_sent 290 retries 14 floor_max 1 kills 0 deaths 14
 PATH_COMPARE dieA vs dieB first 8 positions DIFFER
 STATE_OK
 CAPTION_LINE1 This 3D roguelike keeps killing me. I told my bot to walk into the slime, and it listened. 💀
@@ -249,67 +256,68 @@ TEXT shot 0 top line 1 fs=66 w=688 h=77 x=196 y=373 'KEEPS KILLING ME'
 TEXTBOX whatif6v shot 0 top line 1 178,355,902,468 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
 TEXT shot 0 counter line 0 fs=56 w=272 h=66 x=404 y=498 'DEATH 1'
 TEXTBOX whatif6v shot 0 counter line 0 386,480,694,582 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 0 TAKE dieA SRC out/raw/dieA.mp4 SS 1.500 DUR 2.2 FRAMES 66 COUNTER DEATH 1
+SHOT 0 TAKE dieA SRC out/raw/dieA.mp4 SS 0.733 DUR 2.2 FRAMES 66 COUNTER DEATH 1
 TEXT shot 1 counter line 0 fs=56 w=272 h=66 x=404 y=490 'DEATH 2'
 TEXTBOX whatif6v shot 1 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 1 TAKE dieB SRC out/raw/dieB.mp4 SS 2.333 DUR 2.1 FRAMES 63 COUNTER DEATH 2
+SHOT 1 TAKE dieB SRC out/raw/dieB.mp4 SS 1.567 DUR 2.1 FRAMES 63 COUNTER DEATH 2
 TEXT shot 2 counter line 0 fs=56 w=272 h=66 x=404 y=490 'DEATH 3'
 TEXTBOX whatif6v shot 2 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 2 TAKE dieA SRC out/raw/dieA.mp4 SS 6.133 DUR 2.1 FRAMES 63 COUNTER DEATH 3
+SHOT 2 TAKE dieA SRC out/raw/dieA.mp4 SS 4.433 DUR 2.1 FRAMES 63 COUNTER DEATH 3
 TEXT shot 3 counter line 0 fs=56 w=272 h=66 x=404 y=490 'DEATH 4'
 TEXTBOX whatif6v shot 3 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 3 TAKE dieB SRC out/raw/dieB.mp4 SS 6.100 DUR 2.2 FRAMES 66 COUNTER DEATH 4
+SHOT 3 TAKE dieB SRC out/raw/dieB.mp4 SS 4.400 DUR 2.2 FRAMES 66 COUNTER DEATH 4
 TEXT shot 4 counter line 0 fs=56 w=272 h=66 x=404 y=490 'DEATH 5'
 TEXTBOX whatif6v shot 4 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 4 TAKE dieA SRC out/raw/dieA.mp4 SS 10.000 DUR 2.1 FRAMES 63 COUNTER DEATH 5
+SHOT 4 TAKE dieA SRC out/raw/dieA.mp4 SS 7.367 DUR 2.1 FRAMES 63 COUNTER DEATH 5
 TEXT shot 5 counter line 0 fs=56 w=272 h=66 x=404 y=490 'DEATH 6'
 TEXTBOX whatif6v shot 5 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 5 TAKE dieB SRC out/raw/dieB.mp4 SS 10.133 DUR 2.1 FRAMES 63 COUNTER DEATH 6
+SHOT 5 TAKE dieB SRC out/raw/dieB.mp4 SS 7.500 DUR 2.1 FRAMES 63 COUNTER DEATH 6
 TEXT shot 6 counter line 0 fs=56 w=272 h=66 x=404 y=490 'DEATH 7'
 TEXTBOX whatif6v shot 6 counter line 0 386,472,694,574 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
 TEXT shot 6 bottom line 0 fs=48 w=754 h=56 x=163 y=1226 'AI-WRITTEN 3D ROGUELIKE.'
 TEXTBOX whatif6v shot 6 bottom line 0 145,1208,935,1300 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
 TEXT shot 6 bottom line 1 fs=48 w=702 h=56 x=189 y=1318 'EARLY BUILD. FOLLOW IT.'
 TEXTBOX whatif6v shot 6 bottom line 1 171,1300,909,1392 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 6 TAKE dieA SRC out/raw/dieA.mp4 SS 14.033 DUR 2.2 FRAMES 66 COUNTER DEATH 7
+SHOT 6 TAKE dieA SRC out/raw/dieA.mp4 SS 10.467 DUR 2.2 FRAMES 66 COUNTER DEATH 7
 FOOTAGE live=7 fallback=0 of 7 shots
 AUDIO=chiptune (square-wave loop synthesized by ffmpeg aevalsrc in cut.sh; no third-party music, no game audio)
-CUT OK docs/whatif6v.mp4 FRAMES 450 BYTES 2730324
-PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=2730324
-WF_PROBE OK 1080,1920 15.000000 2730324
+CUT OK docs/whatif6v.mp4 FRAMES 450 BYTES 3093727
+PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=3093727
+WF_PROBE OK 1080,1920 15.000000 3093727
 MOTION_FILE docs/whatif6v.mp4
 MOTION_FRAMES 450
 MOTION_CUTS_EXCLUDED [66, 129, 192, 258, 321, 384]
-MOTION_MEAN 2.319
-MOTION_P10 0.668
-MOTION_MIN_1S 0.714 (window starting 12.27s)
-FIRST_SECOND_MOTION 2.791
+MOTION_MEAN 2.892
+MOTION_P10 0.942
+MOTION_MIN_1S 1.723 (window starting 3.33s)
+FIRST_SECOND_MOTION 2.846
 FROZEN_RUNS 0
-PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.452
-PER_SHOT_MOTION 1 dieB 2.20-4.30s 1.909
-PER_SHOT_MOTION 2 dieA 4.30-6.40s 1.999
-PER_SHOT_MOTION 3 dieB 6.40-8.60s 2.844
-PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.314
-PER_SHOT_MOTION 5 dieB 10.70-12.80s 2.666
-PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.032
+PER_SHOT_MOTION 0 dieA 0.00-2.20s 2.827
+PER_SHOT_MOTION 1 dieB 2.20-4.30s 2.236
+PER_SHOT_MOTION 2 dieA 4.30-6.40s 2.556
+PER_SHOT_MOTION 3 dieB 6.40-8.60s 3.556
+PER_SHOT_MOTION 4 dieA 8.60-10.70s 2.987
+PER_SHOT_MOTION 5 dieB 10.70-12.80s 3.321
+PER_SHOT_MOTION 6 dieA 12.80-15.00s 2.738
 FREEZEDETECT 0 freezes (0 lines)
 PER_SECOND_MOTION
-   0s   2.791 ###########
-   1s   2.420 #########
-   2s   3.147 ############
-   3s   1.744 ######
-   4s   2.598 ##########
-   5s   2.027 ########
-   6s   2.439 #########
-   7s   3.971 ###############
-   8s   1.742 ######
-   9s   2.888 ###########
-  10s   1.794 #######
-  11s   4.059 ################
-  12s   1.760 #######
-  13s   2.558 ##########
-  14s   1.722 ######
-MOTION_FAIL MOTION_MIN_1S 0.714 < 1.0
-GATES pass=no failing_step=motion run=41424270273 kit=2ee885ad probe=None dur=None motion_min_1s=0.714 first_s=2.791 frozen_runs=0 gate3d=OK state=OK deaths_on_screen=7 textbox_max_x=935 textbox_safe=True audio=chiptune mp4=none
+   0s   2.846 ###########
+   1s   3.174 ############
+   2s   3.225 ############
+   3s   2.196 ########
+   4s   3.050 ############
+   5s   2.395 #########
+   6s   3.520 ##############
+   7s   4.201 ################
+   8s   3.397 #############
+   9s   3.206 ############
+  10s   2.992 ###########
+  11s   3.696 ##############
+  12s   3.448 #############
+  13s   2.825 ###########
+  14s   2.588 ##########
+MOTION_NOTE pixel motion only; it does not prove game footage. See SHOT/FOOTAGE lines.
+MOTION_OK
+GATES pass=yes failing_step=none run=41425765779 kit=8ce4d0c1 probe=None dur=None motion_min_1s=1.723 first_s=2.846 frozen_runs=0 gate3d=OK state=OK deaths_on_screen=7 textbox_max_x=935 textbox_safe=True audio=chiptune mp4=new:cd65071433
 GATES_JSON docs/whatif6v-gates.json and docs/whatif6v-status.json
-mp4 NOT committed (gates failed); stale docs/whatif6v.mp4 removed from the branch
+MP4_COMMIT new blob cd650714333647376b0168140ff7551ae2c6659e (previous none)

@@ -2,52 +2,52 @@
  "shots": [
   {
    "take": "dieA",
-   "start": 1.5,
+   "start": 0.733,
    "dur": 2.2,
-   "death_t": 3.1,
+   "death_t": 2.633,
    "text_top": "THIS 3D ROGUELIKE / KEEPS KILLING ME",
    "counter": "DEATH 1"
   },
   {
    "take": "dieB",
-   "start": 2.333,
+   "start": 1.567,
    "dur": 2.1,
-   "death_t": 3.833,
+   "death_t": 3.367,
    "counter": "DEATH 2"
   },
   {
    "take": "dieA",
-   "start": 6.133,
+   "start": 4.433,
    "dur": 2.1,
-   "death_t": 7.633,
+   "death_t": 6.233,
    "counter": "DEATH 3"
   },
   {
    "take": "dieB",
-   "start": 6.1,
+   "start": 4.4,
    "dur": 2.2,
-   "death_t": 7.7,
+   "death_t": 6.3,
    "counter": "DEATH 4"
   },
   {
    "take": "dieA",
-   "start": 10.0,
+   "start": 7.367,
    "dur": 2.1,
-   "death_t": 11.5,
+   "death_t": 9.167,
    "counter": "DEATH 5"
   },
   {
    "take": "dieB",
-   "start": 10.133,
+   "start": 7.5,
    "dur": 2.1,
-   "death_t": 11.633,
+   "death_t": 9.3,
    "counter": "DEATH 6"
   },
   {
    "take": "dieA",
-   "start": 14.033,
+   "start": 10.467,
    "dur": 2.2,
-   "death_t": 15.633,
+   "death_t": 12.367,
    "text_bottom": "AI-WRITTEN 3D ROGUELIKE. / EARLY BUILD. FOLLOW IT.",
    "counter": "DEATH 7"
   }
