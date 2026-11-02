@@ -1,39 +1,96 @@
 {
- "GATES": "GATES pass=no failing_step=record run=41497497422 kit=ac41854b probe=None dur=None vcodec=None acodec=None motion_min_1s=None first_s=None frozen_runs=None http403=seen cinematic=not_run reload=seen cam_events=not_run linecount=not_run gate3d=n/a state=not_run deaths_on_screen=None textbox_max_x=None textbox_safe=None audio=None mp4=none",
+ "GATES": "GATES pass=yes failing_step=none run=41500439210 kit=e5cfbc71 probe=1080x1920 dur=12.0 vcodec=h264 acodec=aac motion_min_1s=1.039 first_s=1.507 frozen_runs=0 http403=seen cinematic=not_run reload=seen cam_events=not_run linecount=not_run gate3d=n/a state=not_run deaths_on_screen=None textbox_max_x=749 textbox_safe=True audio=None mp4=new:fd350e4abb",
  "gates": {
-  "pass": false,
-  "failing_step": "record",
+  "pass": true,
+  "failing_step": null,
   "step_outcomes": {
    "secret": "success",
    "tools": "success",
    "checkout": "success",
    "app": "success",
-   "record": "failure",
-   "cut": "skipped",
-   "probe": "skipped",
-   "motion": "skipped"
+   "record": "success",
+   "cut": "success",
+   "probe": "success",
+   "motion": "success"
   },
-  "run_id": "41497497422",
-  "kit_sha": "ac41854b73d014931d14988644d0a65a2978cee6",
-  "mp4": null,
-  "mp4_note": "no new mp4: gates failed, any old docs/clowderB.mp4 was deleted",
+  "run_id": "41500439210",
+  "kit_sha": "e5cfbc71609ae1a6e3b2b0f2f8d8b53e2a20fd1e",
+  "mp4": {
+   "new": true,
+   "render_blob": "fd350e4abbec2e92d17c53402e0b34c5291d6d3a",
+   "previous_blob": null,
+   "bytes": 4048903,
+   "sha256": "e959778f81212c14b623b2be63058aa0354081ef02bdcd21e1b8d47899aed3fe",
+   "run_id": "41500439210",
+   "kit_sha": "e5cfbc71609ae1a6e3b2b0f2f8d8b53e2a20fd1e"
+  },
+  "mp4_note": "new render committed",
   "wf_probe": {
-   "line": null,
-   "dims": null,
-   "duration_s": null,
-   "vcodec": null,
-   "acodec": null
+   "line": "WF_PROBE OK 1080x1920 12.000 s h264/aac yuv420p 4,048,903 bytes",
+   "dims": "1080x1920",
+   "duration_s": 12.0,
+   "vcodec": "h264",
+   "acodec": "aac"
   },
   "motion": {
-   "verdict": null,
-   "min_1s": null,
-   "min_1s_at": null,
-   "first_second": null,
-   "frozen_runs": null,
+   "verdict": "MOTION_OK",
+   "min_1s": 1.039,
+   "min_1s_at": 2.63,
+   "first_second": 1.507,
+   "frozen_runs": 0.0,
    "frozen": [],
-   "freezedetect": null,
+   "freezedetect": "FREEZEDETECT 0 freezes (0 lines)",
    "per_shot": [],
-   "per_second": []
+   "per_second": [
+    [
+     0,
+     1.507
+    ],
+    [
+     1,
+     1.062
+    ],
+    [
+     2,
+     1.067
+    ],
+    [
+     3,
+     1.303
+    ],
+    [
+     4,
+     2.606
+    ],
+    [
+     5,
+     1.633
+    ],
+    [
+     6,
+     1.545
+    ],
+    [
+     7,
+     1.49
+    ],
+    [
+     8,
+     2.456
+    ],
+    [
+     9,
+     1.32
+    ],
+    [
+     10,
+     1.509
+    ],
+    [
+     11,
+     1.198
+    ]
+   ]
   },
   "named_gates": {
    "HTTP_403": {
@@ -67,47 +124,64 @@
    "line": null
   },
   "textbox": {
-   "max_x": null,
-   "all_safe": null,
-   "boxes": []
+   "max_x": 749,
+   "all_safe": true,
+   "boxes": [
+    {
+     "x0": 60,
+     "y0": 240,
+     "x1": 749,
+     "y1": 412,
+     "safe": "OK",
+     "line": "TEXTBOX clowderB hook 60,240,749,412 safe=OK t=0.0-3.6 fs=62 band=x<=900,y230-420"
+    },
+    {
+     "x0": 60,
+     "y0": 240,
+     "x1": 710,
+     "y1": 404,
+     "safe": "OK",
+     "line": "TEXTBOX clowderB end 60,240,710,404 safe=OK t=10.2-12.0 fs=58 band=x<=900,y230-420"
+    }
+   ]
   },
   "audio": {
    "value": null,
    "line": null
   },
-  "footage": null,
+  "footage": "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps + eased push-out only)",
   "errors": [],
   "log_tail": [
-   "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
-   "v20.20.2",
-   "APP cat-town main 42a7ab15049e8e9b2461fa6b65b77bff09de7565",
-   "",
-   "To address all issues (including breaking changes), run:",
-   "  npm audit fix --force",
-   "",
-   "Run `npm audit` for details.",
-   "APP UP after 4 s",
-   "RECORDER live/scene.mjs",
-   "PLAN scene_ms=12000 frames=360 out_ms=12000 steps=goal:4000,handoff:4000,work:4000",
-   "FRAME_NAME frame_%05d.png from=config",
-   "SERVER status=200 url=http://localhost:3000/",
-   "SETUP_SEED key=clowder.setup.seen",
-   "NETWORK_IDLE timeout (continuing)",
-   "PREROLL virtual_ms=21100 real_ms=430279 intro=played_and_closed (not captured, no input)",
-   "CLICK #reset-view frame=0 ok=no err=page.click: Element is not visible",
-   "STEP goal frame=0 t=0.00s",
-   "API POST /api/chat frame=12 body={\"cat\":\"mayor\",\"text\":\"Throw a welcome party for a new cat\",\"mode\":\"demo\",\"goal\":true}",
-   "API_STATUS /api/chat status=403",
-   "STEP handoff frame=120 t=4.00s",
-   "STEP work frame=240 t=8.00s",
-   "FRAMES_WRITTEN n=360 of 360",
-   "INTRO_IN_CAPTURE frames=0",
-   "SETUP_DIALOG frames=0",
-   "INPUT clicks=1 api=1",
-   "HTTP_403 n=0",
-   "RELOAD n=0",
-   "PAGE_ERRORS n=0",
-   "RESULT pass=no failing=API /api/chat"
+   "TEXTBOX clowderB hook 60,240,749,412 safe=OK t=0.0-3.6 fs=62 band=x<=900,y230-420",
+   "TEXTBOX clowderB end 60,240,710,404 safe=OK t=10.2-12.0 fs=58 band=x<=900,y230-420",
+   "AUDIO src=cat-town public/audio.js Music (ported) source=code third_party_music=no",
+   "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps + eased push-out only)",
+   "CUT OK docs/clowderB.mp4 FRAMES 360 BYTES 4048903",
+   "WF_PROBE OK 1080x1920 12.000 s h264/aac yuv420p 4,048,903 bytes",
+   "MOTION_FILE docs/clowderB.mp4",
+   "MOTION_FRAMES 360",
+   "MOTION_CUTS_EXCLUDED []",
+   "MOTION_MEAN 1.558",
+   "MOTION_P10 1.040",
+   "MOTION_MIN_1S 1.039 (window starting 2.63s)",
+   "FIRST_SECOND_MOTION 1.507",
+   "FROZEN_RUNS 0",
+   "FREEZEDETECT 0 freezes (0 lines)",
+   "PER_SECOND_MOTION",
+   "   0s   1.507 ######",
+   "   1s   1.062 ####",
+   "   2s   1.067 ####",
+   "   3s   1.303 #####",
+   "   4s   2.606 ##########",
+   "   5s   1.633 ######",
+   "   6s   1.545 ######",
+   "   7s   1.490 #####",
+   "   8s   2.456 #########",
+   "   9s   1.320 #####",
+   "  10s   1.509 ######",
+   "  11s   1.198 ####",
+   "MOTION_NOTE pixel motion only; it does not prove game footage. See SHOT/FOOTAGE lines.",
+   "MOTION_OK"
   ]
  },
  "status_json_error": "[Errno 2] No such file or directory: 'out/raw/status.json'",
@@ -119,7 +193,7 @@
   "SERVER status=200 url=http://localhost:3000/",
   "SETUP_SEED key=clowder.setup.seen",
   "NETWORK_IDLE timeout (continuing)",
-  "PREROLL virtual_ms=21100 real_ms=430279 intro=played_and_closed (not captured, no input)",
+  "PREROLL virtual_ms=21100 real_ms=306824 intro=played_and_closed (not captured, no input)",
   "STEP goal frame=0 t=0.00s",
   "STEP handoff frame=120 t=4.00s",
   "STEP work frame=240 t=8.00s",
@@ -128,7 +202,21 @@
   "HTTP_403 n=0",
   "RELOAD n=0",
   "PAGE_ERRORS n=0",
-  "RESULT pass=no failing=API /api/chat",
-  "WF_PROBE_PARSED dims=None dur=None vcodec=None acodec=None line=None"
+  "RESULT pass=yes failing=none",
+  "FRAMES_IN n=360 need=360",
+  "PUSHIN steps=goal t=0.000-4.000s frames=0-119 zoom=1.000->1.100 linear centred (edit of live footage)",
+  "PUSHIN steps=handoff t=4.000-8.000s frames=120-239 zoom=1.000->1.150 linear centred (edit of live footage)",
+  "PUSHIN steps=work t=8.000-12.000s frames=240-359 zoom=1.000->1.120 linear centred (edit of live footage)",
+  "PUSHOUT steps=goal t=4.000-4.400s frames=120-131 zoom=1.100->1.000 n=12 smoothstep centred eased=1 clash=11 (edit of live footage)",
+  "PUSHOUT steps=handoff t=8.000-8.400s frames=240-251 zoom=1.150->1.000 n=12 smoothstep centred eased=1 clash=11 (edit of live footage)",
+  "PUSHOUT steps=work t=12.000-12.000s frames=360-359 zoom=1.120->1.000 n=12 smoothstep centred eased=0 clash=0 (edit of live footage)",
+  "PUSHIN_FRAMES edited=359 copied=1 of 360",
+  "TEXTBOX clowderB hook 60,240,749,412 safe=OK t=0.0-3.6 fs=62 band=x<=900,y230-420",
+  "TEXTBOX clowderB end 60,240,710,404 safe=OK t=10.2-12.0 fs=58 band=x<=900,y230-420",
+  "AUDIO src=cat-town public/audio.js Music (ported) source=code third_party_music=no",
+  "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps + eased push-out only)",
+  "CUT OK docs/clowderB.mp4 FRAMES 360 BYTES 4048903",
+  "WF_PROBE OK 1080x1920 12.000 s h264/aac yuv420p 4,048,903 bytes",
+  "WF_PROBE_PARSED dims=1080x1920 dur=12.0 vcodec=h264 acodec=aac line='WF_PROBE OK 1080x1920 12.000 s h264/aac yuv420p 4,048,903 bytes'"
  ]
 }

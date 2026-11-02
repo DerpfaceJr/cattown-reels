@@ -45,8 +45,8 @@
         "mode": "demo",
         "goal": true
       },
-      "status": 403,
-      "bytes": 45,
+      "status": 200,
+      "bytes": 47,
       "required": true
     }
   ],
@@ -57,7 +57,5 @@
   "urls403": [],
   "reloads": 0,
   "pageErrors": [],
-  "fails": [
-    "API /api/chat"
-  ]
+  "fails": []
 }
