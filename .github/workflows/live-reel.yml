@@ -1,6 +1,7 @@
 # live-reel v6 - capture live game footage frame by frame, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
-# whatif6v-staging: record.mjs is patched in memory by live/patch6v.mjs (die mode, seeds, DEATH log), and
+# record.mjs is patched in memory by live/patch6v.mjs (die mode, seeds, DEATH log), and
 # live/shots6v.py picks the shot windows from the DEATH times (DEATHS_ON_SCREEN gate) when the config asks for it.
+# cut.sh v5 adds GATE3D for whatif* reels (3d.html-only takes, '3D ROGUELIKE' on screen and in caption line 1).
 name: live-reel
 
 on:
@@ -10,9 +11,9 @@ on:
         description: Reel to render
         required: true
         type: choice
-        options: [whatif2v, whatif6v, whatif7v]
+        options: [whatif2v, whatif2v7, whatif6v, whatif7v]
   push:
-    branches: [whatif2v-staging, whatif6v-staging, whatif7v-staging]
+    branches: [whatif2v-staging, whatif2v7-staging, whatif6v-staging, whatif7v-staging]
 
 permissions:
   contents: write
@@ -46,7 +47,7 @@ jobs:
           [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'"; exit 1; }
           echo "reel=$R" >> "$GITHUB_OUTPUT"
           mkdir -p docs
-          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v-v2" | tee "docs/$R-log.txt"
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=v6+patch6v-v2+cut-v5" | tee "docs/$R-log.txt"
 
       - name: Install tools
         run: |
@@ -128,12 +129,13 @@ jobs:
           PROBE: ${{ steps.probe.outcome }}
           MOTION: ${{ steps.motion.outcome }}
           STATE: ${{ steps.state.outcome }}
+          CUT: ${{ steps.cut.outcome }}
         run: |
           set -o pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -- live/reels 2>/dev/null || true
-          echo "GATES shots=$SHOTS probe=$PROBE motion=$MOTION state=$STATE" | tee -a "docs/$R-log.txt"
+          echo "GATES shots=$SHOTS state=$STATE cut=$CUT probe=$PROBE motion=$MOTION" | tee -a "docs/$R-log.txt"
           cp out/raw/status.json "docs/$R-status.json" 2>/dev/null || true
           git add "docs/$R-log.txt" "docs/$R-status.json" 2>/dev/null || git add "docs/$R-log.txt"
           git add "docs/$R-shots.json" 2>/dev/null || true
@@ -148,7 +150,7 @@ jobs:
           SHA=$(git rev-parse HEAD)
           echo "COMMIT $SHA"
           {
-            echo "### $R  (shots: $SHOTS, probe: $PROBE, motion: $MOTION, state: $STATE)"
+            echo "### $R  (shots: $SHOTS, state: $STATE, cut: $CUT, probe: $PROBE, motion: $MOTION)"
             echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
             [ "$PASS" = yes ] && echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"
           } >> "$GITHUB_STEP_SUMMARY"

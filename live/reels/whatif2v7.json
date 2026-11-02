@@ -1,0 +1,18 @@
+{
+  "_note": "Reel 2 v7 live footage (v6 kit + patch6v, cut.sh v5). ONE continuous hunt-mode take of daily-tower-web/3d.html (the 3D roguelike), captured frame by frame on a virtual clock. The three shots are contiguous windows of the same take (0.5-3.0, 3.0-12.5, 12.5-15.5 s), so no cut jumps back in the run. Camera orbit/pull-in are recorder-only. No comment-voting claim.",
+  "_caption_disclosure": "Live capture of AI-written game code, rendered frame by frame on a controlled clock so it plays at game speed. Inputs and the camera are scripted by the recorder.",
+  "caption": "An AI coded this 3D roguelike. This is one unbroken run, captured live.\n\nDaily Tower is an early-build 3D roguelike written by AI. Follow to watch it get built.\n\nLive capture of AI-written game code, rendered frame by frame on a controlled clock so it plays at game speed. Inputs and the camera are scripted by the recorder.\n\n#roguelike #indiegame #gamedev",
+  "reel": "whatif2v7",
+  "duration": 15,
+  "audio": "chiptune",
+  "fallback_to_scene": false,
+  "min_moves_per_shot": 3,
+  "takes": [
+    { "name": "run", "url": "https://derpfacejr.github.io/daily-tower-web/3d.html", "seconds": 16.5, "harness": "tower", "mode": "hunt", "seed": 7, "inputEvery": 3, "orbit": 0.6, "camScale": 0.7, "maxWallSec": 900 }
+  ],
+  "shots": [
+    { "take": "run", "start": 0.5, "dur": 2.5, "text_top": "AN AI CODED THIS / 3D ROGUELIKE" },
+    { "take": "run", "start": 3.0, "dur": 9.5 },
+    { "take": "run", "start": 12.5, "dur": 3.0, "text_bottom": "AI-WRITTEN 3D ROGUELIKE. / EARLY BUILD. FOLLOW IT." }
+  ]
+}
