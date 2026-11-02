@@ -1,0 +1,70 @@
+{
+  "reel": "clowderA",
+  "account": "clowderai",
+  "app": {
+    "repo": "DerpfaceJr/cat-town",
+    "start": "DEMO_MODE=1 npm start",
+    "url": "http://localhost:3000/?intro"
+  },
+  "recorder": {
+    "script": "live/cinema.mjs",
+    "fps": 30,
+    "frames": 450,
+    "framesDir": "frames/clowderA",
+    "viewport": { "width": 540, "height": 960 },
+    "deviceScaleFactor": 2,
+    "chromiumArgs": ["--use-gl=swiftshader", "--enable-webgl", "--ignore-gpu-blocklist"],
+    "clock": { "startIso": "2026-11-01T12:00:00Z" },
+    "syncCssAnimations": true,
+    "hideCss": ".intro-cinema .intro-skip,.intro-cinema .intro-hold{display:none!important}",
+    "networkIdleMs": 20000,
+    "preRollCapMs": 10000,
+    "preRollRealMs": 25,
+    "maxSubStepMs": 33.34,
+    "endDriftTolMs": 150,
+    "setupRe": "set up clowder",
+    "steps": [
+      { "name": "open",    "ms": 1200, "speed": 1 },
+      { "name": "descend", "ms": 3200, "speed": 1.6 },
+      { "name": "hello",   "ms": 3600, "speed": 1 },
+      { "name": "ask",     "ms": 3600, "speed": 1 },
+      { "name": "tour",    "ms": 5000, "speed": 2.0 },
+      { "name": "outro",   "ms": 2000, "speed": 1 }
+    ],
+    "clickSelectors": []
+  },
+  "text": {
+    "band": { "xMax": 900, "yMin": 230, "yMax": 420, "note": "Clear of the 11vh letterbox bars (~211 px at 1920), the top 220 px, the bottom 420 px, the right 120+ px and the Mayor bubble in mid-frame. GUESS: no other app screen appears in y 230-420 during the intro." },
+    "font": "DejaVuSans-Bold.ttf",
+    "plates": [
+      { "label": "hook", "lines": ["FOUNDING A TOWN", "OF AI CATS"], "start": 0.0, "end": 4.4, "x": 60, "y": 240, "fontsize": 62, "lineGap": 12, "pad": 18, "fontcolor": "white", "boxcolor": "black@0.72" },
+      { "label": "end", "lines": ["CAT TOWN", "LIVE APP CAPTURE"], "start": 12.6, "end": 15.0, "x": 60, "y": 240, "fontsize": 58, "lineGap": 12, "pad": 18, "fontcolor": "white", "boxcolor": "black@0.72" }
+    ],
+    "rules": "Every plate is drawn on a backed box. The cut step measures each rendered box and logs TEXTBOX clowderA <label> x0,y0,x1,y1; fail if x1>900, y0<230 or y1>420."
+  },
+  "audio": {
+    "mode": "chiptune",
+    "source": "code",
+    "thirdPartyMusic": false,
+    "ffmpeg": "aevalsrc=exprs='0.10*sgn(sin(2*PI*t*(220*pow(2,floor(mod(t*4,8))/12))))*exp(-6*mod(t,0.25))+0.05*sgn(sin(2*PI*t*110*pow(2,floor(mod(t,4))/12)))':s=44100:d=15,afade=t=in:d=0.3,afade=t=out:st=14.2:d=0.8",
+    "logLine": "AUDIO=chiptune(aevalsrc)"
+  },
+  "gates": {
+    "http403Max": 0,
+    "cinematicSteps": ["open", "descend", "hello", "ask", "tour", "outro"],
+    "reloadMax": 0,
+    "camEventsMin": 1,
+    "introEndByFrame": 450,
+    "motion": { "min1s": 1.0, "firstS": 1.0, "frozenRuns": 0 },
+    "fallbacks": 0,
+    "probe": { "width": 1080, "height": 1920, "durS": 15.0 }
+  },
+  "outputs": {
+    "rec": "docs/clowderA-rec.json",
+    "mp4": "docs/clowderA.mp4",
+    "log": "docs/clowderA-log.txt",
+    "status": "docs/clowderA-status.json",
+    "gates": "docs/clowderA-gates.json"
+  },
+  "caption": "Founding a town of AI cats 🐾\n\nA new town opens: the Mayor flies in, says hello, asks what the town should do, then shows you around.\n\nLive capture of the Cat Town app's own intro, recorded frame by frame on a controlled clock. The recorder sends no inputs; the camera moves are the app's built-in cinematic. Two parts of the intro are sped up to fit 15 s. Made with AI and code.\n\n#aiagents #indiedev #buildinpublic"
+}
