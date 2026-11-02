@@ -1,119 +1,99 @@
-RUN_ID=41415927990 REEL=whatif2v7 REF=whatif2v7-staging SHA=864c32e7908a579c56017e112f6f3e829abb780f KIT=v6+patch6v-v2+cut-v5
+RUN_ID=41418142047 REEL=whatif2v7 REF=whatif2v7-staging SHA=41ce27ed5c398fdb0ff554aa0bff71fe73c4563c KIT=v6+patch6v-v2+cut-v5
 ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
 v20.20.2
 PATCH6V ok 12 patches applied to live/record.mjs (v2)
 ORBIT run ok buffer=1080x1080 css=1080x1080 r=4.55 y=5.95 render=once_per_captured_frame speed=0.6rad/s(virtual) camScale=0.7 renderPx=css (harness-only camera)
 CANVAS_FOUND=true run CANVAS_SIZE=1080x1080 CSS=1080x1080 TOP=420
 TAKE_MODE run mode=hunt seed=7 retry_hold_frames=24
-HP run t=0.23 20->18
-HP run t=0.53 18->20
-HP run t=1.93 20->22
-HP run t=2.23 22->21
-HP run t=2.33 21->19
-HP run t=2.63 19->22
-HP run t=2.83 22->21
-HP run t=3.83 21->24
-HP run t=4.03 24->21
-HP run t=4.23 21->18
-HP run t=4.43 18->16
-HP run t=4.73 16->24
-HP run t=5.23 24->26
-HP run t=5.43 26->24
-HP run t=5.63 24->23
-HP run t=6.03 23->26
-HP run t=6.23 26->21
-HP run t=6.33 21->17
-HP run t=7.03 17->24
-HP run t=7.23 24->19
-HP run t=7.33 19->14
-HP run t=7.43 14->8
-HP run t=7.93 8->6
-HP run t=8.13 6->4
-DEATH run t=8.23 floor=5 turns=83 kills=14 cause="The skeleton slashes you for 5. / You have fallen."
+HP run t=0.43 20->18
+HP run t=1.03 18->20
+HP run t=3.83 20->22
+HP run t=4.43 22->21
+HP run t=4.63 21->19
+HP run t=5.23 19->22
+HP run t=5.63 22->21
+HP run t=7.63 21->24
+HP run t=8.03 24->21
+HP run t=8.43 21->18
+HP run t=8.83 18->16
+HP run t=9.43 16->24
+HP run t=10.43 24->26
+HP run t=10.83 26->24
+HP run t=11.23 24->23
+HP run t=12.03 23->26
+HP run t=12.43 26->21
+HP run t=12.63 21->17
+HP run t=14.03 17->24
+HP run t=14.43 24->19
+HP run t=14.63 19->14
+HP run t=14.83 14->8
+HP run t=15.83 8->6
+HP run t=16.23 6->4
+DEATH run t=16.43 floor=5 turns=83 kills=14 cause="The skeleton slashes you for 5. / You have fallen."
 OVER_SCREEN run display=block z=2147483647 hidden=false rect=140,700,940,1018
-HP run t=9.07 4->20
-HP run t=9.33 20->18
-HP run t=9.63 18->20
-HP run t=11.03 20->22
-HP run t=11.33 22->21
-HP run t=11.43 21->19
-HP run t=11.73 19->22
-HP run t=11.93 22->21
-HP run t=12.93 21->24
-HP run t=13.13 24->21
-HP run t=13.33 21->18
-HP run t=13.53 18->16
-HP run t=13.83 16->24
-HP run t=14.33 24->26
-HP run t=14.53 26->24
-HP run t=14.73 24->23
-HP run t=15.13 23->26
-HP run t=15.33 26->21
-HP run t=15.43 21->17
-HP run t=16.13 17->24
-HP run t=16.33 24->19
-HP run t=16.43 19->14
-CAPTURE_FRAMES run 495/495 wall=57.0s ms_per_frame=115 virtual_s=16.500 input_every=3f harness_renders=495 game_render_calls_suppressed=484
-TAKE_STATE_CHANGES run 158 HERO_MOVES 128 KEYS_SENT 157 RETRIES 1 FLOOR_MAX 5 KILLS 14
-HERO_PATH run 0.03s:(1,5)f1 0.13s:(1,6)f1 0.23s:(2,6)f1 0.33s:(2,7)f1 0.53s:(2,8)f1 0.63s:(3,8)f1 0.83s:(4,8)f1 0.93s:(5,8)f1 1.03s:(6,8)f1 1.13s:(7,8)f1 1.23s:(8,8)f1 1.33s:(8,7)f1
-DEATH_TALLY run n=1 distinct_raw_causes=1 distinct_killers=1 times=8.233
-HP_CHANGES run n=46
-TAKE run MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/run.mp4 BYTES 8281965 LEAD 0.00 HOOK main=true 3d=true
+HP run t=17.27 4->20
+HP run t=17.83 20->18
+CAPTURE_FRAMES run 540/540 wall=55.3s ms_per_frame=102 virtual_s=18.000 input_every=6f harness_renders=540 game_render_calls_suppressed=515
+TAKE_STATE_CHANGES run 87 HERO_MOVES 71 KEYS_SENT 86 RETRIES 1 FLOOR_MAX 5 KILLS 14
+HERO_PATH run 0.03s:(1,5)f1 0.23s:(1,6)f1 0.43s:(2,6)f1 0.63s:(2,7)f1 1.03s:(2,8)f1 1.23s:(3,8)f1 1.63s:(4,8)f1 1.83s:(5,8)f1 2.03s:(6,8)f1 2.23s:(7,8)f1 2.43s:(8,8)f1 2.63s:(8,7)f1
+DEATH_TALLY run n=1 distinct_raw_causes=1 distinct_killers=1 times=16.433
+HP_CHANGES run n=26
+TAKE run MODE frames URL https://derpfacejr.github.io/daily-tower-web/3d.html FILE out/raw/run.mp4 BYTES 8405433 LEAD 0.00 HOOK main=true 3d=true
 TAKE_OK run
 TAKES 1/1 ok
 SHOTS fixed (from config)
-STATE shot 0 take run window 0.50-3.00s hero_moves 21 min 3 OK
-STATE shot 1 take run window 3.00-12.50s hero_moves 72 min 3 OK
-STATE shot 2 take run window 12.50-15.50s hero_moves 24 min 3 OK
-STATE_TAKE run state_changes 158 hero_moves 128 keys_sent 157 retries 1 floor_max 5 kills 14 deaths 1
+STATE shot 0 take run window 2.00-4.50s hero_moves 13 min 3 OK
+STATE shot 1 take run window 4.50-14.50s hero_moves 39 min 3 OK
+STATE shot 2 take run window 14.50-17.00s hero_moves 7 min 3 OK
+STATE_TAKE run state_changes 87 hero_moves 71 keys_sent 86 retries 1 floor_max 5 kills 14 deaths 1
 STATE_OK
-CAPTION_LINE1 An AI coded this 3D roguelike. This is one unbroken run, captured live.
+CAPTION_LINE1 An AI coded this 3D roguelike. One run, start to death, captured live.
 GATE3D takes=1 non_3d_urls=0 url=OK onscreen_text=OK caption_line1=OK
 GATE3D OK
 TEXT shot 0 top line 0 fs=72 w=745 h=84 x=167 y=260 'AN AI CODED THIS'
 TEXTBOX whatif2v7 shot 0 top line 0 149,242,930,362 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
 TEXT shot 0 top line 1 fs=72 w=596 h=84 x=242 y=380 '3D ROGUELIKE'
 TEXTBOX whatif2v7 shot 0 top line 1 224,362,856,482 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 0 TAKE run SRC out/raw/run.mp4 SS 0.500 DUR 2.5 FRAMES 75 COUNTER -
-SHOT 1 TAKE run SRC out/raw/run.mp4 SS 3.000 DUR 9.5 FRAMES 285 COUNTER -
+SHOT 0 TAKE run SRC out/raw/run.mp4 SS 2.000 DUR 2.5 FRAMES 75 COUNTER -
+SHOT 1 TAKE run SRC out/raw/run.mp4 SS 4.500 DUR 10.0 FRAMES 300 COUNTER -
 TEXT shot 2 bottom line 0 fs=48 w=754 h=56 x=163 y=1226 'AI-WRITTEN 3D ROGUELIKE.'
 TEXTBOX whatif2v7 shot 2 bottom line 0 145,1208,935,1300 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
 TEXT shot 2 bottom line 1 fs=48 w=702 h=56 x=189 y=1318 'EARLY BUILD. FOLLOW IT.'
 TEXTBOX whatif2v7 shot 2 bottom line 1 171,1300,909,1392 safe=OK (measured: textw.py hmtx advances + hhea ascent-descent of DejaVuSans-Bold.ttf; zone x<=960, 220<=y<=1500)
-SHOT 2 TAKE run SRC out/raw/run.mp4 SS 12.500 DUR 3.0 FRAMES 90 COUNTER -
+SHOT 2 TAKE run SRC out/raw/run.mp4 SS 14.500 DUR 2.5 FRAMES 75 COUNTER -
 FOOTAGE live=3 fallback=0 of 3 shots
 AUDIO=chiptune (square-wave loop synthesized by ffmpeg aevalsrc in cut.sh; no third-party music, no game audio)
-CUT OK docs/whatif2v7.mp4 FRAMES 450 BYTES 3281722
-PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=3281722
-WF_PROBE OK 1080,1920 15.000000 3281722
+CUT OK docs/whatif2v7.mp4 FRAMES 450 BYTES 2990258
+PROBE_DETAIL 1080x1920 codec=h264 pix=yuv420p dur=15.000000 audio=aac bytes=2990258
+WF_PROBE OK 1080,1920 15.000000 2990258
 MOTION_FILE docs/whatif2v7.mp4
 MOTION_FRAMES 450
-MOTION_CUTS_EXCLUDED [75, 360]
-MOTION_MEAN 3.205
-MOTION_P10 1.564
-MOTION_MIN_1S 1.869 (window starting 7.53s)
-FIRST_SECOND_MOTION 2.931
+MOTION_CUTS_EXCLUDED [75, 375]
+MOTION_MEAN 2.534
+MOTION_P10 1.282
+MOTION_MIN_1S 1.630 (window starting 10.33s)
+FIRST_SECOND_MOTION 2.339
 FROZEN_RUNS 0
-PER_SHOT_MOTION 0 run 0.00-2.50s 2.789
-PER_SHOT_MOTION 1 run 2.50-12.00s 3.270
-PER_SHOT_MOTION 2 run 12.00-15.00s 3.342
+PER_SHOT_MOTION 0 run 0.00-2.50s 2.208
+PER_SHOT_MOTION 1 run 2.50-12.50s 2.625
+PER_SHOT_MOTION 2 run 12.50-15.00s 2.490
 FREEZEDETECT 0 freezes (0 lines)
 PER_SECOND_MOTION
-   0s   2.931 ###########
-   1s   2.678 ##########
-   2s   3.500 ##############
-   3s   3.246 ############
-   4s   4.438 #################
-   5s   3.211 ############
-   6s   3.685 ##############
-   7s   3.569 ##############
-   8s   2.271 #########
-   9s   2.791 ###########
-  10s   3.091 ############
-  11s   2.789 ###########
-  12s   3.195 ############
-  13s   4.007 ################
-  14s   2.959 ###########
+   0s   2.339 #########
+   1s   1.843 #######
+   2s   2.622 ##########
+   3s   2.713 ##########
+   4s   2.696 ##########
+   5s   2.945 ###########
+   6s   2.683 ##########
+   7s   2.891 ###########
+   8s   3.681 ##############
+   9s   1.915 #######
+  10s   1.945 #######
+  11s   1.950 #######
+  12s   2.950 ###########
+  13s   3.154 ############
+  14s   1.965 #######
 MOTION_NOTE pixel motion only; it does not prove game footage. See SHOT/FOOTAGE lines.
 MOTION_OK
 GATES shots=success state=success cut=success probe=success motion=success
