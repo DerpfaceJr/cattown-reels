@@ -4,6 +4,8 @@
 # Rewrites the runner's copy of the reel config (never committed; the workflow restores it) and saves
 # docs/<reel>-shots.json. Exit 1 (no render) if fewer than min_deaths_on_screen shots show a death
 # tail_min..tail_max s before the shot ends.
+# v3: shots_from_deaths.counter_fmt (e.g. "DEATH {n}") puts a counter on every shot that shows a
+#     death, numbered in reel order (it counts deaths shown in this Reel, not all deaths in the takes).
 import json, sys
 cfg_path = sys.argv[1]
 cfg = json.load(open(cfg_path))
@@ -17,6 +19,7 @@ post = float(P.get('post', 0.6))
 need = int(P.get('min_deaths_on_screen', 2))
 lo, hi = float(P.get('tail_min', 0.3)), float(P.get('tail_max', 0.8))
 min_start = float(P.get('min_start', 0.3))
+fmt = P.get('counter_fmt')
 N = int(cfg.get('min_moves_per_shot', 3))
 takes = [t['name'] for t in cfg['takes']]
 secs = {t['name']: float(t.get('seconds', 8)) for t in cfg['takes']}
@@ -89,8 +92,10 @@ for i, s in enumerate(shots):
     k = s['take']; a = lead[k] + s['start']; b = a + s['dur']
     ds = [t for t in per[k] if a <= t <= b and lo <= b - t <= hi]
     on += 1 if ds else 0
+    if ds and fmt:
+        s['counter'] = fmt.format(n=on)
     tag = f't={ds[0]:.2f} tail={b - ds[0]:.2f}s' if ds else 'none'
-    print(f"SHOT_PLAN {i} take {k} start {s['start']:.2f} dur {s['dur']:.2f} hero_moves {moves(k, s['start'], s['start'] + s['dur'])} death_on_screen {tag}")
+    print(f"SHOT_PLAN {i} take {k} start {s['start']:.2f} dur {s['dur']:.2f} hero_moves {moves(k, s['start'], s['start'] + s['dur'])} death_on_screen {tag} counter {s.get('counter', '-')}")
 print(f"SHOTS_TOTAL {sum(s['dur'] for s in shots):.2f}s from_deaths={len(picks)} fillers={len(shots) - len(picks)}")
 ok = on >= need
 print(f"DEATHS_ON_SCREEN {on} min {need} {'OK' if ok else 'FAIL'}")
