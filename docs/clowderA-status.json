@@ -1,5 +1,5 @@
 {
- "GATES": "GATES pass=no failing_step=motion run=41448141395 kit=c7c027e7 probe=1080x1920 dur=15.0 vcodec=h264 acodec=aac motion_min_1s=0.042 first_s=3.606 frozen_runs=4 http403=seen cinematic=seen reload=seen cam_events=seen linecount=not_run gate3d=n/a state=not_run deaths_on_screen=None textbox_max_x=777 textbox_safe=True audio=chiptune(aevalsrc) mp4=none",
+ "GATES": "GATES pass=no failing_step=motion run=41450815034 kit=89095bf0 probe=1080x1920 dur=15.0 vcodec=h264 acodec=aac motion_min_1s=0.199 first_s=5.616 frozen_runs=1 http403=seen cinematic=seen reload=seen cam_events=seen linecount=not_run gate3d=n/a state=not_run deaths_on_screen=None textbox_max_x=777 textbox_safe=True audio=chiptune(aevalsrc) mp4=none",
  "gates": {
   "pass": false,
   "failing_step": "motion",
@@ -13,91 +13,88 @@
    "probe": "success",
    "motion": "failure"
   },
-  "run_id": "41448141395",
-  "kit_sha": "c7c027e7a1b032341123d9a1c4269ebea9b12986",
+  "run_id": "41450815034",
+  "kit_sha": "89095bf062690bc260adfd0bef3195f02225f20e",
   "mp4": null,
   "mp4_note": "no new mp4: gates failed, any old docs/clowderA.mp4 was deleted",
   "wf_probe": {
-   "line": "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 5,912,619 bytes",
+   "line": "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 7,949,317 bytes",
    "dims": "1080x1920",
    "duration_s": 15.0,
    "vcodec": "h264",
    "acodec": "aac"
   },
   "motion": {
-   "verdict": "MOTION_FAIL 4 frozen run(s); MOTION_MIN_1S 0.042 < 1.0",
-   "min_1s": 0.042,
-   "min_1s_at": 4.6,
-   "first_second": 3.606,
-   "frozen_runs": 4.0,
+   "verdict": "MOTION_FAIL 1 frozen run(s); MOTION_MIN_1S 0.199 < 1.0",
+   "min_1s": 0.199,
+   "min_1s_at": 11.87,
+   "first_second": 5.616,
+   "frozen_runs": 1.0,
    "frozen": [
-    "FROZEN 0.53s-1.23s (21 frames)",
-    "FROZEN 3.20s-4.43s (37 frames)",
-    "FROZEN 4.43s-6.80s (71 frames)",
-    "FROZEN 6.80s-10.40s (108 frames)"
+    "FROZEN 11.80s-12.60s (24 frames)"
    ],
-   "freezedetect": "FREEZEDETECT 3 freezes (9 lines)",
+   "freezedetect": "FREEZEDETECT 1 freezes (3 lines)",
    "per_shot": [],
    "per_second": [
     [
      0,
-     3.606
+     5.616
     ],
     [
      1,
-     5.419
+     3.527
     ],
     [
      2,
-     8.228
+     4.205
     ],
     [
      3,
-     0.944
+     4.421
     ],
     [
      4,
-     0.259
+     3.346
     ],
     [
      5,
-     0.042
+     2.658
     ],
     [
      6,
-     0.161
+     3.029
     ],
     [
      7,
-     0.049
+     8.034
     ],
     [
      8,
-     0.054
+     9.838
     ],
     [
      9,
-     0.044
+     7.461
     ],
     [
      10,
-     7.908
+     13.11
     ],
     [
      11,
-     12.538
+     8.562
     ],
     [
      12,
-     6.064
+     0.295
     ],
     [
      13,
-     9.839
+     9.736
     ],
     [
      14,
-     9.048
+     9.234
     ]
    ]
   },
@@ -158,41 +155,41 @@
    "value": "chiptune(aevalsrc)",
    "line": "AUDIO=chiptune(aevalsrc) source=code third_party_music=no"
   },
-  "footage": "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture)",
+  "footage": "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps only)",
   "errors": [
-   "MOTION_FAIL 4 frozen run(s); MOTION_MIN_1S 0.042 < 1.0"
+   "MOTION_FAIL 1 frozen run(s); MOTION_MIN_1S 0.199 < 1.0"
   ],
   "log_tail": [
-   "  FROZEN 3.20s-4.43s (37 frames)",
-   "  FROZEN 4.43s-6.80s (71 frames)",
-   "  FROZEN 6.80s-10.40s (108 frames)",
-   "FREEZEDETECT 3 freezes (9 lines)",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_start: 3.5",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_duration: 0.933333",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_end: 4.43333",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_start: 4.43333",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_duration: 2.36667",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_end: 6.8",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_start: 6.8",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_duration: 3.6",
-   "  [freezedetect @ 0x564ac1f03100] lavfi.freezedetect.freeze_end: 10.4",
+   "MOTION_FILE docs/clowderA.mp4",
+   "MOTION_FRAMES 450",
+   "MOTION_CUTS_EXCLUDED []",
+   "MOTION_MEAN 6.206",
+   "MOTION_P10 0.008",
+   "MOTION_MIN_1S 0.199 (window starting 11.87s)",
+   "FIRST_SECOND_MOTION 5.616",
+   "FROZEN_RUNS 1",
+   "  FROZEN 11.80s-12.60s (24 frames)",
+   "FREEZEDETECT 1 freezes (3 lines)",
+   "  [freezedetect @ 0x555b16227380] lavfi.freezedetect.freeze_start: 11.8",
+   "  [freezedetect @ 0x555b16227380] lavfi.freezedetect.freeze_duration: 0.8",
+   "  [freezedetect @ 0x555b16227380] lavfi.freezedetect.freeze_end: 12.6",
    "PER_SECOND_MOTION",
-   "   0s   3.606 ##############",
-   "   1s   5.419 #####################",
-   "   2s   8.228 ################################",
-   "   3s   0.944 ###",
-   "   4s   0.259 #",
-   "   5s   0.042 ",
-   "   6s   0.161 ",
-   "   7s   0.049 ",
-   "   8s   0.054 ",
-   "   9s   0.044 ",
-   "  10s   7.908 ###############################",
-   "  11s  12.538 ##################################################",
-   "  12s   6.064 ########################",
-   "  13s   9.839 #######################################",
-   "  14s   9.048 ####################################",
-   "MOTION_FAIL 4 frozen run(s); MOTION_MIN_1S 0.042 < 1.0"
+   "   0s   5.616 ######################",
+   "   1s   3.527 ##############",
+   "   2s   4.205 ################",
+   "   3s   4.421 #################",
+   "   4s   3.346 #############",
+   "   5s   2.658 ##########",
+   "   6s   3.029 ############",
+   "   7s   8.034 ################################",
+   "   8s   9.838 #######################################",
+   "   9s   7.461 #############################",
+   "  10s  13.110 ####################################################",
+   "  11s   8.562 ##################################",
+   "  12s   0.295 #",
+   "  13s   9.736 ######################################",
+   "  14s   9.234 ####################################",
+   "MOTION_FAIL 1 frozen run(s); MOTION_MIN_1S 0.199 < 1.0"
   ]
  },
  "status_json_error": "[Errno 2] No such file or directory: 'out/raw/status.json'",
@@ -200,7 +197,7 @@
   "APP secret CAT_TOWN_READ present",
   "APP cat-town main 42a7ab15049e8e9b2461fa6b65b77bff09de7565",
   "APP UP after 4 s",
-  "PLAN intro_ms=18600 out_ms=14900 frames_needed=447 frames=450 speeds=open:1,descend:1.6,hello:1,ask:1,tour:2,outro:1",
+  "PLAN intro_ms=18600 out_ms=14920 frames_needed=448 frames=450 speeds=open:1,descend:0.85,hello:3,ask:3,tour:0.9,outro:1",
   "SERVER status=200 url=http://localhost:3000/?intro",
   "SETUP_SEED key=clowder.setup.seen",
   "NETWORK_IDLE timeout (continuing)",
@@ -208,13 +205,13 @@
   "INTRO_PLAYED yes",
   "STEP open frame=0 app_ms=0",
   "STEP descend frame=36 app_ms=1200",
-  "STEP hello frame=96 app_ms=4400",
-  "STEP ask frame=205 app_ms=8033",
-  "STEP tour frame=312 app_ms=11600",
-  "STEP outro frame=388 app_ms=16633",
+  "STEP hello frame=149 app_ms=4406",
+  "STEP ask frame=185 app_ms=8006",
+  "STEP tour frame=221 app_ms=11602",
+  "STEP outro frame=388 app_ms=16613",
   "CINEMATIC seen=open,descend,hello,ask,tour,outro",
   "CAM_EVENTS n=2",
-  "INTRO_END frame=448 drift_ms=33",
+  "INTRO_END frame=448 drift_ms=13",
   "SKIP_VISIBLE frames=0",
   "SETUP_WINDOW frames=0",
   "FRAMES n=450",
@@ -223,11 +220,15 @@
   "PAGE_ERRORS n=0",
   "RESULT pass=yes failing=none",
   "FRAMES_IN n=450 need=450",
+  "PUSHIN steps=open t=0.000-1.200s frames=0-35 zoom=1.000->1.120 linear centred (edit of live footage)",
+  "PUSHIN steps=hello+ask t=4.965-7.365s frames=149-220 zoom=1.000->1.250 linear centred (edit of live footage)",
+  "PUSHIN_FRAMES edited=106 copied=344 of 450",
   "TEXTBOX clowderA hook 60,240,777,412 safe=OK t=0.0-4.4 fs=62 band=x<=900,y230-420",
   "TEXTBOX clowderA end 60,240,710,404 safe=OK t=12.6-15.0 fs=58 band=x<=900,y230-420",
   "AUDIO=chiptune(aevalsrc) source=code third_party_music=no",
-  "CUT OK docs/clowderA.mp4 FRAMES 450 BYTES 5912619",
-  "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 5,912,619 bytes",
-  "WF_PROBE_PARSED dims=1080x1920 dur=15.0 vcodec=h264 acodec=aac line='WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 5,912,619 bytes'"
+  "FOOTAGE live=1 fallback=0 of 1 shots (continuous intro capture; edit=push-in on held steps only)",
+  "CUT OK docs/clowderA.mp4 FRAMES 450 BYTES 7949317",
+  "WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 7,949,317 bytes",
+  "WF_PROBE_PARSED dims=1080x1920 dur=15.0 vcodec=h264 acodec=aac line='WF_PROBE OK 1080x1920 15.000 s h264/aac yuv420p 7,949,317 bytes'"
  ]
 }
