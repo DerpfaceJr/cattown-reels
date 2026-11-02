@@ -1,0 +1,81 @@
+{
+  "reel": "clowderB",
+  "account": "clowderai",
+  "app": {
+    "repo": "DerpfaceJr/cat-town",
+    "start": "DEMO_MODE=1 npm start",
+    "url": "http://localhost:3000/"
+  },
+  "recorder": {
+    "script": "live/scene.mjs",
+    "fps": 30,
+    "frames": 360,
+    "framesDir": "frames/clowderB",
+    "frameName": "frame_%05d.png",
+    "viewport": { "width": 540, "height": 960 },
+    "deviceScaleFactor": 2,
+    "chromiumArgs": ["--use-gl=swiftshader", "--enable-webgl", "--ignore-gpu-blocklist"],
+    "clock": { "startIso": "2026-11-01T12:00:00Z" },
+    "syncCssAnimations": true,
+    "hideCss": ".intro-cinema .intro-skip,.intro-cinema .intro-hold{display:none!important}",
+    "networkIdleMs": 20000,
+    "preRollCapMs": 30000,
+    "introWaitMs": 4000,
+    "settleMs": 1500,
+    "preRollRealMs": 20,
+    "realMsPerFrame": 60,
+    "maxSubStepMs": 33.34,
+    "setupSeenKey": "clowder.setup.seen",
+    "setupRe": "set up clowder",
+    "steps": [
+      { "name": "goal",    "ms": 4000, "speed": 1 },
+      { "name": "handoff", "ms": 4000, "speed": 1 },
+      { "name": "work",    "ms": 4000, "speed": 1 }
+    ],
+    "actions": [
+      { "atMs": 0, "type": "click", "selector": "#reset-view", "why": "frame the whole town after the intro" },
+      { "atMs": 400, "type": "api", "method": "POST", "path": "/api/chat", "required": true, "body": { "cat": "mayor", "text": "Throw a welcome party for a new cat", "mode": "demo", "goal": true } }
+    ],
+    "inputNote": "Chat box selectors were not read, so the goal is sent by a scripted request (logged as API). One scripted click (#reset-view) is logged as CLICK. Demo mode uses canned outputs and makes no model calls (cat-town README)."
+  },
+  "edit": {
+    "pushIn": [
+      { "steps": ["goal"], "zoomTo": 1.10 },
+      { "steps": ["handoff"], "zoomTo": 1.15 },
+      { "steps": ["work"], "zoomTo": 1.12 }
+    ],
+    "note": "Slow centred push-in on the real recorded frames during each step so the town view keeps moving; eased push-out at each boundary as in clowderA."
+  },
+  "text": {
+    "band": { "xMax": 900, "yMin": 230, "yMax": 420, "note": "Same band as clowderA." },
+    "font": "DejaVuSans-Bold.ttf",
+    "plates": [
+      { "label": "hook", "lines": ["I GAVE A TOWN OF", "AI CATS ONE GOAL"], "start": 0.0, "end": 3.6, "x": 60, "y": 240, "fontsize": 62, "lineGap": 12, "pad": 18, "fontcolor": "white", "boxcolor": "black@0.72" },
+      { "label": "end", "lines": ["CLOWDER", "LIVE APP CAPTURE"], "start": 10.2, "end": 12.0, "x": 60, "y": 240, "fontsize": 58, "lineGap": 12, "pad": 18, "fontcolor": "white", "boxcolor": "black@0.72" }
+    ],
+    "rules": "Every plate is drawn on a backed box. The cut step measures each rendered box and logs TEXTBOX clowderB <label> x0,y0,x1,y1; fail if x1>900, y0<230 or y1>420. Plates are overlaid after the push-in."
+  },
+  "audio": {
+    "mode": "cat-town-music-port",
+    "source": "code",
+    "thirdPartyMusic": false,
+    "port": "Same port as clowderA (a6d7e449) of DerpfaceJr/cat-town public/audio.js class Music, retimed to 12 s: pads I 0-7.5 s then vi 7.5-12 s, C-major pentatonic melody of 7 notes, chirp bursts at 3.0 s and 9.4 s. Each melody note now has a 20 ms linear fade-out before its 0.6 s end (min(1,(end-t)/0.02)) instead of a hard cut. loudnorm -16 LUFS, fade in 0.6 s, fade out 10.5-12 s.",
+    "ffmpeg": "aevalsrc=exprs='0.05*(sin(2*PI*130.81*t)+0.3*sin(2*PI*261.63*t)+sin(2*PI*164.81*t)+0.3*sin(2*PI*329.63*t)+sin(2*PI*196.00*t)+0.3*sin(2*PI*392.00*t)+(sin(2*PI*246.94*t)+0.3*sin(2*PI*493.88*t))*if(lt(t,7.5),1,max(0,1-(t-7.5)/0.9))+(sin(2*PI*110.00*t)+0.3*sin(2*PI*220.00*t))*if(gte(t,7.5),min(1,(t-7.5)/0.8),0))+0.14*between(t,0.9375,1.5375)*min(1,(t-0.9375)/0.02)*min(1,(1.5375-t)/0.02)*exp(-5*(t-0.9375))*sin(2*PI*659.26*t)+0.12*between(t,1.875,2.475)*min(1,(t-1.875)/0.02)*min(1,(2.475-t)/0.02)*exp(-5*(t-1.875))*sin(2*PI*783.99*t)+0.16*between(t,4.6875,5.2875)*min(1,(t-4.6875)/0.02)*min(1,(5.2875-t)/0.02)*exp(-5*(t-4.6875))*sin(2*PI*880.00*t)+0.12*between(t,5.625,6.225)*min(1,(t-5.625)/0.02)*min(1,(6.225-t)/0.02)*exp(-5*(t-5.625))*sin(2*PI*783.99*t)+0.15*between(t,8.4375,9.0375)*min(1,(t-8.4375)/0.02)*min(1,(9.0375-t)/0.02)*exp(-5*(t-8.4375))*sin(2*PI*659.26*t)+0.12*between(t,10.3125,10.9125)*min(1,(t-10.3125)/0.02)*min(1,(10.9125-t)/0.02)*exp(-5*(t-10.3125))*sin(2*PI*587.33*t)+0.13*between(t,11.25,11.85)*min(1,(t-11.25)/0.02)*min(1,(11.85-t)/0.02)*exp(-5*(t-11.25))*sin(2*PI*523.25*t)+0.035*between(t,3.0,3.09)*sin(PI*(t-3.0)/0.09)*sin(2*PI*2800*((t-3.0)+1.6667*(t-3.0)*(t-3.0)))+0.035*between(t,3.16,3.25)*sin(PI*(t-3.16)/0.09)*sin(2*PI*2800*((t-3.16)+1.6667*(t-3.16)*(t-3.16)))+0.035*between(t,3.31,3.40)*sin(PI*(t-3.31)/0.09)*sin(2*PI*2800*((t-3.31)+1.6667*(t-3.31)*(t-3.31)))+0.035*between(t,9.4,9.49)*sin(PI*(t-9.4)/0.09)*sin(2*PI*3100*((t-9.4)+1.6667*(t-9.4)*(t-9.4)))+0.035*between(t,9.55,9.64)*sin(PI*(t-9.55)/0.09)*sin(2*PI*3100*((t-9.55)+1.6667*(t-9.55)*(t-9.55)))+0.035*between(t,9.72,9.81)*sin(PI*(t-9.72)/0.09)*sin(2*PI*3100*((t-9.72)+1.6667*(t-9.72)*(t-9.72)))':s=44100:d=12,loudnorm=I=-16:TP=-1.5:LRA=11,aresample=44100,afade=t=in:d=0.6,afade=t=out:st=10.5:d=1.5",
+    "logLine": "AUDIO src=cat-town public/audio.js Music (ported)"
+  },
+  "gates": {
+    "http403Max": 0,
+    "reloadMax": 0,
+    "motion": { "min1s": 1.0, "firstS": 1.0, "frozenRuns": 0 },
+    "fallbacks": 0,
+    "probe": { "width": 1080, "height": 1920, "durS": 12.0 }
+  },
+  "outputs": {
+    "rec": "docs/clowderB-rec.json",
+    "mp4": "docs/clowderB.mp4",
+    "log": "docs/clowderB-log.txt",
+    "status": "docs/clowderB-status.json",
+    "gates": "docs/clowderB-gates.json"
+  },
+  "caption": "I gave a town of AI cats one goal 🐾\n\nLive capture of the Clowder app running in demo mode. A scripted click frames the town and a scripted request sends one goal to the Mayor; the rest is the app. Demo mode uses canned outputs, so no AI model is called in this clip. Recorded frame by frame on a controlled clock, with a slow zoom added in the edit. The music is Clowder's own generated music, rebuilt in code. Made with AI and code.\n\nWhat goal would you give your town of cats?\n\n#aiagents #indiedev #buildinpublic"
+}

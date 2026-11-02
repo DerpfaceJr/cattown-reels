@@ -1,8 +1,8 @@
-# live-reel v6 - capture live game footage frame by frame, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
-# clowderA-staging: a separate 'clowder' job records the Cat Town intro cinematic (live/cinema.mjs on a virtual clock),
-# assembles it with live/assemble.py (measured backed plates + code-made chiptune), probes it, runs motion.py, and
-# live/gates.py writes docs/clowderA-gates.json. A failed run deletes docs/clowderA.mp4 from the branch.
-# The whatif 'render' job is unchanged except that it does not run for clowderA.
+# live-reel v7 - capture live game footage frame by frame, cut a 15 s Reel, gate it (probe + motion + hero state), commit it.
+# clowder*-staging: a separate 'clowder' job records the Clowder app (recorder script named in live/reels/<R>.json:
+# live/cinema.mjs for clowderA, live/scene.mjs for clowderB) on a virtual clock, assembles it with live/assemble.py,
+# probes it, runs motion.py, and live/gates.py (+ live/gates_audio.py) writes docs/<R>-gates.json.
+# A failed run deletes docs/<R>.mp4 from the branch. The whatif 'render' job does not run for clowder reels.
 name: live-reel
 
 on:
@@ -12,9 +12,9 @@ on:
         description: Reel to render
         required: true
         type: choice
-        options: [whatif2v, whatif6v, whatif7v, clowderA]
+        options: [whatif2v, whatif6v, whatif7v, clowderA, clowderB]
   push:
-    branches: [whatif2v-staging, whatif6v-staging, whatif7v-staging, clowderA-staging]
+    branches: [whatif2v-staging, whatif6v-staging, whatif7v-staging, clowderA-staging, clowderB-staging]
 
 permissions:
   contents: write
@@ -29,7 +29,7 @@ defaults:
 
 jobs:
   render:
-    if: ${{ !((github.event_name == 'push' && github.ref_name == 'clowderA-staging') || inputs.reel == 'clowderA') }}
+    if: ${{ !((github.event_name == 'push' && startsWith(github.ref_name, 'clowder')) || startsWith(inputs.reel, 'clowder')) }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -137,16 +137,16 @@ jobs:
           {
             echo "### $R  (probe: $PROBE, motion: $MOTION, state: $STATE)"
             echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
-            [ "$PASS" = yes ] && echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"
+            if [ "$PASS" = yes ]; then echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"; fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-  # ---------------- clowderA: Cat Town intro cinematic (@clowderai Reel A 'Opening night') ----------------
+  # ---------------- clowder reels: Clowder app live capture (@clowderai) ----------------
   clowder:
-    if: ${{ (github.event_name == 'push' && github.ref_name == 'clowderA-staging') || inputs.reel == 'clowderA' }}
+    if: ${{ (github.event_name == 'push' && startsWith(github.ref_name, 'clowder')) || startsWith(inputs.reel, 'clowder') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
-      R: clowderA
+      R: ${{ inputs.reel || (github.ref_name == 'clowderB-staging' && 'clowderB' || 'clowderA') }}
       APP_URL: http://localhost:3000/
     steps:
       - uses: actions/checkout@v4
@@ -158,7 +158,8 @@ jobs:
       - name: Start log
         run: |
           mkdir -p docs
-          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=clowderA-v1(cinema+assemble+gates)" | tee "docs/$R-log.txt"
+          [ -f "live/reels/$R.json" ] || { echo "unknown reel '$R'" | tee "docs/$R-log.txt"; exit 1; }
+          echo "RUN_ID=${{ github.run_id }} REEL=$R REF=$GITHUB_REF_NAME SHA=$GITHUB_SHA KIT=clowder-v2(recorder-from-config+assemble+gates+gates_audio)" | tee "docs/$R-log.txt"
 
       - name: Check secret
         id: secret
@@ -208,13 +209,15 @@ jobs:
           tail -n 40 ../app.log
           exit 1
 
-      - name: Record intro (cinema.mjs)
+      - name: Record (recorder from config)
         id: record
         run: |
           set -o pipefail
-          node live/cinema.mjs "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
+          S=$(jq -r '.recorder.script // "live/cinema.mjs"' "live/reels/$R.json")
+          echo "RECORDER $S" | tee -a "docs/$R-log.txt"
+          node "$S" "live/reels/$R.json" 2>&1 | tee -a "docs/$R-log.txt"
 
-      - name: Assemble reel (plates + chiptune)
+      - name: Assemble reel (plates + music port)
         id: cut
         if: always() && steps.record.outcome == 'success'
         run: |
@@ -239,14 +242,14 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: live-reel-clowderA-${{ github.run_id }}
+          name: live-reel-${{ env.R }}-${{ github.run_id }}
           path: |
             docs
             app.log
           if-no-files-found: warn
 
       # Always commit log + status + gates json. Commit the mp4 only when every gate passed AND it is a new blob.
-      # On any failure, delete docs/clowderA.mp4 from the branch so a stale file can never pass for a new render.
+      # On any failure, delete docs/<R>.mp4 from the branch so a stale file can never pass for a new render.
       - name: Commit render
         if: always()
         env:
@@ -275,6 +278,7 @@ jobs:
           if [ "$PASS" = yes ]; then NEW_BLOB=$(git hash-object "docs/$R.mp4"); fi
           export PASS OLD_BLOB NEW_BLOB
           python3 live/gates.py "$R" 2>&1 | tee -a "docs/$R-log.txt" || echo "GATES_SCRIPT_ERROR gates.py failed" | tee -a "docs/$R-log.txt"
+          python3 live/gates_audio.py "$R" 2>&1 | tee -a "docs/$R-log.txt" || echo "GATES_AUDIO_ERROR gates_audio.py failed" | tee -a "docs/$R-log.txt"
           python3 live/assemble.py "live/reels/$R.json" --gatelines 2>&1 | tee -a "docs/$R-log.txt" || true
           ADD_MP4=no
           if [ "$PASS" = yes ] && [ "$NEW_BLOB" != "$OLD_BLOB" ]; then
@@ -293,15 +297,14 @@ jobs:
             git rm -q -f --ignore-unmatch "docs/$R.mp4" || true
             rm -f "docs/$R.mp4"
           fi
-          git commit -m "Render $R (Cat Town intro, frame-by-frame) [skip ci]" || { echo "nothing to commit"; exit 0; }
+          git commit -m "Render $R (Clowder live capture, frame-by-frame) [skip ci]" || { echo "nothing to commit"; exit 0; }
           git pull --rebase --autostash origin "$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"
           SHA=$(git rev-parse HEAD)
           echo "COMMIT $SHA"
           {
-            echo "### $R  (pass: $PASS)"
-            grep -m1 '^GATES ' "docs/$R-log.txt" || true
-            echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
+            echo "### $R  (pass: $PASS, mp4 committed: $ADD_MP4)"
             echo "- gates: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-gates.json"
+            echo "- log: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R-log.txt"
             if [ "$ADD_MP4" = yes ]; then echo "- mp4: https://raw.githubusercontent.com/${{ github.repository }}/$SHA/docs/$R.mp4"; fi
           } >> "$GITHUB_STEP_SUMMARY"
